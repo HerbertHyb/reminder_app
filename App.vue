@@ -6,7 +6,7 @@
   export default {
     onLaunch: function() {
       this.$u.http.get('/auth/info', {}, {}).then(res => {
-        console.log('112')
+        console.log('123')
         // private String username;
         //    private String phone;
         //    private String email;
