@@ -7,6 +7,7 @@
     onLaunch: function() {
       this.$u.http.get('/auth/info', {}, {}).then(res => {
         console.log('123')
+        console.log('124')
         // private String username;
         //    private String phone;
         //    private String email;
