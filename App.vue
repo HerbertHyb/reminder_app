@@ -8,6 +8,7 @@
       this.$u.http.get('/auth/info', {}, {}).then(res => {
         console.log('123')
         console.log('124')
+        console.log('125')
         // private String username;
         //    private String phone;
         //    private String email;
