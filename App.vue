@@ -19,7 +19,8 @@
         this.$u.vuex('vuex_gender', res.data.gender)
         this.$u.vuex('vuex_phone', res.data.phone)
       }).catch(error => {
-        uni.redirectTo({ url: '/pages/login/login' })
+        // uni.redirectTo({ url: '/pages/login/login' })
+        uni.redirectTo({ url: '/pages/fridge/fridge' })
       })
     },
     onShow: function() {

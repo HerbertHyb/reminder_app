@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/fridge/fridge",
+    "pages/login/login",
+    "pages/dish/dish",
+    "pages/my/my",
+    "pages/food/food",
+    "pages/addToFridge/addToFridge",
+    "pages/foodEdit/foodEdit",
+    "pages/dishDetail/dishDetail",
+    "pages/addRemind/addRemind",
+    "pages/addNewFood/addNewFood",
+    "pages/remind/remind",
+    "pages/editFood/editFood",
+    "pages/ModifyPass/ModifyPass",
+    "pages/EditInfo/EditInfo",
+    "pages/fridgeManage/fridgeManage",
+    "pages/viewFood/viewFood",
+    "pages/viewDish/viewDish"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "智慧冰箱",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "selectedColor": "#1296db",
+    "backgroundColor": "#FFFFFF",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/fridge/fridge",
+        "iconPath": "static/tabbar/fridge_u.png",
+        "selectedIconPath": "static/tabbar/fridge.png",
+        "text": "Fridge"
+      },
+      {
+        "pagePath": "pages/food/food",
+        "iconPath": "static/tabbar/food_u.png",
+        "selectedIconPath": "static/tabbar/food.png",
+        "text": "Food"
+      },
+      {
+        "pagePath": "pages/remind/remind",
+        "iconPath": "static/tabbar/remind_u.png",
+        "selectedIconPath": "static/tabbar/remind.png",
+        "text": "Reminder"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "static/tabbar/my_u.png",
+        "selectedIconPath": "static/tabbar/my.png",
+        "text": "My"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,14 @@
+
+.label.data-v-23ee7a66 {
+	text-align: justify;
+	text-align-last: justify;
+	padding: 0rpx 10rpx 0rpx 10rpx;
+}
+.input.data-v-23ee7a66 {
+	padding: 0rpx 10rpx 0rpx 10rpx;
+}
+.button.data-v-23ee7a66 {
+	margin: 30rpx;
+	padding: 0rpx 10rpx 0rpx 10rpx;
+}
+

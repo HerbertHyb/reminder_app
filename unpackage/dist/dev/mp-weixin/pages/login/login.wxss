@@ -1,0 +1,20 @@
+
+.label.data-v-b237504c {
+  text-align: justify;
+  text-align-last: justify;
+  padding: 0rpx 10rpx 0rpx 10rpx;
+}
+.label_text.data-v-b237504c {
+  text-align: justify;
+  text-align-last: justify;
+  font-size: 12px;
+  padding: 0rpx 10rpx 0rpx 10rpx;
+}
+.input.data-v-b237504c {
+  padding: 0rpx 10rpx 0rpx 10rpx;
+}
+.button.data-v-b237504c {
+  margin-bottom: 20rpx;
+  padding: 0rpx 10rpx 0rpx 10rpx;
+}
+

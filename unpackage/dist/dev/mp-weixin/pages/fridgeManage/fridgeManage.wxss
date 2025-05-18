@@ -1,0 +1,17 @@
+
+.label.data-v-91dddf74 {
+	text-align: justify;
+	text-align-last: justify;
+	padding: 0rpx 10rpx 0rpx 10rpx;
+}
+.label1.data-v-91dddf74{
+	text-align: justify;
+	text-align-last: justify;
+	padding: 0rpx 10rpx 0rpx 10rpx;
+	width: 140rpx;
+}
+.input.data-v-91dddf74 {
+	padding: 0rpx 10rpx 0rpx 10rpx;
+}
+
+
