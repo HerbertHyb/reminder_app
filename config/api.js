@@ -2,9 +2,13 @@ const http = uni.$u.http
 export const foodPic = 'http://fridge.binw.top:9000/food/uploadPic'
 export const userAvatar = 'http://fridge.binw.top:9000/user/uploadAvatar'
 export const loginByPassword = (data, config = {}) => http.post('/auth/loginByPassword', data, config)
-export const foodInfo = (food, config = {}) => http.post('/food/info', food, config)
-//分界线
+export const AllfoodInfo = (config = {}) => http.get('/food/info', config)
+export const Addfood = (food, config = {}) => http.post('/food/add', food, config)
+export const handleDelete = (foodId, config = {}) => http.post('/food/delete', foodId, config)
+export const handleUpdate = (data, config = {}) => http.post('/food/update', data, config)
+export const registerByEmail = (data, config = {}) => http.post('/user/register', data, config)
 export const getInfo = (data = {}, config = {}) => http.get('/auth/info', data, config)
+//分界线
 export const logout = (data = {}, config = {}) => http.get('/auth/logout', data, config)
 export const userModifyPass = (password, config = {}) => http.post('/auth/modifyPass', password, config)
 export const userUpdateInfo = (user, config = {}) => http.post('/auth/updateInfo', user, config)

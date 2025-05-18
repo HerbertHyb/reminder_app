@@ -63,10 +63,10 @@
         <u-button type="success" text="Login" @click="login()"></u-button>
       </view>
       <view class="button" v-if="loginMethod===1">
-        <u-button type="primary" text="Register"></u-button>
+        <u-button type="primary" text="Register" @click="register()"></u-button>
       </view>
       <view class="button" v-if="loginMethod===1">
-        <u-button type="primary" text="Login" @click="login_straight()"></u-button>
+        <u-button type="primary" text="Login" @click="login()"></u-button>
       </view>
     </view>
     <view style="display: flex;align-items: center;position: fixed;bottom: 80rpx;justify-content: center;width: 100%;">
@@ -95,8 +95,12 @@
         value: '',
         confirm: '',
         loginForm: {
-          phone: '18857484252',
-          password: '123456',
+          // phone: '36706265698',
+          // password: '123456',
+          // phone: '123',
+          // password: '123',
+          phone: '',
+          password: '',
           code: ''
         },
         ack: false,
@@ -116,6 +120,10 @@
       }
     },
     methods: {
+      register() {
+        console.log('reg')
+        uni.navigateTo({ url: '/pages/reg/reg' })
+      },
       codeChange(text) {
         this.tips = text
       },
@@ -141,9 +149,9 @@
       finish() {
         console.log('Verification code input complete!')
       },
-      login_straight() {
-        uni.redirectTo({ url: '/pages/fridge/fridge' })
-      },
+      // login_straight() {
+      //   uni.navigateTo({ url: '/pages/fridge/fridge' })
+      // },
       async login() {
         if (this.ack === false) {
           this.$refs.uToast.show({ message: 'Please read and agree to the policy first' })
@@ -152,36 +160,27 @@
         this.load = true
         switch (this.loginMethod) {
           case 1: {
-            console.log(loginByPassword)
-            const res = await loginByCode(this.loginForm)
-            console.log(res.data.token)
+            // const res = await loginByCode(this.loginForm)
+            this.loginForm.password = '123'
+            const res = await loginByPassword(this.loginForm)
+            // console.log(res.data)
             this.$u.vuex('vuex_token', res.data.token)
-            console.log(this.vuex_token)
-            // getInfo().then(res => {
-            //   console.log(res)
-            //   this.$u.vuex('vuex_username', res.data.username)
-            //   this.$u.vuex('vuex_avatar', res.data.avatar)
-            //   this.$u.vuex('vuex_gender', res.data.gender)
-            //   this.$u.vuex('vuex_phone', res.data.phone)
-            //   uni.redirectTo({ url: '/pages/my/my' })
-            // }).catch(error => {
-            //   uni.$u.toast('Login expired, please log in again~')
-            // })
+            this.$u.vuex('vuex_username', res.data.user.username)
+            this.$u.vuex('vuex_phone', res.data.user.phone)
             uni.switchTab({ url: '/pages/fridge/fridge' })
             break
           }
           case 2: {
-            console.log(loginByPassword)
-            // const res = await loginByPassword(this.loginForm)
+            const res = await loginByPassword(this.loginForm)
             // console.log(res.data.token)
-            // this.$u.vuex('vuex_token', res.data.token)
+            this.$u.vuex('vuex_token', res.data.token)
             // console.log(this.vuex_token)
             // getInfo().then(res => {
             //   console.log(res)
-            //   this.$u.vuex('vuex_username', res.data.username)
-            //   this.$u.vuex('vuex_avatar', res.data.avatar)
+            this.$u.vuex('vuex_username', res.data.user.username)
+            this.$u.vuex('vuex_phone', res.data.user.phone)
+            // this.$u.vuex('vuex_avatar', res.data.avatar)
             //   this.$u.vuex('vuex_gender', res.data.gender)
-            //   this.$u.vuex('vuex_phone', res.data.phone)
             //   uni.redirectTo({
             //     url: '/pages/my/my'
             //   })
@@ -193,6 +192,7 @@
             // })
             this.load = false
             uni.switchTab({ url: '/pages/fridge/fridge' })
+            // uni.navigateTo({ url: '/pages/fridge/fridge' })
             break
           }
           default:

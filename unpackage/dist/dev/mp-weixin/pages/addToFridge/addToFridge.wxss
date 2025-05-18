@@ -1,10 +1,10 @@
 
 .label.data-v-3d18634a {
-	text-align: justify;
-	text-align-last: justify;
-	padding: 0rpx 10rpx 0rpx 10rpx;
+  text-align: justify;
+  text-align-last: justify;
+  padding: 0rpx 10rpx 0rpx 10rpx;
 }
 .input.data-v-3d18634a {
-	padding: 0rpx 10rpx 0rpx 10rpx;
+  padding: 0rpx 10rpx 0rpx 10rpx;
 }
 

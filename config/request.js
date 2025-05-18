@@ -4,7 +4,7 @@ module.exports = vm => {
   uni.$u.http.setConfig(config => {
     /* config 为默认全局配置*/
     // config.baseURL = 'http://fridge.binw.top:8082/user'; /* 根域名 */
-    config.baseURL = 'http://lochalhost:8000'
+    config.baseURL = 'http://localhost:8009'
     return config
   })
   // 请求拦截
@@ -21,8 +21,8 @@ module.exports = vm => {
   uni.$u.http.interceptors.response.use(response => {
     /* 对响应成功做点什么 可使用async await 做异步操作*/
     const res = response.data
-    //状态码为0表示一切正常
-    if (res.code !== 0) {
+    //状态码为200表示一切正常
+    if (res.code !== 200) {
       uni.$u.toast(res.message)
       if (res.code === 23000) {
         uni.redirectTo({ url: '/pages/login/login' })

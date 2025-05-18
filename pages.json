@@ -7,8 +7,14 @@
     {
       "path": "pages/fridge/fridge",
       "style": {
-        "navigationBarTitleText": "冰箱管理",
+        "navigationBarTitleText": "Food Manage",
         "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/addNewFood/addNewFood",
+      "style": {
+        "navigationBarTitleText": "AddNewFood",
+        "enablePullDownRefresh": false
       }
     }, {
       "path": "pages/login/login",
@@ -32,7 +38,13 @@
     }, {
       "path": "pages/food/food",
       "style": {
-        "navigationBarTitleText": "食物管理",
+        "navigationBarTitleText": "food",
+        "enablePullDownRefresh": true
+      }
+    }, {
+      "path": "pages/reg/reg",
+      "style": {
+        "navigationBarTitleText": "Register",
         "enablePullDownRefresh": true
       }
     }, {
@@ -57,12 +69,6 @@
       "path": "pages/addRemind/addRemind",
       "style": {
         "navigationBarTitleText": "添加提醒",
-        "enablePullDownRefresh": false
-      }
-    }, {
-      "path": "pages/addNewFood/addNewFood",
-      "style": {
-        "navigationBarTitleText": "添加自定义食物",
         "enablePullDownRefresh": false
       }
     }, {
@@ -132,12 +138,13 @@
       //   "selectedIconPath": "static/tabbar/dish.png",
       //   "text": "菜谱"
       // }, 
+      // {
+      //   "pagePath": "pages/food/food",
+      //   "iconPath": "static/tabbar/food_u.png",
+      //   "selectedIconPath": "static/tabbar/food.png",
+      //   "text": "Food"
+      // }, 
       {
-        "pagePath": "pages/food/food",
-        "iconPath": "static/tabbar/food_u.png",
-        "selectedIconPath": "static/tabbar/food.png",
-        "text": "Food"
-      }, {
         "pagePath": "pages/remind/remind",
         "iconPath": "static/tabbar/remind_u.png",
         "selectedIconPath": "static/tabbar/remind.png",

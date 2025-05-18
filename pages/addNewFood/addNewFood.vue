@@ -1,199 +1,217 @@
 <template>
-	<view style="display: flex;justify-content: center;">
-		<!-- 注意，如果需要兼容微信小程序，最好通过setRules方法设置rules规则 -->
-		<view style="width: 90%;margin-top: 20rpx;">
-			<u--form labelPosition="left" :model="food" :rules="rules" labelWidth="150rpx">
-				<u-form-item label="食物名称" prop="food.name" borderBottom ref="item1">
-					<u--input v-model="food.name" border="none" placeholder="请输入食物名称" ></u--input>
-				</u-form-item>
-				<u-form-item label="单位" prop="food.unit" borderBottom @click="showUnit = true; hideKeyboard()" >
-					<u--input v-model="food.unitName" disabled disabledColor="#ffffff" placeholder="请选择单位" border="none">
-					</u--input>
-					<u-icon slot="right" name="arrow-right"></u-icon>
-				</u-form-item>
-				<u-form-item label="种类" prop="food.type" borderBottom @click="showType = true; hideKeyboard()" >
-					<u--input v-model="food.typeName" disabled disabledColor="#ffffff" placeholder="请选择种类" border="none">
-					</u--input>
-					<u-icon slot="right" name="arrow-right"></u-icon>
-				</u-form-item>
-				<u-form-item label="保质期" prop="food.shelfLife" borderBottom>
-					<!-- 注意：由于兼容性差异，如果需要使用前后插槽，nvue下需使用u--input，非nvue下需使用u-input -->
-					<!-- #ifndef APP-NVUE -->
-					<u-input placeholder="请输入保质期" border="none" v-model="food.shelfLife">
-						<!-- #endif -->
-						<!-- #ifdef APP-NVUE -->
-						<u--input placeholder="请输入保质期" border="none" v-model="food.shelfLife">
-							<!-- #endif -->
-							<template slot="suffix">
-								<view style="margin-right: 10rpx;">
-									天
-								</view>
-							</template>
-							<!-- #ifndef APP-NVUE -->
-					</u-input>
-					<!-- #endif -->
-					<!-- #ifdef APP-NVUE -->
-					</u--input>
-					<!-- #endif -->
-				</u-form-item>
-
-				<u-form-item label="简介" prop="food.type">
-					<u--textarea v-model="food.info" placeholder="请输入内容" count></u--textarea>
-				</u-form-item>
-				<u-form-item label="图片" prop="food.pic">
-					<u-upload :fileList="fileList" @afterRead="afterRead" @delete="deletePic" multiple
-						:maxCount="1"></u-upload>
-				</u-form-item>
-
-			</u--form>
-			<u-action-sheet :show="showUnit" :actions="Unit" title="请选择单位" description="只能选一次哦~"
-				@close="showUnit = false" @select="unitSelect">
-			</u-action-sheet>
-			<u-action-sheet :show="showType" :actions="Type" title="请选择单位" description="只能选一次哦~"
-				@close="showType = false" @select="typeSelect">
-			</u-action-sheet>
-		</view>
-		<view style="width: 100%;position: fixed;bottom: 80rpx;">
-			<view style="width: 90%;margin: 0rpx auto;">
-				<u-button @click="commit()" type="success" text="提交">
-				</u-button>
-			</view>
-		</view>
-	</view>
+  <view style="display: flex; justify-content: center;">
+    <view style="width: 90%; margin-top: 20rpx;">
+      <u-form labelPosition="left" :model="food" :rules="rules" labelWidth="150rpx">
+        <!-- Food Name -->
+        <u-form-item label="Food Name" prop="food.name" borderBottom>
+          <u-input v-model="food.name" border="none" placeholder="Please enter the name of the food" />
+        </u-form-item>
+        <!-- Unit -->
+        <u-form-item label="Unit" prop="food.unit" borderBottom @click="showUnit = true; hideKeyboard()">
+          <u-input v-model="food.unitName" disabled disabledColor="#ffffff" placeholder="Please select unit"
+            border="none" />
+          <u-icon slot="right" name="arrow-right" />
+        </u-form-item>
+        <!-- Type/Category -->
+        <u-form-item label="Type" prop="food.category" borderBottom @click="showType = true; hideKeyboard()">
+          <u-input v-model="food.typeName" disabled disabledColor="#ffffff" placeholder="Please select type"
+            border="none" />
+          <u-icon slot="right" name="arrow-right" />
+        </u-form-item>
+        <!-- Shelf Life (days) -->
+        <u-form-item label="Shelf Life" prop="food.shelf_life_days" borderBottom>
+          <u-input v-model="food.shelf_life_days" placeholder="Please enter shelf life" border="none">
+            <template slot="suffix">
+              <view style="margin-right: 10rpx;">Days</view>
+            </template>
+          </u-input>
+        </u-form-item>
+        <!-- Production Date -->
+        <u-form-item label="Prod Date" prop="food.production_date" borderBottom>
+          <picker mode="date" :value="food.production_date" start="2000-01-01" end="2099-12-31" @change="onDateChange">
+            <view class="picker-field"
+              style="padding: 30rpx 0; display:flex; justify-content: space-between; align-items: center;">
+              <text>{{ food.production_date }}</text>
+              <u-icon name="calendar" />
+            </view>
+          </picker>
+        </u-form-item>
+        <!-- Quantity -->
+        <u-form-item label="Quantity" prop="food.quantity" borderBottom>
+          <u-input v-model="food.quantity" placeholder="Please enter quantity" border="none" type="number" />
+        </u-form-item>
+        <!-- Status -->
+        <u-form-item label="Status" prop="food.status" borderBottom @click="showStatus = true; hideKeyboard()">
+          <u-input v-model="food.statusName" disabled disabledColor="#ffffff" placeholder="Please select status"
+            border="none" />
+          <u-icon slot="right" name="arrow-right" />
+        </u-form-item>
+        <u-form-item label="Abstract" prop="food.info">
+          <u--textarea v-model="food.info" placeholder="Please enter content" count></u--textarea>
+        </u-form-item>
+      </u-form>
+      <!-- Action Sheets -->
+      <u-action-sheet :show="showUnit" :actions="UnitList" title="Please select unit" @close="showUnit = false"
+        @select="unitSelect" />
+      <u-action-sheet :show="showType" :actions="TypeList" title="Please select type" @close="showType = false"
+        @select="typeSelect" />
+      <u-action-sheet :show="showStatus" :actions="StatusList" title="Please select status" @close="showStatus = false"
+        @select="statusSelect" />
+    </view>
+    <!-- Submit Button -->
+    <view style="width: 100%; position: fixed; bottom: 80rpx;">
+      <view style="width: 90%; margin: 0 auto;">
+        <u-button @click="commit()" type="success" text="Submit" />
+      </view>
+    </view>
+  </view>
 </template>
-
 <script>
-	import {
-		foodTypeList,
-		unitList,
-		imgServer,
-		foodPic,
-		foodAdd
-	} from "../../config/api.js"
-	export default {
-		data() {
-			return {
-				fileList: [],
-				showType: false,
-				showUnit: false,
-				food: {
-					name: '',
-					shelfLife: '',
-					unit: '',
-					pic: '',
-					type: '',
-					info: '',
-					unitName:'',
-					typeName:''
-
-				},
-				Unit: [],
-				Type: [],
-				rules: {
-					'userInfo.name': {
-						type: 'string',
-						required: true,
-						message: '请填写姓名',
-						trigger: ['blur', 'change']
-					},
-					'userInfo.sex': {
-						type: 'string',
-						max: 1,
-						required: true,
-						message: '请选择男或女',
-						trigger: ['blur', 'change']
-					},
-				},
-				radio: '',
-				switchVal: false
-			};
-		},
-		methods: {
-			unitSelect(e) {
-				this.food.unit = e.id
-				this.food.unitName = e.name
-			},
-			typeSelect(e) {
-				this.food.type = e.id
-				this.food.typeName = e.name
-			},
-			hideKeyboard() {
-				uni.hideKeyboard()
-			},
-			// 删除图片
-			deletePic(event) {
-				this.fileList.splice(event.index, 1)
-			},
-			// 新增图片
-			async afterRead(event) {
-				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-				let lists = [].concat(event.file)
-				let fileListLen = this.fileList.length
-				lists.map((item) => {
-					this.fileList.push({
-						...item,
-						status: 'uploading',
-						message: '上传中'
-					})
-				})
-				for (let i = 0; i < lists.length; i++) {
-					const result = await this.uploadFilePromise(lists[i].thumb)
-					let item = this.fileList[fileListLen]
-					this.fileList.splice(fileListLen, 1, Object.assign(item, {
-						status: 'success',
-						message: '',
-						url: result
-					}))
-					fileListLen++
-				}
-			},
-			uploadFilePromise(url) {
-				return new Promise((resolve, reject) => {
-					let a = uni.uploadFile({
-						url: foodPic, // 仅为示例，非真实的接口地址
-						filePath: url,
-						name: 'file',
-						formData: {
-							user: 'test'
-						},
-						success: (res) => {
-							setTimeout(() => {
-								let realRes = JSON.parse(res.data)
-								console.log(realRes)
-								this.food.pic = realRes.data.address
-								resolve(realRes)
-							}, 1000)
-						}
-					});
-				})
-			},
-			commit()
-			{
-				foodAdd(this.food).then(res=>{
-					uni.$u.toast(res.message)
-					let pages = getCurrentPages();
-					pages.fin
-					console.log(pages)
-					// 获取到需要返回的页面下标
-					let prevPage = pages[0];
-					// 刷新页面数据(此方式为App形式刷新)
-					prevPage.$vm.getListInfo();
-					 // 刷新页面数据(此方式为小程序刷新)
-					 //prevPage.onLoad();
-					uni.navigateBack({
-						
-					})
-				})
-			},
-			async init(){
-				let typeRes = await foodTypeList()
-				this.Type = typeRes.data
-				let unitRes = await unitList()
-				this.Unit = unitRes.data
-			}
-		},
-		created() {
-			this.init()
-		}
-	};
+  import { Addfood } from '../../config/api.js'
+  export default {
+    data() {
+      return {
+        showType: false,
+        showUnit: false,
+        showStatus: false,
+        // form model matching DB fields
+        food: {
+          user_id: '',
+          category: '',
+          name: '',
+          image_url: '',
+          production_date: '',
+          shelf_life_days: '',
+          expiry_date: '',
+          quantity: 1,
+          status: '',
+          unit: '',
+          info: '',
+          is_sent: 0,
+          // for display
+          unitName: '',
+          typeName: '',
+          statusName: ''
+        },
+        UnitList: [{
+          name: 'pcs',
+          id: 'pcs'
+        }, {
+          name: 'kilogram',
+          id: 'kilogram'
+        }, {
+          name: 'tie',
+          id: 'tie'
+        }, {
+          name: 'liter',
+          id: 'liter'
+        }],
+        TypeList: [{
+          name: 'fruit',
+          id: 0
+        }, {
+          name: 'meat',
+          id: 1
+        }, {
+          name: 'vegetable',
+          id: 2
+        }, {
+          name: 'drink',
+          id: 3
+        }, {
+          name: 'Fast food',
+          id: 4
+        }],
+        StatusList: [{
+          name: 'fresh',
+          id: 'fresh'
+        }, {
+          name: 'opened',
+          id: 'opened'
+        }, {
+          name: 'expired',
+          id: 'expired'
+        }],
+        imageMap: ['/static/banana.png', '/static/meat.png', '/static/celery.png', '/static/milk.png',
+          '/static/pizza.png'
+        ],
+        rules: {
+          'food.name': {
+            type: 'string',
+            required: false,
+            message: 'Please enter name',
+            trigger: ['blur', 'change']
+          },
+          'food.unit': {
+            type: 'string',
+            required: true,
+            message: 'Please select unit',
+            trigger: ['blur', 'change']
+          },
+          'food.category': {
+            type: 'string',
+            required: true,
+            message: 'Please select type',
+            trigger: ['blur', 'change']
+          }
+        }
+      }
+    },
+    methods: {
+      unitSelect(e) {
+        this.food.unit = e.id
+        this.food.unitName = e.name
+      },
+      typeSelect(e) {
+        this.food.category = e.id
+        this.food.typeName = this.TypeList.find(t => t.id === e.id).name
+        // assign image_url by index
+        this.food.image_url = this.imageMap[e.id] || '/static/tomato.png'
+      },
+      statusSelect(e) {
+        this.food.status = e.id
+        this.food.statusName = e.name
+      },
+      hideKeyboard() {
+        uni.hideKeyboard()
+      },
+      onDateChange(e) {
+        this.food.production_date = e.detail.value
+        // calculate expiry_date
+        const prod = new Date(this.food.production_date)
+        prod.setDate(prod.getDate() + Number(this.food.shelf_life_days || 0))
+        this.food.expiry_date = prod.toISOString().split('T')[0]
+      },
+      commit() {
+        // set user_id, e.g., from storage or store
+        console.log(this.food)
+        this.food.user_id = uni.getStorageSync('user_id') || ''
+        Addfood(this.food).then(res => {
+          uni.showToast({
+            title: 'Added successfully',
+            icon: 'success'
+          })
+          uni.navigateBack({ url: '/pages/fridge/fridge' })
+        }).catch(err => {
+          uni.showToast({
+            title: 'Add failed',
+            icon: 'none'
+          })
+        })
+      }
+    },
+    created() {
+      // default production date = today
+      const today = new Date().toISOString().split('T')[0]
+      this.food.production_date = today
+      this.food.expiry_date = today
+    }
+  }
 </script>
+<style scoped>
+  .picker-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>

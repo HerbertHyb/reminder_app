@@ -6,22 +6,15 @@
   export default {
     onLaunch: function() {
       this.$u.http.get('/auth/info', {}, {}).then(res => {
-        console.log('123')
-        // private String username;
-        //    private String phone;
-        //    private String email;
-        //    private Short gender;
-        //    private String avatar;
-        // 'vuex_username','vuex_avatar','vuex_gender','vuex_phone', 'vuex_token'
-        console.log(res)
-        this.$u.vuex('vuex_username', res.data.username)
-        this.$u.vuex('vuex_avatar', res.data.avatar)
-        this.$u.vuex('vuex_gender', res.data.gender)
-        this.$u.vuex('vuex_phone', res.data.phone)
-      }).catch(error => {
-        // uni.redirectTo({ url: '/pages/login/login' })
+        // console.log(res)
+        this.$u.vuex('vuex_username', res.data.user.username)
+        this.$u.vuex('vuex_phone', res.data.user.phone)
         uni.redirectTo({ url: '/pages/fridge/fridge' })
+      }).catch(error => {
+        uni.redirectTo({ url: '/pages/login/login' })
       })
+      // uni.redirectTo({ url: '/pages/login/login' })
+      // uni.redirectTo({ url: '/pages/fridge/fridge' })
     },
     onShow: function() {
       console.log('App Show')

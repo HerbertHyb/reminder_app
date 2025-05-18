@@ -1,15 +1,16 @@
 {
   "pages": [
     "pages/fridge/fridge",
+    "pages/addNewFood/addNewFood",
     "pages/login/login",
     "pages/dish/dish",
     "pages/my/my",
     "pages/food/food",
+    "pages/reg/reg",
     "pages/addToFridge/addToFridge",
     "pages/foodEdit/foodEdit",
     "pages/dishDetail/dishDetail",
     "pages/addRemind/addRemind",
-    "pages/addNewFood/addNewFood",
     "pages/remind/remind",
     "pages/editFood/editFood",
     "pages/ModifyPass/ModifyPass",
@@ -36,12 +37,6 @@
         "iconPath": "static/tabbar/fridge_u.png",
         "selectedIconPath": "static/tabbar/fridge.png",
         "text": "Fridge"
-      },
-      {
-        "pagePath": "pages/food/food",
-        "iconPath": "static/tabbar/food_u.png",
-        "selectedIconPath": "static/tabbar/food.png",
-        "text": "Food"
       },
       {
         "pagePath": "pages/remind/remind",

@@ -117,25 +117,21 @@ var _default = {
   onLaunch: function onLaunch() {
     var _this = this;
     this.$u.http.get('/auth/info', {}, {}).then(function (res) {
-      console.log('123');
-      // private String username;
-      //    private String phone;
-      //    private String email;
-      //    private Short gender;
-      //    private String avatar;
-      // 'vuex_username','vuex_avatar','vuex_gender','vuex_phone', 'vuex_token'
-      console.log(res);
-      _this.$u.vuex('vuex_username', res.data.username);
-      _this.$u.vuex('vuex_avatar', res.data.avatar);
-      _this.$u.vuex('vuex_gender', res.data.gender);
-      _this.$u.vuex('vuex_phone', res.data.phone);
-    }).catch(function (error) {
-      // uni.redirectTo({ url: '/pages/login/login' })
+      // console.log(res)
+      _this.$u.vuex('vuex_username', res.data.user.username);
+      _this.$u.vuex('vuex_phone', res.data.user.phone);
       uni.redirectTo({
         url: '/pages/fridge/fridge'
       });
+    }).catch(function (error) {
+      uni.redirectTo({
+        url: '/pages/login/login'
+      });
     });
+    // uni.redirectTo({ url: '/pages/login/login' })
+    // uni.redirectTo({ url: '/pages/fridge/fridge' })
   },
+
   onShow: function onShow() {
     console.log('App Show');
   },

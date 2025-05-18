@@ -6,10 +6,10 @@
       </view>
       <view style="float: left;font-size: larger;font-weight: bold;">
         <view>
-          <text>{{"He Xiaobin"}}</text>
+          <text>{{user.username}}</text>
         </view>
         <view style="margin-top: 20px;">
-          <text>{{"18857484252"}}</text>
+          <text>{{user.phone}}</text>
         </view>
       </view>
     </view>
@@ -45,7 +45,7 @@
         user: {
           username: 'Xiaoming',
           phone: '15683141454',
-          avatar: '/static/avatar.jpg'
+          avatar: '/static/herbert.jpg'
         }
       }
     },
@@ -54,13 +54,15 @@
         uni.redirectTo({ url: '/pages/login/login' })
       },
       gotofood() {
-        uni.redirectTo({ url: '/pages/food/food' })
+        uni.switchTab({ url: '/pages/fridge/fridge' })
       }
     },
     onLoad() {
+      console.log(this.vuex_username)
+      console.log(this.vuex_phone)
       this.user.username = this.vuex_username
       this.user.phone = this.vuex_phone
-      this.user.avatar = '/static/avatar.jpg'
+      this.user.avatar = '/static/herbert.png'
     }
   }
 </script>

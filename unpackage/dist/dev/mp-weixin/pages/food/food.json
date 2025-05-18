@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "食物管理",
+  "navigationBarTitleText": "food",
   "enablePullDownRefresh": true,
   "usingComponents": {
     "u-sticky": "/uni_modules/uview-ui/components/u-sticky/u-sticky",
