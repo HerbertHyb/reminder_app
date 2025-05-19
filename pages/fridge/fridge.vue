@@ -78,7 +78,7 @@
                   </view>
                 </view>
                 <view style="float: left;position: absolute;right: 40rpx;">
-                  <u-button type="warning" text="Edit" size="large" @click.stop="open(item)"></u-button>
+                  <u-button type="warning" text="Edit" size="large" @click.native.stop="open(item)"></u-button>
                 </view>
               </view>
             </u-swipe-action-item>
@@ -119,9 +119,7 @@
   export default {
     data() {
       return {
-        options1: [{
-          text: 'Delete'
-        }],
+        options1: [{ text: 'Delete' }],
         show: false,
         foods: [],
         submitForm: {
@@ -148,6 +146,26 @@
       }
     },
     methods: {
+      open(item) {
+        this.show = true
+        console.log(item)
+        Object.assign(this.form, {
+          foodId: item.id,
+          name: item.name,
+          shelfLifeDays: item.shelfLifeDays,
+          info: item.info,
+          unit: item.unit,
+          category: item.category,
+          imageUrl: item.imageUrl,
+          quantity: item.quantity,
+          status: item.status,
+          productionDate: item.productionDate,
+          expiryDate: item.expiryDate
+        })
+      },
+      close() {
+        this.show = false
+      },
       // 计算剩余保质期百分比（0～100）
       getPercentage(item) {
         const now = Date.now()
@@ -200,26 +218,6 @@
         const pad = n => String(n).padStart(2, '0')
         return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`
       },
-      open(item) {
-        this.show = true
-        console.log(item)
-        Object.assign(this.form, {
-          foodId: item.id,
-          name: item.name,
-          shelfLifeDays: item.shelfLifeDays,
-          info: item.info,
-          unit: item.unit,
-          category: item.category,
-          imageUrl: item.imageUrl,
-          quantity: item.quantity,
-          status: item.status,
-          productionDate: item.productionDate,
-          expiryDate: item.expiryDate
-        })
-      },
-      close() {
-        this.show = false
-      },
       onPopupDateChange(field, e) {
         const [y, m, d] = e.detail.value.split('-')
         this.form[field] = new Date(y, m - 1, d).getTime()
@@ -239,9 +237,7 @@
         })
       },
       delete_food(id) {
-        handleDelete({
-          id
-        }).then(() => {
+        handleDelete({ id }).then(() => {
           this.getfood()
           uni.showToast({
             title: 'Deleted',
@@ -259,9 +255,7 @@
         })
       },
       add() {
-        uni.navigateTo({
-          url: '/pages/addNewFood/addNewFood'
-        })
+        uni.navigateTo({ url: '/pages/addNewFood/addNewFood' })
       },
       getfood() {
         AllfoodInfo().then(res => {

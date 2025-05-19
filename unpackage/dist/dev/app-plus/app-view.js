@@ -154,9 +154,10 @@ if (typeof uni !== 'undefined' && uni && uni.requireGlobal) {
 window.__uniConfig = {
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "智慧冰箱",
+    "navigationBarTitleText": "food expircy",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    "enablePullDownRefresh": false
   },
   "darkmode": false
 };
@@ -712,7 +713,7 @@ var render = function () {
                                       [
                                         _c("u-button", {
                                           attrs: { _i: "41-" + $30 },
-                                          on: {
+                                          nativeOn: {
                                             click: function ($event) {
                                               return _vm.$handleViewEvent(
                                                 $event,
@@ -15609,34 +15610,9 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    uCalendar:
-      __webpack_require__(/*! @/uni_modules/uview-ui/components/u-calendar/u-calendar.vue */ 364)
-        .default,
-    uPopup: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 5)
-      .default,
-    uAvatar: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-avatar/u-avatar.vue */ 117)
-      .default,
-    "u-Text": __webpack_require__(/*! @/uni_modules/uview-ui/components/u--text/u--text.vue */ 120)
-      .default,
-    "u-Form": __webpack_require__(/*! @/uni_modules/uview-ui/components/u--form/u--form.vue */ 354)
-      .default,
-    uFormItem:
-      __webpack_require__(/*! @/uni_modules/uview-ui/components/u-form-item/u-form-item.vue */ 62)
-        .default,
-    uInput: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-input/u-input.vue */ 78)
-      .default,
-    "u-Input":
-      __webpack_require__(/*! @/uni_modules/uview-ui/components/u--input/u--input.vue */ 359)
-        .default,
-    uIcon: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 36)
+    uEmpty: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 155)
       .default,
     uButton: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-button/u-button.vue */ 86)
-      .default,
-    uSticky: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-sticky/u-sticky.vue */ 216)
-      .default,
-    uTabs: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-tabs/u-tabs.vue */ 224)
-      .default,
-    uEmpty: __webpack_require__(/*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 155)
       .default,
   }
 } catch (e) {
@@ -15664,469 +15640,42 @@ var render = function () {
     "uni-view",
     { attrs: { _i: 0 } },
     [
-      _c("u-calendar", {
-        staticStyle: { "z-index": "10072" },
-        attrs: { _i: 1 },
-        on: {
-          confirm: function ($event) {
-            return _vm.$handleViewEvent($event)
-          },
-          close: function ($event) {
-            return _vm.$handleViewEvent($event)
-          },
-        },
-      }),
       _c(
-        "u-popup",
-        {
-          attrs: { _i: 2 },
-          on: {
-            close: function ($event) {
-              return _vm.$handleViewEvent($event)
-            },
-            open: function ($event) {
-              return _vm.$handleViewEvent($event)
-            },
-          },
-        },
-        [
-          _c(
-            "uni-view",
-            {
-              staticStyle: {
-                width: "100%",
-                height: "100%",
-                position: "relative",
-              },
-              attrs: { _i: 3 },
-            },
-            [
-              _c(
-                "uni-view",
-                {
-                  staticStyle: {
-                    width: "100%",
-                    "margin-top": "80rpx",
-                    display: "flex",
-                    "justify-content": "center",
-                  },
-                  attrs: { _i: 4 },
-                },
-                [
-                  _c(
-                    "uni-view",
-                    {
-                      staticStyle: {
-                        width: "90%",
-                        display: "flex",
-                        "justify-content": "center",
-                      },
-                      attrs: { _i: 5 },
-                    },
-                    [
-                      _c(
-                        "uni-view",
-                        {
-                          staticStyle: { float: "left", clear: "both" },
-                          attrs: { _i: 6 },
-                        },
-                        [_c("u-avatar", { attrs: { _i: 7 } })],
-                        1
-                      ),
-                      _c(
-                        "uni-view",
-                        {
-                          staticStyle: {
-                            float: "left",
-                            "margin-left": "20rpx",
-                            display: "flex",
-                            "align-items": "center",
-                            height: "100%",
-                            "flex-grow": "1",
-                          },
-                          attrs: { _i: 8 },
-                        },
-                        [
-                          _c(
-                            "uni-view",
-                            { attrs: { _i: 9 } },
-                            [
-                              _c(
-                                "uni-view",
-                                {
-                                  staticStyle: {
-                                    clear: "both",
-                                    display: "flex",
-                                    "align-items": "center",
-                                  },
-                                  attrs: { _i: 10 },
-                                },
-                                [
-                                  _c(
-                                    "uni-view",
-                                    {
-                                      staticStyle: {
-                                        "font-size": "larger",
-                                        float: "left",
-                                      },
-                                      attrs: { _i: 11 },
-                                    },
-                                    [_vm._v(_vm._$g(11, "t0-0"))]
-                                  ),
-                                  _c(
-                                    "uni-view",
-                                    {
-                                      staticStyle: {
-                                        "font-size": "medium",
-                                        float: "left",
-                                        "margin-left": "20rpx",
-                                      },
-                                      attrs: { _i: 12 },
-                                    },
-                                    [
-                                      _vm._v(
-                                        _vm._$g(12, "t0-0") +
-                                          "-" +
-                                          _vm._$g(12, "t0-1")
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              ),
-                              _c(
-                                "uni-view",
-                                {
-                                  staticStyle: { clear: "both" },
-                                  attrs: { _i: 13 },
-                                },
-                                [
-                                  _vm._$g(14, "i")
-                                    ? _c("u--text", { attrs: { _i: 14 } })
-                                    : _c("u--text", { attrs: { _i: 15 } }),
-                                  _c("u--text", { attrs: { _i: 16 } }),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _c(
-                "uni-view",
-                { attrs: { _i: 17 } },
-                [
-                  _c(
-                    "uni-view",
-                    {
-                      staticStyle: { clear: "both", padding: "40rpx" },
-                      attrs: { _i: 18 },
-                    },
-                    [
-                      _c(
-                        "u--form",
-                        { attrs: { _i: 19 } },
-                        [
-                          _c(
-                            "u-form-item",
-                            { attrs: { _i: 20 } },
-                            [
-                              _c(
-                                "u-input",
-                                {
-                                  attrs: { _i: 21 },
-                                  model: {
-                                    value: _vm._$g(21, "v-model"),
-                                    callback: function () {},
-                                    expression: "form.amount",
-                                  },
-                                },
-                                [
-                                  _c(
-                                    "template",
-                                    { attrs: { _i: 22 }, slot: "suffix" },
-                                    [
-                                      _c(
-                                        "uni-view",
-                                        {
-                                          staticStyle: {
-                                            "margin-right": "10rpx",
-                                          },
-                                          attrs: { _i: 23 },
-                                        },
-                                        [_vm._v(_vm._$g(23, "t0-0"))]
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                                ],
-                                2
-                              ),
-                            ],
-                            1
-                          ),
-                          _c(
-                            "u-form-item",
-                            {
-                              attrs: { _i: 24 },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.$handleViewEvent($event)
-                                },
-                              },
-                            },
-                            [
-                              _c("u--input", {
-                                attrs: { _i: 25 },
-                                model: {
-                                  value: _vm._$g(25, "v-model"),
-                                  callback: function () {},
-                                  expression: "form.date",
-                                },
-                              }),
-                              _c("u-icon", {
-                                attrs: { _i: 26 },
-                                slot: "right",
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _c(
-                "uni-view",
-                {
-                  staticStyle: {
-                    position: "absolute",
-                    bottom: "50rpx",
-                    "justify-content": "center",
-                    display: "flex",
-                    width: "100%",
-                    "align-items": "center",
-                    height: "80rpx",
-                  },
-                  attrs: { _i: 27 },
-                },
-                [
-                  _c(
-                    "uni-view",
-                    { attrs: { _i: 28 } },
-                    [
-                      _c(
-                        "uni-view",
-                        {
-                          staticStyle: {
-                            float: "left",
-                            "padding-right": "80rpx",
-                          },
-                          attrs: { _i: 29 },
-                        },
-                        [
-                          _c("u-button", {
-                            attrs: { _i: 30 },
-                            on: {
-                              click: function ($event) {
-                                return _vm.$handleViewEvent($event)
-                              },
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                      _c(
-                        "uni-view",
-                        {
-                          staticStyle: {
-                            float: "left",
-                            "padding-left": "80rpx",
-                          },
-                          attrs: { _i: 31 },
-                        },
-                        [
-                          _c("u-button", {
-                            attrs: { _i: 32 },
-                            on: {
-                              click: function ($event) {
-                                return _vm.$handleViewEvent($event)
-                              },
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ],
+        "uni-view",
+        { staticStyle: { "margin-top": "100rpx" }, attrs: { _i: 1 } },
+        [_c("u-empty", { attrs: { _i: 2 } })],
         1
       ),
       _c(
         "uni-view",
-        { attrs: { _i: 33 } },
+        {
+          staticStyle: {
+            position: "fixed",
+            bottom: "10rpx",
+            "justify-content": "center",
+            display: "flex",
+            width: "100%",
+            "align-items": "center",
+            height: "80rpx",
+          },
+          attrs: { _i: 3 },
+        },
         [
           _c(
-            "u-sticky",
-            { staticClass: _vm._$g(34, "sc"), attrs: { _i: 34 } },
+            "uni-view",
+            {
+              staticStyle: { margin: "0px auto", width: "90%" },
+              attrs: { _i: 4 },
+            },
             [
-              _c("u-tabs", {
-                attrs: { _i: 35 },
+              _c("u-button", {
+                attrs: { _i: 5 },
                 on: {
-                  change: function ($event) {
+                  click: function ($event) {
                     return _vm.$handleViewEvent($event)
                   },
                 },
               }),
-            ],
-            1
-          ),
-          _vm._$g(36, "i")
-            ? _c(
-                "uni-view",
-                { attrs: { _i: 36 } },
-                [
-                  _vm._l(_vm._$g(37, "f"), function (item, $10, $20, $30) {
-                    return _c(
-                      "uni-view",
-                      {
-                        key: item,
-                        staticStyle: {
-                          display: "flex",
-                          "border-radius": "10px",
-                          border: "2rpx solid #eaeaea",
-                          margin: "10rpx",
-                          padding: "10rpx",
-                          "align-items": "center",
-                        },
-                        attrs: { _i: "37-" + $30 },
-                      },
-                      [
-                        _c(
-                          "uni-view",
-                          {
-                            staticStyle: { float: "left", clear: "both" },
-                            attrs: { _i: "38-" + $30 },
-                          },
-                          [_c("u-avatar", { attrs: { _i: "39-" + $30 } })],
-                          1
-                        ),
-                        _c(
-                          "uni-view",
-                          {
-                            staticStyle: {
-                              float: "left",
-                              "margin-left": "20rpx",
-                            },
-                            attrs: { _i: "40-" + $30 },
-                          },
-                          [
-                            _c(
-                              "uni-view",
-                              {
-                                staticStyle: { "font-size": "larger" },
-                                attrs: { _i: "41-" + $30 },
-                              },
-                              [_vm._v(_vm._$g("41-" + $30, "t0-0"))]
-                            ),
-                            _c("u--text", { attrs: { _i: "42-" + $30 } }),
-                            _vm._$g("43-" + $30, "i")
-                              ? _c("u--text", { attrs: { _i: "43-" + $30 } })
-                              : _c("u--text", { attrs: { _i: "44-" + $30 } }),
-                          ],
-                          1
-                        ),
-                        _c(
-                          "uni-view",
-                          {
-                            staticStyle: {
-                              float: "left",
-                              position: "absolute",
-                              right: "40rpx",
-                            },
-                            attrs: { _i: "45-" + $30 },
-                          },
-                          [
-                            _c("u-button", {
-                              attrs: { _i: "46-" + $30 },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.$handleViewEvent($event)
-                                },
-                              },
-                            }),
-                          ],
-                          1
-                        ),
-                      ],
-                      1
-                    )
-                  }),
-                  _c("uni-view", {
-                    staticStyle: { height: "90rpx" },
-                    attrs: { _i: 47 },
-                  }),
-                ],
-                2
-              )
-            : _c(
-                "uni-view",
-                { staticStyle: { "margin-top": "100rpx" }, attrs: { _i: 48 } },
-                [_c("u-empty", { attrs: { _i: 49 } })],
-                1
-              ),
-          _c(
-            "uni-view",
-            {
-              staticStyle: {
-                position: "fixed",
-                bottom: "10rpx",
-                "justify-content": "center",
-                display: "flex",
-                width: "100%",
-                "align-items": "center",
-                height: "80rpx",
-              },
-              attrs: { _i: 50 },
-            },
-            [
-              _c(
-                "uni-view",
-                {
-                  staticStyle: { margin: "0px auto", width: "90%" },
-                  attrs: { _i: 51 },
-                },
-                [
-                  _c("u-button", {
-                    attrs: { _i: 52 },
-                    on: {
-                      click: function ($event) {
-                        return _vm.$handleViewEvent($event)
-                      },
-                    },
-                  }),
-                ],
-                1
-              ),
             ],
             1
           ),
