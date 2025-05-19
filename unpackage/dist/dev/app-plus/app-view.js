@@ -15652,11 +15652,13 @@ var render = function () {
           staticStyle: {
             position: "fixed",
             bottom: "10rpx",
-            "justify-content": "center",
-            display: "flex",
+            left: "0",
             width: "100%",
+            display: "flex",
+            "justify-content": "center",
             "align-items": "center",
             height: "80rpx",
+            "z-index": "100",
           },
           attrs: { _i: 3 },
         },
@@ -15664,7 +15666,7 @@ var render = function () {
           _c(
             "uni-view",
             {
-              staticStyle: { margin: "0px auto", width: "90%" },
+              staticStyle: { width: "90%", margin: "0 auto" },
               attrs: { _i: 4 },
             },
             [
