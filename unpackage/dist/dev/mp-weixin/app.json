@@ -3,21 +3,13 @@
     "pages/fridge/fridge",
     "pages/addNewFood/addNewFood",
     "pages/login/login",
-    "pages/dish/dish",
     "pages/my/my",
     "pages/food/food",
     "pages/reg/reg",
-    "pages/addToFridge/addToFridge",
-    "pages/foodEdit/foodEdit",
-    "pages/dishDetail/dishDetail",
     "pages/addRemind/addRemind",
     "pages/remind/remind",
-    "pages/editFood/editFood",
     "pages/ModifyPass/ModifyPass",
-    "pages/EditInfo/EditInfo",
-    "pages/fridgeManage/fridgeManage",
-    "pages/viewFood/viewFood",
-    "pages/viewDish/viewDish"
+    "pages/EditInfo/EditInfo"
   ],
   "subPackages": [],
   "window": {

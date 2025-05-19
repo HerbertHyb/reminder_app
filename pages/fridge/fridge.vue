@@ -1,58 +1,51 @@
 <template>
   <view>
     <!-- Edit popup starts -->
-    <u-popup :show="show" mode="center" :round="10" @close="close" @open="open" :duration="100"
-      :closeOnClickOverlay="false" customStyle="width: 80%; height: 50%" :closeable="true">
-      <view style="width: 100%; height: 100%; position: relative; padding: 20rpx; box-sizing: border-box;">
-        <view style="width: 100%; margin-top: 40rpx; display: flex; align-items: center;">
-          <view style="margin-right: 20rpx;">
-            <u-avatar :src="form.img" shape="square" size="120" mode="aspectFill"></u-avatar>
-          </view>
-          <view style="flex: 1;">
-            <view style="display: flex; align-items: center; margin-bottom: 10rpx;">
-              <view style="font-size: larger; margin-right: 10rpx;">
-                {{ form.name }}
+    <u-popup :show="show" mode="center" :round="10" @close="close()" :duration="100" :closeOnClickOverlay="true"
+      customStyle="width: 90%; height: 75%" :closeable="true">
+      <view style="padding: 20rpx; box-sizing: border-box; height: 100%; position: relative;top: 50rpx">
+        <u-form labelPosition="left" :model="form" labelWidth="100rpx">
+          <!-- Name -->
+          <u-form-item label="Name" prop="form.name" borderBottom>
+            <u-input v-model="form.name" placeholder="Enter name" border="none" />
+          </u-form-item>
+          <!-- Category -->
+          <u-form-item label="Type" prop="form.category" borderBottom>
+            <u-input v-model="form.category" border="none" />
+          </u-form-item>
+          <!-- Status -->
+          <u-form-item label="Status" prop="form.status" borderBottom>
+            <u-input v-model="form.status" disabled border="none" />
+          </u-form-item>
+          <!-- Prod Date -->
+          <u-form-item label="Prod Date" prop="form.productionDate" borderBottom>
+            <picker mode="date" :value="formatDateForPicker(form.productionDate)" start="2000-01-01" end="2099-12-31"
+              @change="onPopupDateChange('productionDate', $event)">
+              <view class="picker-field">
+                <text>{{ formatDate(form.productionDate) }}</text>
+                <u-icon name="calendar" />
               </view>
-              <view style="font-size: medium;">
-                {{ form.category }}
-              </view>
-            </view>
-            <view>
-              <u--text :text="'Introduction: ' + form.info" :lines="4"></u--text>
-            </view>
-          </view>
-        </view>
-        <view style="width: 100%; margin-top: 40rpx;">
-          <u--form labelPosition="left" :model="form" labelWidth="150rpx">
-            <u-form-item label="Quantity" prop="form.quantity" borderBottom>
-              <!-- #ifndef APP-NVUE -->
-              <u-input placeholder="Please enter quantity" border="none" v-model="form.quantity">
-                <template slot="suffix">
-                  <view style="margin-right: 10rpx;">
-                    {{ form.unit }}
-                  </view>
-                </template>
-              </u-input>
-              <!-- #endif -->
-              <!-- #ifdef APP-NVUE -->
-              <u--input placeholder="Please enter quantity" border="none" v-model="form.quantity">
-                <template slot="suffix">
-                  <view style="margin-right: 10rpx;">
-                    {{ form.unit }}
-                  </view>
-                </template>
-              </u--input>
-              <!-- #endif -->
-            </u-form-item>
-          </u--form>
-        </view>
-        <view
-          style="position: absolute;bottom: 30rpx;justify-content:center;display: flex;width: 100%;align-items: center;height: 80rpx;">
-          <view>
-            <view style="float: center;">
-              <u-button type="success" @click="handleUpdate()" text="Update"></u-button>
-            </view>
-          </view>
+            </picker>
+          </u-form-item>
+          <!-- shelfLifeDays -->
+          <u-form-item label="shelf life" prop="form.shelfLifeDays" borderBottom>
+            <u-input v-model="form.shelfLifeDays" border="none">
+              <template slot="suffix">
+                <view style="margin-left: 5rpx; color: #999;">days</view>
+              </template>
+            </u-input>
+          </u-form-item>
+          <!-- Quantity -->
+          <u-form-item label="Num" prop="form.quantity">
+            <u-input v-model="form.quantity" type="number" placeholder="Enter qty" border="none">
+              <template slot="suffix">
+                <view style="margin-right: 0rpx;">{{ form.unit }}</view>
+              </template>
+            </u-input>
+          </u-form-item>
+        </u-form>
+        <view style="width: 100%; display: flex; justify-content: center; margin-top: 20rpx;">
+          <u-button type="success" @click="handleUpdate()" text="Update" />
         </view>
       </view>
     </u-popup>
@@ -62,18 +55,30 @@
         <!-- Food card list -->
         <view v-for="item in foods"
           style="border-radius: 10px;border: 2rpx solid #eaeaea;margin: 10rpx;padding: 10rpx;align-items: center;width:100%">
-          <u-swipe-action>
-            <u-swipe-action-item :options="options1" style="width: 100%;" @click="delete_food(item.foodId)">
+          <u-swipe-action :ref="`swipe${item.id}`">
+            <u-swipe-action-item :options="options1" style="width: 100%;" @click="delete_food(item.id)">
               <view>
                 <view style="float: left;clear: both;">
-                  <u-avatar :src="images[item.img]" shape="square" size="80" mode="aspectFill"></u-avatar>
+                  <u-avatar :src="item.imageUrl" shape="square" size="100" mode="aspectFill"></u-avatar>
                 </view>
-                <view style="float: left;margin-left: 20rpx;">
-                  <view style="font-size: larger;">{{item.name}}</view>
-                  <u--text :text="'Quantity: '+item.quantity+' '+item.unit"></u--text>
+                <view style="float: left; margin-left: 20rpx;">
+                  <view style="font-size: larger;font-weight: 600; color: #333;">{{item.name}}</view>
+                  <view :style="{ fontSize: '30rpx', color: getStatusColor(item.status), marginTop: '6rpx' }"> status:
+                    {{ item.status }}
+                  </view>
+                  <view style="font-size: 30rpx; color: #666; margin-top: 6rpx;"> quantity: {{ item.quantity }}
+                    {{ item.unit }}
+                  </view>
+                  <view style="font-size: 30rpx; color: #888; margin-top: 6rpx;"> expiryDate:
+                    {{ formatDateForPicker(item.expiryDate) }}
+                  </view>
+                  <view style="margin-top: 10rpx;">
+                    <u-line-progress :percentage="getPercentage(item)" :showText="false"
+                      :activeColor="getBarColor(item)" />
+                  </view>
                 </view>
                 <view style="float: left;position: absolute;right: 40rpx;">
-                  <u-button type="warning" text="Edit" size="small" @click="open(item)"></u-button>
+                  <u-button type="warning" text="Edit" size="large" @click.stop="open(item)"></u-button>
                 </view>
               </view>
             </u-swipe-action-item>
@@ -81,17 +86,13 @@
         </view>
         <view style="height: 90rpx;">
         </view>
-        <view
-          style="position: fixed;bottom: 110rpx;justify-content:center;display: flex;width: 100%;align-items: center;height: 80rpx;">
-          <view style="margin: 0px auto;width: 90%;">
-            <u-button @click="add()" type="primary" text="Add new food">
-            </u-button>
-          </view>
-        </view>
       </view>
       <view style="margin-top: 100rpx;" v-else>
         <u-empty mode="list" text="No food yet~">
         </u-empty>
+      </view>
+      <view class="add-btn">
+        <u-button @click="add()" type="primary" text="Add new food" />
       </view>
       <!-- #ifndef H5 -->
       <view
@@ -113,86 +114,148 @@
   import {
     AllfoodInfo,
     handleDelete,
-    handleUpdate,
-    Addfood
+    handleUpdate
   } from '../../config/api.js'
   export default {
     data() {
       return {
         options1: [{
-          text: 'consume all'
+          text: 'Delete'
         }],
         show: false,
-        // foods: [],
-        images: ['/static/banana.png', '/static/meat.png', '/static/celery.png', '/static/milk.png',
-          '/static/pizza.png', 'tomato.png'
-        ],
-        foods: [{
+        foods: [],
+        submitForm: {
+          id: 0,
+          shelfLifeDays: '',
+          productionDate: '',
+          name: '',
+          category: '',
+          quantity: ''
+        },
+        form: {
           foodId: '',
-          img: 0,
-          name: 'Banana',
-          quantity: '3',
-          unit: 'pcs',
-          info: 'Big banana, big banana, this feeling is really wonderful~',
-          category: 'Fruit'
-        }, {
-          img: 1,
-          name: 'meat',
-          quantity: '3',
-          unit: 'kilogram',
-          info: 'fresh pork~',
-          category: 'Meat'
-        }, {
-          img: 2,
-          name: 'celery',
-          quantity: '3',
-          unit: 'tie',
-          info: 'my favorite vegetable~',
-          category: 'Vegetable'
-        }, {
-          img: 3,
-          name: 'milk',
-          quantity: '2',
-          unit: 'liter',
-          info: 'very pure~',
-          category: 'Drink'
-        }],
-        current: 0,
-        form: {},
+          status: '',
+          shelfLifeDays: '',
+          productionDate: '',
+          expiryDate: '',
+          name: '',
+          info: '',
+          unit: '',
+          category: '',
+          imageUrl: '',
+          quantity: ''
+        }
       }
     },
     methods: {
-      assume(name) {
-        console.log(name)
+      // 计算剩余保质期百分比（0～100）
+      getPercentage(item) {
+        const now = Date.now()
+        // 把天数转成毫秒
+        const totalMs = Number(item.shelfLifeDays) * 24 * 60 * 60 * 1000
+        // 剩余毫秒数
+        const remainingMs = item.expiryDate - now
+        // 剩余百分比
+        let pct = (remainingMs / totalMs) * 100
+        if (pct < 0) pct = 0
+        if (pct > 100) pct = 100
+        // console.log("test")
+        // console.log(item.expiryDate)
+        // console.log(now)
+        // console.log(item.shelfLifeDays)
+        // console.log(item.shelfLifeDays)
+        // console.log(totalMs)
+        // console.log(remainingMs)
+        // console.log(Math.round(pct))
+        return Math.round(pct)
+      },
+      // 根据百分比返回进度条颜色
+      getBarColor(item) {
+        const pct = this.getPercentage(item)
+        if (pct > 66) return '#27ae60' // 绿
+        if (pct > 33) return '#f39c12' // 橙
+        return '#e74c3c' // 红
+      },
+      getStatusColor(status) {
+        switch (status) {
+          case 'fresh':
+            return 'green'
+          case 'expired':
+            return 'red'
+          case 'approximate':
+            return 'orange' // 黄色建议用 orange 或 #FFA500
+          default:
+            return '#333'
+        }
+      },
+      formatDate(ts) {
+        if (!ts) return ''
+        const d = new Date(Number(ts))
+        const pad = n => String(n).padStart(2, '0')
+        return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
+      },
+      formatDateForPicker(ts) {
+        if (!ts) return ''
+        const d = new Date(Number(ts))
+        const pad = n => String(n).padStart(2, '0')
+        return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`
       },
       open(item) {
-        // console.log('open');
         this.show = true
-        this.form.foodId = item.id
-        this.form.userId = item.user_id
-        this.form.name = item.name
-        this.form.info = item.info
-        this.form.unit = item.unit
-        this.form.category = item.category
-        this.form.img = item.img
-        this.form.quantity = item.quantity
+        console.log(item)
+        Object.assign(this.form, {
+          foodId: item.id,
+          name: item.name,
+          shelfLifeDays: item.shelfLifeDays,
+          info: item.info,
+          unit: item.unit,
+          category: item.category,
+          imageUrl: item.imageUrl,
+          quantity: item.quantity,
+          status: item.status,
+          productionDate: item.productionDate,
+          expiryDate: item.expiryDate
+        })
       },
       close() {
         this.show = false
-        // console.log('close');
+      },
+      onPopupDateChange(field, e) {
+        const [y, m, d] = e.detail.value.split('-')
+        this.form[field] = new Date(y, m - 1, d).getTime()
       },
       handleUpdate() {
-        handleUpdate(this.form).then(res => {
-          console.log(res)
+        Object.assign(this.submitForm, {
+          id: this.form.foodId,
+          shelfLifeDays: this.form.shelfLifeDays,
+          productionDate: this.formatDate(this.form.productionDate),
+          name: this.form.name,
+          category: this.form.category,
+          quantity: this.form.quantity
+        })
+        handleUpdate(this.submitForm).then(() => {
           this.show = false
-          getfood()
+          this.getfood()
         })
       },
-      delete_food(foodId) {
-        handleDelete(foodId).then(res => {
-          console.log(res)
-          this.show = false
-          getfood()
+      delete_food(id) {
+        handleDelete({
+          id
+        }).then(() => {
+          this.getfood()
+          uni.showToast({
+            title: 'Deleted',
+            icon: 'success'
+          })
+          this.$nextTick(() => {
+            let comp = this.$refs[`swipe${id}`]
+            if (Array.isArray(comp)) {
+              comp = comp[0]
+            }
+            if (comp && typeof comp.reset === 'function') {
+              comp.reset()
+            }
+          })
         })
       },
       add() {
@@ -200,31 +263,33 @@
           url: '/pages/addNewFood/addNewFood'
         })
       },
-      async getfood() {
-        console.log("ggggg")
-        // AllfoodInfo().then(res => {
-        //   // 取出 data.food 数组
-        //   console.log(res)
-        //   this.foods = res.data.food
-        // }).catch(err => {
-        //   console.log(res)
-        //   console.error('getfood 调用失败：', err)
-        // })
-        // AllfoodInfo().then(res => {
-        //   console.log(res)
-        //   this.foods = res.data
-        // })
+      getfood() {
+        AllfoodInfo().then(res => {
+          this.foods = res.data.food
+        })
       }
     },
-    computed: {},
-    onLoad() {
+    onShow() {
       this.getfood()
-    },
-    onPullDownRefresh() {
-      this.getfood()
-      uni.stopPullDownRefresh()
     }
   }
 </script>
 <style lang="scss">
+  .picker-field {
+    padding: 30rpx 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .add-btn {
+    position: fixed;
+    bottom: 10rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+  }
 </style>

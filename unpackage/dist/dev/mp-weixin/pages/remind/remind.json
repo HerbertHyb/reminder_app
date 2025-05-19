@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "提醒管理",
+  "navigationBarTitleText": "Reminder management",
   "enablePullDownRefresh": true,
   "usingComponents": {
     "u-calendar": "/uni_modules/uview-ui/components/u-calendar/u-calendar",

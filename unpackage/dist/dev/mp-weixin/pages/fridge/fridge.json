@@ -3,14 +3,15 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup",
-    "u-avatar": "/uni_modules/uview-ui/components/u-avatar/u-avatar",
-    "u--text": "/uni_modules/uview-ui/components/u--text/u--text",
-    "u--form": "/uni_modules/uview-ui/components/u--form/u--form",
+    "u-form": "/uni_modules/uview-ui/components/u-form/u-form",
     "u-form-item": "/uni_modules/uview-ui/components/u-form-item/u-form-item",
     "u-input": "/uni_modules/uview-ui/components/u-input/u-input",
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon",
     "u-button": "/uni_modules/uview-ui/components/u-button/u-button",
     "u-swipe-action": "/uni_modules/uview-ui/components/u-swipe-action/u-swipe-action",
     "u-swipe-action-item": "/uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item",
+    "u-avatar": "/uni_modules/uview-ui/components/u-avatar/u-avatar",
+    "u-line-progress": "/uni_modules/uview-ui/components/u-line-progress/u-line-progress",
     "u-empty": "/uni_modules/uview-ui/components/u-empty/u-empty"
   }
 }

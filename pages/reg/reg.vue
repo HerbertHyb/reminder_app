@@ -11,10 +11,24 @@
     <view style="margin: 20rpx 20rpx 20rpx 20rpx;">
       <view style="margin-bottom: 20rpx;">
         <u-row>
-          <u-col span="2">
+          <u-col span="2.8">
+            <text class="label">Username</text>
+          </u-col>
+          <u-col span="9.2">
+            <view class="input">
+              <input style="border:1px solid #dadbde;border-radius:8rpx;padding:14rpx"
+                placeholder="Please enter username" placeholder-style="color:rgb(200,200,200)"
+                v-model="registerForm.username" type="text" />
+            </view>
+          </u-col>
+        </u-row>
+      </view>
+      <view style="margin-bottom: 20rpx;">
+        <u-row>
+          <u-col span="2.8">
             <text class="label">Email</text>
           </u-col>
-          <u-col span="10">
+          <u-col span="9.2">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter email" placeholder-style="color:rgb(200,200,200)" v-model="registerForm.email"
@@ -25,10 +39,10 @@
       </view>
       <view style="margin-bottom: 20rpx;">
         <u-row>
-          <u-col span="2">
+          <u-col span="2.8">
             <text class="label">Password</text>
           </u-col>
-          <u-col span="10">
+          <u-col span="9.2">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter password" placeholder-style="color:rgb(200,200,200)"
@@ -39,10 +53,10 @@
       </view>
       <view style="margin-bottom: 20rpx;">
         <u-row>
-          <u-col span="2">
-            <text class="label">Confirm Password</text>
+          <u-col span="2.8">
+            <text class="label">Confirm</text>
           </u-col>
-          <u-col span="10">
+          <u-col span="9.2">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please confirm password" placeholder-style="color:rgb(200,200,200)"
@@ -53,10 +67,10 @@
       </view>
       <view style="margin-bottom: 20rpx;">
         <u-row>
-          <u-col span="2">
+          <u-col span="2.8">
             <text class="label">Phone</text>
           </u-col>
-          <u-col span="10">
+          <u-col span="9.2">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter phone number" placeholder-style="color:rgb(200,200,200)"
@@ -91,6 +105,7 @@
       return {
         load: false,
         registerForm: {
+          username: '',
           email: '',
           password: '',
           confirmPassword: '',
@@ -104,29 +119,73 @@
         this.ack = val.length === 1
       },
       backToLogin() {
-        uni.navigateBack()
+        uni.navigateBack({ url: '/pages/login/login' })
       },
-      async register() {
-        if (this.ack === false) {
-          this.$refs.uToast.show({ message: 'Please read and agree to the policy first' })
+      register() {
+        if (!this.ack) {
+          this.$refs.uToast.show({ message: 'Please agree to the policy' })
           return
         }
-        if (this.registerForm.password !== this.registerForm.confirmPassword) {
+        const {
+          username,
+          email,
+          password,
+          confirmPassword,
+          phone
+        } = this.registerForm
+        if (!username.trim()) {
+          this.$refs.uToast.show({ message: 'Username is required' })
+          return
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(email)) {
+          this.$refs.uToast.show({ message: 'Invalid email format' })
+          return
+        }
+        if (password.length < 6) {
+          this.$refs.uToast.show({ message: 'Password must be at least 6 characters' })
+          return
+        }
+        if (password !== confirmPassword) {
           this.$refs.uToast.show({ message: 'Passwords do not match' })
           return
         }
+        const phoneRegex = /^[0-9]{10,15}$/
+        if (!phoneRegex.test(phone)) {
+          this.$refs.uToast.show({ message: 'Invalid phone number format' })
+          return
+        }
         this.load = true
-        try {
-          console.log(this.registerForm)
-          const res = await registerByEmail(this.registerForm)
+        registerByEmail(this.registerForm).then(() => {
           this.$refs.uToast.show({ message: 'Register successful' })
           uni.navigateTo({ url: '/pages/login/login' })
-        } catch (error) {
+        }).catch(() => {
           this.$refs.uToast.show({ message: 'Register failed, please try again' })
-        } finally {
+        }).finally(() => {
           this.load = false
-        }
+        })
       }
+      // async register() {
+      //   if (this.ack === false) {
+      //     this.$refs.uToast.show({ message: 'Please read and agree to the policy first' })
+      //     return
+      //   }
+      //   if (this.registerForm.password !== this.registerForm.confirmPassword) {
+      //     this.$refs.uToast.show({ message: 'Passwords do not match' })
+      //     return
+      //   }
+      //   this.load = true
+      //   try {
+      //     console.log(this.registerForm)
+      //     const res = await registerByEmail(this.registerForm)
+      //     this.$refs.uToast.show({ message: 'Register successful' })
+      //     uni.navigateTo({ url: '/pages/login/login' })
+      //   } catch (error) {
+      //     this.$refs.uToast.show({ message: 'Register failed, please try again' })
+      //   } finally {
+      //     this.load = false
+      //   }
+      // }
     }
   }
 </script>

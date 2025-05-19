@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "添加提醒",
+  "navigationBarTitleText": "Add Reminder",
   "enablePullDownRefresh": false,
   "usingComponents": {
     "u-sticky": "/uni_modules/uview-ui/components/u-sticky/u-sticky",

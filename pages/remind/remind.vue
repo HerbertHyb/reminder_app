@@ -113,7 +113,7 @@
 						<image src="../../static/firdge/plus.png" style="width: 50rpx;height: 50rpx;"></image>
 					</button> -->
           <view style="margin: 0px auto;width: 90%;">
-            <u-button @click="add()" type="primary" text="添加新提醒">
+            <u-button @click="add()" type="primary" text="add new reminder">
             </u-button>
           </view>
         </view>
@@ -126,7 +126,8 @@
     remindList,
     remindDelete,
     remindUpdate,
-    imgServer
+    imgServer,
+    addReminder
   } from '../../config/api.js'
   export default {
     data() {
@@ -210,8 +211,12 @@
         }
       },
       add() {
-        this.$u.vuex('vuex_fridge', this.currentFridge)
-        uni.navigateTo({ url: '/pages/addRemind/addRemind' })
+        console.log('add reminder')
+        addReminder().then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log('add fail', err)
+        })
       },
       hideKeyboard() {
         uni.hideKeyboard()

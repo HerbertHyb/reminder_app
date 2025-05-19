@@ -14,10 +14,10 @@
     <view style="margin: 20rpx 20rpx 20rpx 20rpx;">
       <view style="margin-bottom: 20rpx;">
         <u-row>
-          <u-col span="2">
+          <u-col span="2.5">
             <text class="label">Phone</text>
           </u-col>
-          <u-col span="10">
+          <u-col span="9.5">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter phone number" placeholder-style="color:rgb(200,200,200)"
@@ -28,10 +28,10 @@
       </view>
       <view style="margin-bottom: 100rpx;" v-if="loginMethod===1">
         <u-row>
-          <u-col span="2">
+          <u-col span="2.5">
             <text class="label">Code</text>
           </u-col>
-          <u-col span="10">
+          <u-col span="9.5">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter verification code" placeholder-style="color:rgb(200,200,200)"
@@ -42,10 +42,11 @@
       </view>
       <view style="margin-bottom: 100rpx;" v-else>
         <u-row>
-          <u-col span="2">
-            <text class="label_text">Password</text>
+          <u-col span="2.5">
+            <!-- <text class="label_text">Password</text> -->
+            <text class="label">Password</text>
           </u-col>
-          <u-col span="10">
+          <u-col span="9.5">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter password" placeholder-style="color:rgb(200,200,200)"
@@ -62,7 +63,7 @@
       <view class="button" v-else>
         <u-button type="success" text="Login" @click="login()"></u-button>
       </view>
-      <view class="button" v-if="loginMethod===1">
+      <view class="button">
         <u-button type="primary" text="Register" @click="register()"></u-button>
       </view>
       <view class="button" v-if="loginMethod===1">
@@ -121,7 +122,7 @@
     },
     methods: {
       register() {
-        console.log('reg')
+        // console.log('reg')
         uni.navigateTo({ url: '/pages/reg/reg' })
       },
       codeChange(text) {
@@ -140,7 +141,7 @@
         }
       },
       change(index, item) {
-        console.log(index)
+        // console.log(index)
         this.loginMethod = index.id
       },
       acknowledge(val) {
@@ -149,9 +150,6 @@
       finish() {
         console.log('Verification code input complete!')
       },
-      // login_straight() {
-      //   uni.navigateTo({ url: '/pages/fridge/fridge' })
-      // },
       async login() {
         if (this.ack === false) {
           this.$refs.uToast.show({ message: 'Please read and agree to the policy first' })
@@ -160,10 +158,10 @@
         this.load = true
         switch (this.loginMethod) {
           case 1: {
-            // const res = await loginByCode(this.loginForm)
+            this.loginForm.phone = '123'
             this.loginForm.password = '123'
+            this.load = false
             const res = await loginByPassword(this.loginForm)
-            // console.log(res.data)
             this.$u.vuex('vuex_token', res.data.token)
             this.$u.vuex('vuex_username', res.data.user.username)
             this.$u.vuex('vuex_phone', res.data.user.phone)
@@ -171,33 +169,54 @@
             break
           }
           case 2: {
+            this.load = false
             const res = await loginByPassword(this.loginForm)
-            // console.log(res.data.token)
             this.$u.vuex('vuex_token', res.data.token)
-            // console.log(this.vuex_token)
-            // getInfo().then(res => {
-            //   console.log(res)
             this.$u.vuex('vuex_username', res.data.user.username)
             this.$u.vuex('vuex_phone', res.data.user.phone)
-            // this.$u.vuex('vuex_avatar', res.data.avatar)
-            //   this.$u.vuex('vuex_gender', res.data.gender)
-            //   uni.redirectTo({
-            //     url: '/pages/my/my'
-            //   })
-            // }).catch(error => {
-            //   uni.$u.toast('Login expired, please log in again~')
-            //   uni.redirectTo({
-            //     url: '/pages/login/login'
-            //   })
-            // })
-            this.load = false
             uni.switchTab({ url: '/pages/fridge/fridge' })
-            // uni.navigateTo({ url: '/pages/fridge/fridge' })
             break
           }
           default:
             uni.$u.toast('System error, please contact administrator~')
+            this.load = false
         }
+        // switch (this.loginMethod) {
+        //   case 1: {
+        //     this.loginForm.password = '123'
+        //     const res = await loginByPassword(this.loginForm)
+        //     this.$u.vuex('vuex_token', res.data.token)
+        // this.$u.vuex('vuex_username', res.data.user.username)
+        // this.$u.vuex('vuex_phone', res.data.user.phone)
+        //     uni.switchTab({ url: '/pages/fridge/fridge' })
+        //     break
+        //   }
+        //   case 2: {
+        //     console.log('dsad')
+        //     const res = await loginByPassword(this.loginForm)
+        //     break
+        //     // uni.navigateTo({ url: '/pages/fridge/fridge' })
+        //     // // const res = await loginByPassword(this.loginForm)
+        //     // await loginByPassword(this.loginForm).then(() => {
+        //     //   this.load = false
+        //     //   this.$u.vuex('vuex_token', res.data.token)
+        //     //   this.$u.vuex('vuex_username', res.data.user.username)
+        //     //   this.$u.vuex('vuex_phone', res.data.user.phone)
+        //     //   uni.showToast({
+        //     //     title: 'login successfully',
+        //     //     icon: 'success'
+        //     //   })
+        //     // }).catch(() => {
+        //     //   uni.showToast({
+        //     //     title: 'login failed',
+        //     //     icon: 'none'
+        //     //   })
+        //     //   this.load = false
+        //     // })
+        //   }
+        //   default:
+        //     uni.$u.toast('System error, please contact administrator~')
+        // }
       }
     }
   }

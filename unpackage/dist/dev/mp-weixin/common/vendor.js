@@ -20246,7 +20246,7 @@ module.exports = index_cjs;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userUpdateInfo = exports.userModifyPass = exports.userAvatar = exports.unitList = exports.storageUpdate = exports.storageDelete = exports.storageAdd = exports.remindUpdate = exports.remindList = exports.remindDelete = exports.remindAdd = exports.registerByEmail = exports.logout = exports.loginByPassword = exports.handleUpdate = exports.handleDelete = exports.getInfo = exports.fridgeUpdate = exports.fridgeUnBind = exports.fridgeModifyPass = exports.fridgeBind = exports.foodUpdate = exports.foodTypeList = exports.foodSearchDefault = exports.foodSearchCustom = exports.foodPic = exports.foodDelete = exports.foodAdd = exports.dishSearch = exports.dishRecommend = exports.AllfoodInfo = exports.Addfood = void 0;
+exports.userUpdateInfo = exports.userModifyPass = exports.userAvatar = exports.unitList = exports.storageUpdate = exports.storageDelete = exports.storageAdd = exports.remindUpdate = exports.remindList = exports.remindDelete = exports.remindAdd = exports.registerByEmail = exports.logout = exports.loginByPassword = exports.handleUpdate = exports.handleDelete = exports.getInfo = exports.fridgeUpdate = exports.fridgeUnBind = exports.fridgeModifyPass = exports.fridgeBind = exports.foodUpdate = exports.foodTypeList = exports.foodSearchDefault = exports.foodSearchCustom = exports.foodPic = exports.foodDelete = exports.foodAdd = exports.dishSearch = exports.dishRecommend = exports.addReminder = exports.AllfoodInfo = exports.Addfood = void 0;
 var http = uni.$u.http;
 var foodPic = 'http://fridge.binw.top:9000/food/uploadPic';
 exports.foodPic = foodPic;
@@ -20267,9 +20267,9 @@ var Addfood = function Addfood(food) {
   return http.post('/food/add', food, config);
 };
 exports.Addfood = Addfood;
-var handleDelete = function handleDelete(foodId) {
+var handleDelete = function handleDelete(id) {
   var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return http.post('/food/delete', foodId, config);
+  return http.post('/food/delete', id, config);
 };
 exports.handleDelete = handleDelete;
 var handleUpdate = function handleUpdate(data) {
@@ -20279,7 +20279,7 @@ var handleUpdate = function handleUpdate(data) {
 exports.handleUpdate = handleUpdate;
 var registerByEmail = function registerByEmail(data) {
   var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return http.post('/user/register', data, config);
+  return http.post('/auth/register', data, config);
 };
 exports.registerByEmail = registerByEmail;
 var getInfo = function getInfo() {
@@ -20287,8 +20287,14 @@ var getInfo = function getInfo() {
   var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return http.get('/auth/info', data, config);
 };
-//分界线
 exports.getInfo = getInfo;
+var addReminder = function addReminder() {
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return http.get('/food/remainingDays', data, config);
+};
+//分界线
+exports.addReminder = addReminder;
 var logout = function logout() {
   var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -20498,9 +20504,10 @@ module.exports = function (vm) {
   uni.$u.http.interceptors.response.use(function (response) {
     /* 对响应成功做点什么 可使用async await 做异步操作*/
     var res = response.data;
+    // console.log(res)
     //状态码为200表示一切正常
     if (res.code !== 200) {
-      uni.$u.toast(res.message);
+      uni.$u.toast(res.Message);
       if (res.code === 23000) {
         uni.redirectTo({
           url: '/pages/login/login'
@@ -20594,59 +20601,7 @@ module.exports = function (vm) {
 /* 237 */,
 /* 238 */,
 /* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */,
-/* 256 */,
-/* 257 */,
-/* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */,
-/* 264 */,
-/* 265 */,
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */
+/* 240 */
 /*!************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-popup/props.js ***!
   \************************************************************************************************/
@@ -20743,250 +20698,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */
-/*!*************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-avatar/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 头像图片路径(不能为相对路径)
-    src: {
-      type: String,
-      default: uni.$u.props.avatar.src
-    },
-    // 头像形状，circle-圆形，square-方形
-    shape: {
-      type: String,
-      default: uni.$u.props.avatar.shape
-    },
-    // 头像尺寸
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.avatar.size
-    },
-    // 裁剪模式
-    mode: {
-      type: String,
-      default: uni.$u.props.avatar.mode
-    },
-    // 显示的文字
-    text: {
-      type: String,
-      default: uni.$u.props.avatar.text
-    },
-    // 背景色
-    bgColor: {
-      type: String,
-      default: uni.$u.props.avatar.bgColor
-    },
-    // 文字颜色
-    color: {
-      type: String,
-      default: uni.$u.props.avatar.color
-    },
-    // 文字大小
-    fontSize: {
-      type: [String, Number],
-      default: uni.$u.props.avatar.fontSize
-    },
-    // 显示的图标
-    icon: {
-      type: String,
-      default: uni.$u.props.avatar.icon
-    },
-    // 显示小程序头像，只对百度，微信，QQ小程序有效
-    mpAvatar: {
-      type: Boolean,
-      default: uni.$u.props.avatar.mpAvatar
-    },
-    // 是否使用随机背景色
-    randomBgColor: {
-      type: Boolean,
-      default: uni.$u.props.avatar.randomBgColor
-    },
-    // 加载失败的默认头像(组件有内置默认图片)
-    defaultUrl: {
-      type: String,
-      default: uni.$u.props.avatar.defaultUrl
-    },
-    // 如果配置了randomBgColor为true，且配置了此值，则从默认的背景色数组中取出对应索引的颜色值，取值0-19之间
-    colorIndex: {
-      type: [String, Number],
-      // 校验参数规则，索引在0-19之间
-      validator: function validator(n) {
-        return uni.$u.test.range(n, [0, 19]) || n === '';
-      },
-      default: uni.$u.props.avatar.colorIndex
-    },
-    // 组件标识符
-    name: {
-      type: String,
-      default: uni.$u.props.avatar.name
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */
-/*!***********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-text/props.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 主题颜色
-    type: {
-      type: String,
-      default: uni.$u.props.text.type
-    },
-    // 是否显示
-    show: {
-      type: Boolean,
-      default: uni.$u.props.text.show
-    },
-    // 显示的值
-    text: {
-      type: [String, Number],
-      default: uni.$u.props.text.text
-    },
-    // 前置图标
-    prefixIcon: {
-      type: String,
-      default: uni.$u.props.text.prefixIcon
-    },
-    // 后置图标
-    suffixIcon: {
-      type: String,
-      default: uni.$u.props.text.suffixIcon
-    },
-    // 文本处理的匹配模式
-    // text-普通文本，price-价格，phone-手机号，name-姓名，date-日期，link-超链接
-    mode: {
-      type: String,
-      default: uni.$u.props.text.mode
-    },
-    // mode=link下，配置的链接
-    href: {
-      type: String,
-      default: uni.$u.props.text.href
-    },
-    // 格式化规则
-    format: {
-      type: [String, Function],
-      default: uni.$u.props.text.format
-    },
-    // mode=phone时，点击文本是否拨打电话
-    call: {
-      type: Boolean,
-      default: uni.$u.props.text.call
-    },
-    // 小程序的打开方式
-    openType: {
-      type: String,
-      default: uni.$u.props.text.openType
-    },
-    // 是否粗体，默认normal
-    bold: {
-      type: Boolean,
-      default: uni.$u.props.text.bold
-    },
-    // 是否块状
-    block: {
-      type: Boolean,
-      default: uni.$u.props.text.block
-    },
-    // 文本显示的行数，如果设置，超出此行数，将会显示省略号
-    lines: {
-      type: [String, Number],
-      default: uni.$u.props.text.lines
-    },
-    // 文本颜色
-    color: {
-      type: String,
-      default: uni.$u.props.text.color
-    },
-    // 字体大小
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.text.size
-    },
-    // 图标的样式
-    iconStyle: {
-      type: [Object, String],
-      default: uni.$u.props.text.iconStyle
-    },
-    // 文字装饰，下划线，中划线等，可选值 none|underline|line-through
-    decoration: {
-      tepe: String,
-      default: uni.$u.props.text.decoration
-    },
-    // 外边距，对象、字符串，数值形式均可
-    margin: {
-      type: [Object, String, Number],
-      default: uni.$u.props.text.margin
-    },
-    // 文本行高
-    lineHeight: {
-      type: [String, Number],
-      default: uni.$u.props.text.lineHeight
-    },
-    // 文本对齐方式，可选值left|center|right
-    align: {
-      type: String,
-      default: uni.$u.props.text.align
-    },
-    // 文字换行，可选值break-word|normal|anywhere
-    wordWrap: {
-      type: String,
-      default: uni.$u.props.text.wordWrap
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */
 /*!***********************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-form/props.js ***!
   \***********************************************************************************************/
@@ -21049,4400 +20768,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */
-/*!****************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-form-item/props.js ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // input的label提示语
-    label: {
-      type: String,
-      default: uni.$u.props.formItem.label
-    },
-    // 绑定的值
-    prop: {
-      type: String,
-      default: uni.$u.props.formItem.prop
-    },
-    // 是否显示表单域的下划线边框
-    borderBottom: {
-      type: [String, Boolean],
-      default: uni.$u.props.formItem.borderBottom
-    },
-    // label的宽度，单位px
-    labelWidth: {
-      type: [String, Number],
-      default: uni.$u.props.formItem.labelWidth
-    },
-    // 右侧图标
-    rightIcon: {
-      type: String,
-      default: uni.$u.props.formItem.rightIcon
-    },
-    // 左侧图标
-    leftIcon: {
-      type: String,
-      default: uni.$u.props.formItem.leftIcon
-    },
-    // 是否显示左边的必填星号，只作显示用，具体校验必填的逻辑，请在rules中配置
-    required: {
-      type: Boolean,
-      default: uni.$u.props.formItem.required
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */
-/*!************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-input/props.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 输入的值
-    value: {
-      type: [String, Number],
-      default: uni.$u.props.input.value
-    },
-    // 输入框类型
-    // number-数字输入键盘，app-vue下可以输入浮点数，app-nvue和小程序平台下只能输入整数
-    // idcard-身份证输入键盘，微信、支付宝、百度、QQ小程序
-    // digit-带小数点的数字键盘，App的nvue页面、微信、支付宝、百度、头条、QQ小程序
-    // text-文本输入键盘
-    type: {
-      type: String,
-      default: uni.$u.props.input.type
-    },
-    // 如果 textarea 是在一个 position:fixed 的区域，需要显示指定属性 fixed 为 true，
-    // 兼容性：微信小程序、百度小程序、字节跳动小程序、QQ小程序
-    fixed: {
-      type: Boolean,
-      default: uni.$u.props.input.fixed
-    },
-    // 是否禁用输入框
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.input.disabled
-    },
-    // 禁用状态时的背景色
-    disabledColor: {
-      type: String,
-      default: uni.$u.props.input.disabledColor
-    },
-    // 是否显示清除控件
-    clearable: {
-      type: Boolean,
-      default: uni.$u.props.input.clearable
-    },
-    // 是否密码类型
-    password: {
-      type: Boolean,
-      default: uni.$u.props.input.password
-    },
-    // 最大输入长度，设置为 -1 的时候不限制最大长度
-    maxlength: {
-      type: [String, Number],
-      default: uni.$u.props.input.maxlength
-    },
-    // 	输入框为空时的占位符
-    placeholder: {
-      type: String,
-      default: uni.$u.props.input.placeholder
-    },
-    // 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要在类名前写/deep/
-    placeholderClass: {
-      type: String,
-      default: uni.$u.props.input.placeholderClass
-    },
-    // 指定placeholder的样式
-    placeholderStyle: {
-      type: [String, Object],
-      default: uni.$u.props.input.placeholderStyle
-    },
-    // 是否显示输入字数统计，只在 type ="text"或type ="textarea"时有效
-    showWordLimit: {
-      type: Boolean,
-      default: uni.$u.props.input.showWordLimit
-    },
-    // 设置右下角按钮的文字，有效值：send|search|next|go|done，兼容性详见uni-app文档
-    // https://uniapp.dcloud.io/component/input
-    // https://uniapp.dcloud.io/component/textarea
-    confirmType: {
-      type: String,
-      default: uni.$u.props.input.confirmType
-    },
-    // 点击键盘右下角按钮时是否保持键盘不收起，H5无效
-    confirmHold: {
-      type: Boolean,
-      default: uni.$u.props.input.confirmHold
-    },
-    // focus时，点击页面的时候不收起键盘，微信小程序有效
-    holdKeyboard: {
-      type: Boolean,
-      default: uni.$u.props.input.holdKeyboard
-    },
-    // 自动获取焦点
-    // 在 H5 平台能否聚焦以及软键盘是否跟随弹出，取决于当前浏览器本身的实现。nvue 页面不支持，需使用组件的 focus()、blur() 方法控制焦点
-    focus: {
-      type: Boolean,
-      default: uni.$u.props.input.focus
-    },
-    // 键盘收起时，是否自动失去焦点，目前仅App3.0.0+有效
-    autoBlur: {
-      type: Boolean,
-      default: uni.$u.props.input.autoBlur
-    },
-    // 是否去掉 iOS 下的默认内边距，仅微信小程序，且type=textarea时有效
-    disableDefaultPadding: {
-      type: Boolean,
-      default: uni.$u.props.input.disableDefaultPadding
-    },
-    // 指定focus时光标的位置
-    cursor: {
-      type: [String, Number],
-      default: uni.$u.props.input.cursor
-    },
-    // 输入框聚焦时底部与键盘的距离
-    cursorSpacing: {
-      type: [String, Number],
-      default: uni.$u.props.input.cursorSpacing
-    },
-    // 光标起始位置，自动聚集时有效，需与selection-end搭配使用
-    selectionStart: {
-      type: [String, Number],
-      default: uni.$u.props.input.selectionStart
-    },
-    // 光标结束位置，自动聚集时有效，需与selection-start搭配使用
-    selectionEnd: {
-      type: [String, Number],
-      default: uni.$u.props.input.selectionEnd
-    },
-    // 键盘弹起时，是否自动上推页面
-    adjustPosition: {
-      type: Boolean,
-      default: uni.$u.props.input.adjustPosition
-    },
-    // 输入框内容对齐方式，可选值为：left|center|right
-    inputAlign: {
-      type: String,
-      default: uni.$u.props.input.inputAlign
-    },
-    // 输入框字体的大小
-    fontSize: {
-      type: [String, Number],
-      default: uni.$u.props.input.fontSize
-    },
-    // 输入框字体颜色
-    color: {
-      type: String,
-      default: uni.$u.props.input.color
-    },
-    // 输入框前置图标
-    prefixIcon: {
-      type: String,
-      default: uni.$u.props.input.prefixIcon
-    },
-    // 前置图标样式，对象或字符串
-    prefixIconStyle: {
-      type: [String, Object],
-      default: uni.$u.props.input.prefixIconStyle
-    },
-    // 输入框后置图标
-    suffixIcon: {
-      type: String,
-      default: uni.$u.props.input.suffixIcon
-    },
-    // 后置图标样式，对象或字符串
-    suffixIconStyle: {
-      type: [String, Object],
-      default: uni.$u.props.input.suffixIconStyle
-    },
-    // 边框类型，surround-四周边框，bottom-底部边框，none-无边框
-    border: {
-      type: String,
-      default: uni.$u.props.input.border
-    },
-    // 是否只读，与disabled不同之处在于disabled会置灰组件，而readonly则不会
-    readonly: {
-      type: Boolean,
-      default: uni.$u.props.input.readonly
-    },
-    // 输入框形状，circle-圆形，square-方形
-    shape: {
-      type: String,
-      default: uni.$u.props.input.shape
-    },
-    // 用于处理或者过滤输入框内容的方法
-    formatter: {
-      type: [Function, null],
-      default: uni.$u.props.input.formatter
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */
-/*!*****************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/mixin/button.js ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    lang: String,
-    sessionFrom: String,
-    sendMessageTitle: String,
-    sendMessagePath: String,
-    sendMessageImg: String,
-    showMessageCard: Boolean,
-    appParameter: String,
-    formType: String,
-    openType: String
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 337 */
-/*!*******************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/mixin/openType.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    openType: String
-  },
-  methods: {
-    onGetUserInfo: function onGetUserInfo(event) {
-      this.$emit('getuserinfo', event.detail);
-    },
-    onContact: function onContact(event) {
-      this.$emit('contact', event.detail);
-    },
-    onGetPhoneNumber: function onGetPhoneNumber(event) {
-      this.$emit('getphonenumber', event.detail);
-    },
-    onError: function onError(event) {
-      this.$emit('error', event.detail);
-    },
-    onLaunchApp: function onLaunchApp(event) {
-      this.$emit('launchapp', event.detail);
-    },
-    onOpenSetting: function onOpenSetting(event) {
-      this.$emit('opensetting', event.detail);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 338 */
-/*!*************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-button/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/*
- * @Author       : LQ
- * @Description  :
- * @version      : 1.0
- * @Date         : 2021-08-16 10:04:04
- * @LastAuthor   : LQ
- * @lastTime     : 2021-08-16 10:04:24
- * @FilePath     : /u-view2.0/uview-ui/components/u-button/props.js
- */
-var _default = {
-  props: {
-    // 是否细边框
-    hairline: {
-      type: Boolean,
-      default: uni.$u.props.button.hairline
-    },
-    // 按钮的预置样式，info，primary，error，warning，success
-    type: {
-      type: String,
-      default: uni.$u.props.button.type
-    },
-    // 按钮尺寸，large，normal，small，mini
-    size: {
-      type: String,
-      default: uni.$u.props.button.size
-    },
-    // 按钮形状，circle（两边为半圆），square（带圆角）
-    shape: {
-      type: String,
-      default: uni.$u.props.button.shape
-    },
-    // 按钮是否镂空
-    plain: {
-      type: Boolean,
-      default: uni.$u.props.button.plain
-    },
-    // 是否禁止状态
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.button.disabled
-    },
-    // 是否加载中
-    loading: {
-      type: Boolean,
-      default: uni.$u.props.button.loading
-    },
-    // 加载中提示文字
-    loadingText: {
-      type: [String, Number],
-      default: uni.$u.props.button.loadingText
-    },
-    // 加载状态图标类型
-    loadingMode: {
-      type: String,
-      default: uni.$u.props.button.loadingMode
-    },
-    // 加载图标大小
-    loadingSize: {
-      type: [String, Number],
-      default: uni.$u.props.button.loadingSize
-    },
-    // 开放能力，具体请看uniapp稳定关于button组件部分说明
-    // https://uniapp.dcloud.io/component/button
-    openType: {
-      type: String,
-      default: uni.$u.props.button.openType
-    },
-    // 用于 <form> 组件，点击分别会触发 <form> 组件的 submit/reset 事件
-    // 取值为submit（提交表单），reset（重置表单）
-    formType: {
-      type: String,
-      default: uni.$u.props.button.formType
-    },
-    // 打开 APP 时，向 APP 传递的参数，open-type=launchApp时有效
-    // 只微信小程序、QQ小程序有效
-    appParameter: {
-      type: String,
-      default: uni.$u.props.button.appParameter
-    },
-    // 指定是否阻止本节点的祖先节点出现点击态，微信小程序有效
-    hoverStopPropagation: {
-      type: Boolean,
-      default: uni.$u.props.button.hoverStopPropagation
-    },
-    // 指定返回用户信息的语言，zh_CN 简体中文，zh_TW 繁体中文，en 英文。只微信小程序有效
-    lang: {
-      type: String,
-      default: uni.$u.props.button.lang
-    },
-    // 会话来源，open-type="contact"时有效。只微信小程序有效
-    sessionFrom: {
-      type: String,
-      default: uni.$u.props.button.sessionFrom
-    },
-    // 会话内消息卡片标题，open-type="contact"时有效
-    // 默认当前标题，只微信小程序有效
-    sendMessageTitle: {
-      type: String,
-      default: uni.$u.props.button.sendMessageTitle
-    },
-    // 会话内消息卡片点击跳转小程序路径，open-type="contact"时有效
-    // 默认当前分享路径，只微信小程序有效
-    sendMessagePath: {
-      type: String,
-      default: uni.$u.props.button.sendMessagePath
-    },
-    // 会话内消息卡片图片，open-type="contact"时有效
-    // 默认当前页面截图，只微信小程序有效
-    sendMessageImg: {
-      type: String,
-      default: uni.$u.props.button.sendMessageImg
-    },
-    // 是否显示会话内消息卡片，设置此参数为 true，用户进入客服会话会在右下角显示"可能要发送的小程序"提示，
-    // 用户点击后可以快速发送小程序消息，open-type="contact"时有效
-    showMessageCard: {
-      type: Boolean,
-      default: uni.$u.props.button.showMessageCard
-    },
-    // 额外传参参数，用于小程序的data-xxx属性，通过target.dataset.name获取
-    dataName: {
-      type: String,
-      default: uni.$u.props.button.dataName
-    },
-    // 节流，一定时间内只能触发一次
-    throttleTime: {
-      type: [String, Number],
-      default: uni.$u.props.button.throttleTime
-    },
-    // 按住后多久出现点击态，单位毫秒
-    hoverStartTime: {
-      type: [String, Number],
-      default: uni.$u.props.button.hoverStartTime
-    },
-    // 手指松开后点击态保留时间，单位毫秒
-    hoverStayTime: {
-      type: [String, Number],
-      default: uni.$u.props.button.hoverStayTime
-    },
-    // 按钮文字，之所以通过props传入，是因为slot传入的话
-    // nvue中无法控制文字的样式
-    text: {
-      type: [String, Number],
-      default: uni.$u.props.button.text
-    },
-    // 按钮图标
-    icon: {
-      type: String,
-      default: uni.$u.props.button.icon
-    },
-    // 按钮图标
-    iconColor: {
-      type: String,
-      default: uni.$u.props.button.icon
-    },
-    // 按钮颜色，支持传入linear-gradient渐变色
-    color: {
-      type: String,
-      default: uni.$u.props.button.color
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */
-/*!*******************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
-  \*******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否自动关闭其他swipe按钮组
-    autoClose: {
-      type: Boolean,
-      default: uni.$u.props.swipeAction.autoClose
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */
-/*!****************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/mixin/touch.js ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var MIN_DISTANCE = 10;
-function getDirection(x, y) {
-  if (x > y && x > MIN_DISTANCE) {
-    return 'horizontal';
-  }
-  if (y > x && y > MIN_DISTANCE) {
-    return 'vertical';
-  }
-  return '';
-}
-var _default = {
-  methods: {
-    getTouchPoint: function getTouchPoint(e) {
-      if (!e) {
-        return {
-          x: 0,
-          y: 0
-        };
-      }
-      if (e.touches && e.touches[0]) {
-        return {
-          x: e.touches[0].pageX,
-          y: e.touches[0].pageY
-        };
-      }
-      if (e.changedTouches && e.changedTouches[0]) {
-        return {
-          x: e.changedTouches[0].pageX,
-          y: e.changedTouches[0].pageY
-        };
-      }
-      return {
-        x: e.clientX || 0,
-        y: e.clientY || 0
-      };
-    },
-    resetTouchStatus: function resetTouchStatus() {
-      this.direction = '';
-      this.deltaX = 0;
-      this.deltaY = 0;
-      this.offsetX = 0;
-      this.offsetY = 0;
-    },
-    touchStart: function touchStart(event) {
-      this.resetTouchStatus();
-      var touch = this.getTouchPoint(event);
-      this.startX = touch.x;
-      this.startY = touch.y;
-    },
-    touchMove: function touchMove(event) {
-      var touch = this.getTouchPoint(event);
-      this.deltaX = touch.x - this.startX;
-      this.deltaY = touch.y - this.startY;
-      this.offsetX = Math.abs(this.deltaX);
-      this.offsetY = Math.abs(this.deltaY);
-      this.direction = this.direction || getDirection(this.offsetX, this.offsetY);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 353 */
-/*!************************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
-  \************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default2 = {
-  props: {
-    // 控制打开或者关闭
-    show: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.show
-    },
-    // 标识符，如果是v-for，可用index索引值
-    name: {
-      type: [String, Number],
-      default: uni.$u.props.swipeActionItem.name
-    },
-    // 是否禁用
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.disabled
-    },
-    // 是否自动关闭其他swipe按钮组
-    autoClose: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.autoClose
-    },
-    // 滑动距离阈值，只有大于此值，才被认为是要打开菜单
-    threshold: {
-      type: Number,
-      default: uni.$u.props.swipeActionItem.threshold
-    },
-    // 右侧按钮内容
-    options: {
-      type: Array,
-      default: function _default() {
-        return uni.$u.props.swipeActionItem.rightOptions;
-      }
-    },
-    // 动画过渡时间，单位ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.swipeActionItem.duration
-    }
-  }
-};
-exports.default = _default2;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 354 */
-/*!**********************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
-  \**********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  methods: {
-    // 关闭时执行
-    closeHandler: function closeHandler() {
-      this.status = 'close';
-    },
-    setState: function setState(status) {
-      this.status = status;
-    },
-    closeOther: function closeOther() {
-      // 尝试关闭其他打开的单元格
-      this.parent && this.parent.closeOther(this);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */,
-/* 364 */
-/*!************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-empty/props.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 内置图标名称，或图片路径，建议绝对路径
-    icon: {
-      type: String,
-      default: uni.$u.props.empty.icon
-    },
-    // 提示文字
-    text: {
-      type: String,
-      default: uni.$u.props.empty.text
-    },
-    // 文字颜色
-    textColor: {
-      type: String,
-      default: uni.$u.props.empty.textColor
-    },
-    // 文字大小
-    textSize: {
-      type: [String, Number],
-      default: uni.$u.props.empty.textSize
-    },
-    // 图标的颜色
-    iconColor: {
-      type: String,
-      default: uni.$u.props.empty.iconColor
-    },
-    // 图标的大小
-    iconSize: {
-      type: [String, Number],
-      default: uni.$u.props.empty.iconSize
-    },
-    // 选择预置的图标类型
-    mode: {
-      type: String,
-      default: uni.$u.props.empty.mode
-    },
-    //  图标宽度，单位px
-    width: {
-      type: [String, Number],
-      default: uni.$u.props.empty.width
-    },
-    // 图标高度，单位px
-    height: {
-      type: [String, Number],
-      default: uni.$u.props.empty.height
-    },
-    // 是否显示组件
-    show: {
-      type: Boolean,
-      default: uni.$u.props.empty.show
-    },
-    // 组件距离上一个元素之间的距离，默认px单位
-    marginTop: {
-      type: [String, Number],
-      default: uni.$u.props.empty.marginTop
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */,
-/* 372 */,
-/* 373 */,
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */
-/*!*******************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
-  \*******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否显示组件
-    show: {
-      type: Boolean,
-      default: uni.$u.props.loadingIcon.show
-    },
-    // 颜色
-    color: {
-      type: String,
-      default: uni.$u.props.loadingIcon.color
-    },
-    // 提示文字颜色
-    textColor: {
-      type: String,
-      default: uni.$u.props.loadingIcon.textColor
-    },
-    // 文字和图标是否垂直排列
-    vertical: {
-      type: Boolean,
-      default: uni.$u.props.loadingIcon.vertical
-    },
-    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
-    mode: {
-      type: String,
-      default: uni.$u.props.loadingIcon.mode
-    },
-    // 图标大小，单位默认px
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.size
-    },
-    // 文字大小
-    textSize: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.textSize
-    },
-    // 文字内容
-    text: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.text
-    },
-    // 动画模式
-    timingFunction: {
-      type: String,
-      default: uni.$u.props.loadingIcon.timingFunction
-    },
-    // 动画执行周期时间
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.duration
-    },
-    // mode=circle时的暗边颜色
-    inactiveColor: {
-      type: String,
-      default: uni.$u.props.loadingIcon.inactiveColor
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 380 */,
-/* 381 */,
-/* 382 */,
-/* 383 */,
-/* 384 */,
-/* 385 */,
-/* 386 */,
-/* 387 */
-/*!*************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-sticky/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 吸顶容器到顶部某个距离的时候，进行吸顶，在H5平台，NavigationBar为44px
-    offsetTop: {
-      type: [String, Number],
-      default: uni.$u.props.sticky.offsetTop
-    },
-    // 自定义导航栏的高度
-    customNavHeight: {
-      type: [String, Number],
-      default: uni.$u.props.sticky.customNavHeight
-    },
-    // 是否开启吸顶功能
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.sticky.disabled
-    },
-    // 吸顶区域的背景颜色
-    bgColor: {
-      type: String,
-      default: uni.$u.props.sticky.bgColor
-    },
-    // z-index值
-    zIndex: {
-      type: [String, Number],
-      default: uni.$u.props.sticky.zIndex
-    },
-    // 列表中的索引值
-    index: {
-      type: [String, Number],
-      default: uni.$u.props.sticky.index
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 388 */,
-/* 389 */,
-/* 390 */,
-/* 391 */,
-/* 392 */,
-/* 393 */,
-/* 394 */,
-/* 395 */
-/*!***********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-tabs/props.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 滑块的移动过渡时间，单位ms
-    duration: {
-      type: Number,
-      default: uni.$u.props.tabs.duration
-    },
-    // tabs标签数组
-    list: {
-      type: Array,
-      default: uni.$u.props.tabs.list
-    },
-    // 滑块颜色
-    lineColor: {
-      type: String,
-      default: uni.$u.props.tabs.lineColor
-    },
-    // 菜单选择中时的样式
-    activeStyle: {
-      type: [String, Object],
-      default: uni.$u.props.tabs.activeStyle
-    },
-    // 菜单非选中时的样式
-    inactiveStyle: {
-      type: [String, Object],
-      default: uni.$u.props.tabs.inactiveStyle
-    },
-    // 滑块长度
-    lineWidth: {
-      type: [String, Number],
-      default: uni.$u.props.tabs.lineWidth
-    },
-    // 滑块高度
-    lineHeight: {
-      type: [String, Number],
-      default: uni.$u.props.tabs.lineHeight
-    },
-    // 菜单item的样式
-    itemStyle: {
-      type: [String, Object],
-      default: uni.$u.props.tabs.itemStyle
-    },
-    // 菜单是否可滚动
-    scrollable: {
-      type: Boolean,
-      default: uni.$u.props.tabs.scrollable
-    },
-    // 当前选中标签的索引
-    current: {
-      type: [Number, String],
-      default: uni.$u.props.tabs.current
-    },
-    // 默认读取的键名
-    keyName: {
-      type: String,
-      default: uni.$u.props.tabs.keyName
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 396 */,
-/* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */
-/*!**********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-row/props.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 给col添加间距，左右边距各占一半
-    gutter: {
-      type: [String, Number],
-      default: uni.$u.props.row.gutter
-    },
-    // 水平排列方式，可选值为`start`(或`flex-start`)、`end`(或`flex-end`)、`center`、`around`(或`space-around`)、`between`(或`space-between`)
-    justify: {
-      type: String,
-      default: uni.$u.props.row.justify
-    },
-    // 垂直对齐方式，可选值为top、center、bottom
-    align: {
-      type: String,
-      default: uni.$u.props.row.align
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */
-/*!**********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-col/props.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 占父容器宽度的多少等分，总分为12份
-    span: {
-      type: [String, Number],
-      default: uni.$u.props.col.span
-    },
-    // 指定栅格左侧的间隔数(总12栏)
-    offset: {
-      type: [String, Number],
-      default: uni.$u.props.col.offset
-    },
-    // 水平排列方式，可选值为`start`(或`flex-start`)、`end`(或`flex-end`)、`center`、`around`(或`space-around`)、`between`(或`space-between`)
-    justify: {
-      type: String,
-      default: uni.$u.props.col.justify
-    },
-    // 垂直对齐方式，可选值为top、center、bottom、stretch
-    align: {
-      type: String,
-      default: uni.$u.props.col.align
-    },
-    // 文字对齐方式
-    textAlign: {
-      type: String,
-      default: uni.$u.props.col.textAlign
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */
-/*!***********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-code/props.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 倒计时总秒数
-    seconds: {
-      type: [String, Number],
-      default: uni.$u.props.code.seconds
-    },
-    // 尚未开始时提示
-    startText: {
-      type: String,
-      default: uni.$u.props.code.startText
-    },
-    // 正在倒计时中的提示
-    changeText: {
-      type: String,
-      default: uni.$u.props.code.changeText
-    },
-    // 倒计时结束时的提示
-    endText: {
-      type: String,
-      default: uni.$u.props.code.endText
-    },
-    // 是否在H5刷新或各端返回再进入时继续倒计时
-    keepRunning: {
-      type: Boolean,
-      default: uni.$u.props.code.keepRunning
-    },
-    // 为了区分多个页面，或者一个页面多个倒计时组件本地存储的继续倒计时变了
-    uniqueKey: {
-      type: String,
-      default: uni.$u.props.code.uniqueKey
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 420 */,
-/* 421 */,
-/* 422 */,
-/* 423 */,
-/* 424 */,
-/* 425 */,
-/* 426 */,
-/* 427 */
-/*!*********************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-checkbox-group/props.js ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 标识符
-    name: {
-      type: String,
-      default: uni.$u.props.checkboxGroup.name
-    },
-    // 绑定的值
-    value: {
-      type: Array,
-      default: uni.$u.props.checkboxGroup.value
-    },
-    // 形状，circle-圆形，square-方形
-    shape: {
-      type: String,
-      default: uni.$u.props.checkboxGroup.shape
-    },
-    // 是否禁用全部checkbox
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.checkboxGroup.disabled
-    },
-    // 选中状态下的颜色，如设置此值，将会覆盖parent的activeColor值
-    activeColor: {
-      type: String,
-      default: uni.$u.props.checkboxGroup.activeColor
-    },
-    // 未选中的颜色
-    inactiveColor: {
-      type: String,
-      default: uni.$u.props.checkboxGroup.inactiveColor
-    },
-    // 整个组件的尺寸，默认px
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.checkboxGroup.size
-    },
-    // 布局方式，row-横向，column-纵向
-    placement: {
-      type: String,
-      default: uni.$u.props.checkboxGroup.placement
-    },
-    // label的字体大小，px单位
-    labelSize: {
-      type: [String, Number],
-      default: uni.$u.props.checkboxGroup.labelSize
-    },
-    // label的字体颜色
-    labelColor: {
-      type: [String],
-      default: uni.$u.props.checkboxGroup.labelColor
-    },
-    // 是否禁止点击文本操作
-    labelDisabled: {
-      type: Boolean,
-      default: uni.$u.props.checkboxGroup.labelDisabled
-    },
-    // 图标颜色
-    iconColor: {
-      type: String,
-      default: uni.$u.props.checkboxGroup.iconColor
-    },
-    // 图标的大小，单位px
-    iconSize: {
-      type: [String, Number],
-      default: uni.$u.props.checkboxGroup.iconSize
-    },
-    // 勾选图标的对齐方式，left-左边，right-右边
-    iconPlacement: {
-      type: String,
-      default: uni.$u.props.checkboxGroup.iconPlacement
-    },
-    // 竖向配列时，是否显示下划线
-    borderBottom: {
-      type: Boolean,
-      default: uni.$u.props.checkboxGroup.borderBottom
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 428 */,
-/* 429 */,
-/* 430 */,
-/* 431 */,
-/* 432 */,
-/* 433 */,
-/* 434 */,
-/* 435 */
-/*!***************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-checkbox/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // checkbox的名称
-    name: {
-      type: [String, Number, Boolean],
-      default: uni.$u.props.checkbox.name
-    },
-    // 形状，square为方形，circle为圆型
-    shape: {
-      type: String,
-      default: uni.$u.props.checkbox.shape
-    },
-    // 整体的大小
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.checkbox.size
-    },
-    // 是否默认选中
-    checked: {
-      type: Boolean,
-      default: uni.$u.props.checkbox.checked
-    },
-    // 是否禁用
-    disabled: {
-      type: [String, Boolean],
-      default: uni.$u.props.checkbox.disabled
-    },
-    // 选中状态下的颜色，如设置此值，将会覆盖parent的activeColor值
-    activeColor: {
-      type: String,
-      default: uni.$u.props.checkbox.activeColor
-    },
-    // 未选中的颜色
-    inactiveColor: {
-      type: String,
-      default: uni.$u.props.checkbox.inactiveColor
-    },
-    // 图标的大小，单位px
-    iconSize: {
-      type: [String, Number],
-      default: uni.$u.props.checkbox.iconSize
-    },
-    // 图标颜色
-    iconColor: {
-      type: String,
-      default: uni.$u.props.checkbox.iconColor
-    },
-    // label提示文字，因为nvue下，直接slot进来的文字，由于特殊的结构，无法修改样式
-    label: {
-      type: [String, Number],
-      default: uni.$u.props.checkbox.label
-    },
-    // label的字体大小，px单位
-    labelSize: {
-      type: [String, Number],
-      default: uni.$u.props.checkbox.labelSize
-    },
-    // label的颜色
-    labelColor: {
-      type: String,
-      default: uni.$u.props.checkbox.labelColor
-    },
-    // 是否禁止点击提示语选中复选框
-    labelDisabled: {
-      type: [String, Boolean],
-      default: uni.$u.props.checkbox.labelDisabled
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 436 */,
-/* 437 */,
-/* 438 */,
-/* 439 */,
-/* 440 */,
-/* 441 */,
-/* 442 */,
-/* 443 */
-/*!*************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-search/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 搜索框形状，round-圆形，square-方形
-    shape: {
-      type: String,
-      default: uni.$u.props.search.shape
-    },
-    // 搜索框背景色，默认值#f2f2f2
-    bgColor: {
-      type: String,
-      default: uni.$u.props.search.bgColor
-    },
-    // 占位提示文字
-    placeholder: {
-      type: String,
-      default: uni.$u.props.search.placeholder
-    },
-    // 是否启用清除控件
-    clearabled: {
-      type: Boolean,
-      default: uni.$u.props.search.clearabled
-    },
-    // 是否自动聚焦
-    focus: {
-      type: Boolean,
-      default: uni.$u.props.search.focus
-    },
-    // 是否在搜索框右侧显示取消按钮
-    showAction: {
-      type: Boolean,
-      default: uni.$u.props.search.showAction
-    },
-    // 右边控件的样式
-    actionStyle: {
-      type: Object,
-      default: uni.$u.props.search.actionStyle
-    },
-    // 取消按钮文字
-    actionText: {
-      type: String,
-      default: uni.$u.props.search.actionText
-    },
-    // 输入框内容对齐方式，可选值为 left|center|right
-    inputAlign: {
-      type: String,
-      default: uni.$u.props.search.inputAlign
-    },
-    // input输入框的样式，可以定义文字颜色，大小等，对象形式
-    inputStyle: {
-      type: Object,
-      default: uni.$u.props.search.inputStyle
-    },
-    // 是否启用输入框
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.search.disabled
-    },
-    // 边框颜色
-    borderColor: {
-      type: String,
-      default: uni.$u.props.search.borderColor
-    },
-    // 搜索图标的颜色，默认同输入框字体颜色
-    searchIconColor: {
-      type: String,
-      default: uni.$u.props.search.searchIconColor
-    },
-    // 输入框字体颜色
-    color: {
-      type: String,
-      default: uni.$u.props.search.color
-    },
-    // placeholder的颜色
-    placeholderColor: {
-      type: String,
-      default: uni.$u.props.search.placeholderColor
-    },
-    // 左边输入框的图标，可以为uView图标名称或图片路径
-    searchIcon: {
-      type: String,
-      default: uni.$u.props.search.searchIcon
-    },
-    // 组件与其他上下左右元素之间的距离，带单位的字符串形式，如"30px"、"30px 20px"等写法
-    margin: {
-      type: String,
-      default: uni.$u.props.search.margin
-    },
-    // 开启showAction时，是否在input获取焦点时才显示
-    animation: {
-      type: Boolean,
-      default: uni.$u.props.search.animation
-    },
-    // 输入框的初始化内容
-    value: {
-      type: String,
-      default: uni.$u.props.search.value
-    },
-    // 输入框最大能输入的长度，-1为不限制长度(来自uniapp文档)
-    maxlength: {
-      type: [String, Number],
-      default: uni.$u.props.search.maxlength
-    },
-    // 搜索框高度，单位px
-    height: {
-      type: [String, Number],
-      default: uni.$u.props.search.height
-    },
-    // 搜索框左侧文本
-    label: {
-      type: [String, Number, null],
-      default: uni.$u.props.search.label
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 444 */,
-/* 445 */,
-/* 446 */,
-/* 447 */,
-/* 448 */,
-/* 449 */,
-/* 450 */,
-/* 451 */
-/*!***************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-loadmore/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 组件状态，loadmore-加载前的状态，loading-加载中的状态，nomore-没有更多的状态
-    status: {
-      type: String,
-      default: uni.$u.props.loadmore.status
-    },
-    // 组件背景色
-    bgColor: {
-      type: String,
-      default: uni.$u.props.loadmore.bgColor
-    },
-    // 是否显示加载中的图标
-    icon: {
-      type: Boolean,
-      default: uni.$u.props.loadmore.icon
-    },
-    // 字体大小
-    fontSize: {
-      type: [String, Number],
-      default: uni.$u.props.loadmore.fontSize
-    },
-    // 字体颜色
-    color: {
-      type: String,
-      default: uni.$u.props.loadmore.color
-    },
-    // 加载中状态的图标，spinner-花朵状图标，circle-圆圈状，semicircle-半圆
-    loadingIcon: {
-      type: String,
-      default: uni.$u.props.loadmore.loadingIcon
-    },
-    // 加载前的提示语
-    loadmoreText: {
-      type: String,
-      default: uni.$u.props.loadmore.loadmoreText
-    },
-    // 加载中提示语
-    loadingText: {
-      type: String,
-      default: uni.$u.props.loadmore.loadingText
-    },
-    // 没有更多的提示语
-    nomoreText: {
-      type: String,
-      default: uni.$u.props.loadmore.nomoreText
-    },
-    // 在“没有更多”状态下，是否显示粗点
-    isDot: {
-      type: Boolean,
-      default: uni.$u.props.loadmore.isDot
-    },
-    // 加载中图标的颜色
-    iconColor: {
-      type: String,
-      default: uni.$u.props.loadmore.iconColor
-    },
-    // 上边距
-    marginTop: {
-      type: [String, Number],
-      default: uni.$u.props.loadmore.marginTop
-    },
-    // 下边距
-    marginBottom: {
-      type: [String, Number],
-      default: uni.$u.props.loadmore.marginBottom
-    },
-    // 高度，单位px
-    height: {
-      type: [String, Number],
-      default: uni.$u.props.loadmore.height
-    },
-    // 是否显示左边分割线
-    line: {
-      type: Boolean,
-      default: uni.$u.props.loadmore.line
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 452 */,
-/* 453 */,
-/* 454 */,
-/* 455 */,
-/* 456 */,
-/* 457 */,
-/* 458 */,
-/* 459 */
-/*!*****************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-cell-group/props.js ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 分组标题
-    title: {
-      type: String,
-      default: uni.$u.props.cellGroup.title
-    },
-    // 是否显示外边框
-    border: {
-      type: Boolean,
-      default: uni.$u.props.cellGroup.border
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 460 */,
-/* 461 */,
-/* 462 */,
-/* 463 */,
-/* 464 */,
-/* 465 */,
-/* 466 */,
-/* 467 */
-/*!***********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-cell/props.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default2 = {
-  props: {
-    // 标题
-    title: {
-      type: [String, Number],
-      default: uni.$u.props.cell.title
-    },
-    // 标题下方的描述信息
-    label: {
-      type: [String, Number],
-      default: uni.$u.props.cell.label
-    },
-    // 右侧的内容
-    value: {
-      type: [String, Number],
-      default: uni.$u.props.cell.value
-    },
-    // 左侧图标名称，或者图片链接(本地文件建议使用绝对地址)
-    icon: {
-      type: String,
-      default: uni.$u.props.cell.icon
-    },
-    // 标题的宽度，单位任意，数值默认为px单位
-    titleWidth: {
-      type: [String, Number],
-      default: uni.$u.props.cell.titleWidth
-    },
-    // 是否禁用cell
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.cell.disabled
-    },
-    // 是否显示下边框
-    border: {
-      type: Boolean,
-      default: uni.$u.props.cell.border
-    },
-    // 内容是否垂直居中(主要是针对右侧的value部分)
-    center: {
-      type: Boolean,
-      default: uni.$u.props.cell.center
-    },
-    // 点击后跳转的URL地址
-    url: {
-      type: String,
-      default: uni.$u.props.cell.url
-    },
-    // 链接跳转的方式，内部使用的是uView封装的route方法，可能会进行拦截操作
-    linkType: {
-      type: String,
-      default: uni.$u.props.cell.linkType
-    },
-    // 是否开启点击反馈(表现为点击时加上灰色背景)
-    clickable: {
-      type: Boolean,
-      default: uni.$u.props.cell.clickable
-    },
-    // 是否展示右侧箭头并开启点击反馈
-    isLink: {
-      type: Boolean,
-      default: uni.$u.props.cell.isLink
-    },
-    // 是否显示表单状态下的必填星号(此组件可能会内嵌入input组件)
-    required: {
-      type: Boolean,
-      default: uni.$u.props.cell.required
-    },
-    // 右侧的图标箭头
-    rightIcon: {
-      type: String,
-      default: uni.$u.props.cell.rightIcon
-    },
-    // 右侧箭头的方向，可选值为：left，up，down
-    arrowDirection: {
-      type: String,
-      default: uni.$u.props.cell.arrowDirection
-    },
-    // 左侧图标样式
-    iconStyle: {
-      type: [Object, String],
-      default: function _default() {
-        return uni.$u.props.cell.iconStyle;
-      }
-    },
-    // 右侧箭头图标的样式
-    rightIconStyle: {
-      type: [Object, String],
-      default: function _default() {
-        return uni.$u.props.cell.rightIconStyle;
-      }
-    },
-    // 标题的样式
-    titleStyle: {
-      type: [Object, String],
-      default: function _default() {
-        return uni.$u.props.cell.titleStyle;
-      }
-    },
-    // 单位元的大小，可选值为large
-    size: {
-      type: String,
-      default: uni.$u.props.cell.size
-    },
-    // 点击cell是否阻止事件传播
-    stop: {
-      type: Boolean,
-      default: uni.$u.props.cell.stop
-    },
-    // 标识符，cell被点击时返回
-    name: {
-      type: [Number, String],
-      default: uni.$u.props.cell.name
-    }
-  }
-};
-exports.default = _default2;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 468 */,
-/* 469 */,
-/* 470 */,
-/* 471 */,
-/* 472 */,
-/* 473 */,
-/* 474 */,
-/* 475 */
-/*!************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-steps/props.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 排列方向
-    direction: {
-      type: String,
-      default: uni.$u.props.steps.direction
-    },
-    // 设置第几个步骤
-    current: {
-      type: [String, Number],
-      default: uni.$u.props.steps.current
-    },
-    // 激活状态颜色
-    activeColor: {
-      type: String,
-      default: uni.$u.props.steps.activeColor
-    },
-    // 未激活状态颜色
-    inactiveColor: {
-      type: String,
-      default: uni.$u.props.steps.inactiveColor
-    },
-    // 激活状态的图标
-    activeIcon: {
-      type: String,
-      default: uni.$u.props.steps.activeIcon
-    },
-    // 未激活状态图标
-    inactiveIcon: {
-      type: String,
-      default: uni.$u.props.steps.inactiveIcon
-    },
-    // 是否显示点类型
-    dot: {
-      type: Boolean,
-      default: uni.$u.props.steps.dot
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 476 */,
-/* 477 */,
-/* 478 */,
-/* 479 */,
-/* 480 */,
-/* 481 */,
-/* 482 */,
-/* 483 */
-/*!*****************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-steps-item/props.js ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 标题
-    title: {
-      type: [String, Number],
-      default: uni.$u.props.stepsItem.title
-    },
-    // 描述文本
-    desc: {
-      type: [String, Number],
-      default: uni.$u.props.stepsItem.desc
-    },
-    // 图标大小
-    iconSize: {
-      type: [String, Number],
-      default: uni.$u.props.stepsItem.iconSize
-    },
-    // 当前步骤是否处于失败状态
-    error: {
-      type: Boolean,
-      default: uni.$u.props.stepsItem.error
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 484 */,
-/* 485 */,
-/* 486 */,
-/* 487 */,
-/* 488 */,
-/* 489 */,
-/* 490 */,
-/* 491 */
-/*!************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-parse/props.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    content: String,
-    copyLink: {
-      type: Boolean,
-      default: uni.$u.props.parse.copyLink
-    },
-    domain: String,
-    errorImg: {
-      type: String,
-      default: uni.$u.props.parse.errorImg
-    },
-    lazyLoad: {
-      type: Boolean,
-      default: uni.$u.props.parse.lazyLoad
-    },
-    loadingImg: {
-      type: String,
-      default: uni.$u.props.parse.loadingImg
-    },
-    pauseVideo: {
-      type: Boolean,
-      default: uni.$u.props.parse.pauseVideo
-    },
-    previewImg: {
-      type: Boolean,
-      default: uni.$u.props.parse.previewImg
-    },
-    scrollTable: Boolean,
-    selectable: Boolean,
-    setTitle: {
-      type: Boolean,
-      default: uni.$u.props.parse.setTitle
-    },
-    showImgMenu: {
-      type: Boolean,
-      default: uni.$u.props.parse.showImgMenu
-    },
-    tagStyle: Object,
-    useAnchor: null
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 492 */
-/*!*************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-parse/parser.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni, wx) {
-
-/**
- * @fileoverview html 解析器
- */
-// 配置
-var _defineProperty = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var config = {
-  // 信任的标签（保持标签名不变）
-  trustTags: makeMap('a,abbr,ad,audio,b,blockquote,br,code,col,colgroup,dd,del,dl,dt,div,em,fieldset,h1,h2,h3,h4,h5,h6,hr,i,img,ins,label,legend,li,ol,p,q,ruby,rt,source,span,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,title,ul,video'),
-  // 块级标签（转为 div，其他的非信任标签转为 span）
-  blockTags: makeMap('address,article,aside,body,caption,center,cite,footer,header,html,nav,pre,section'),
-  // 要移除的标签
-  ignoreTags: makeMap('area,base,canvas,embed,frame,head,iframe,input,link,map,meta,param,rp,script,source,style,textarea,title,track,wbr'),
-  // 自闭合的标签
-  voidTags: makeMap('area,base,br,col,circle,ellipse,embed,frame,hr,img,input,line,link,meta,param,path,polygon,rect,source,track,use,wbr'),
-  // html 实体
-  entities: {
-    lt: '<',
-    gt: '>',
-    quot: '"',
-    apos: "'",
-    ensp: "\u2002",
-    emsp: "\u2003",
-    nbsp: '\xA0',
-    semi: ';',
-    ndash: '–',
-    mdash: '—',
-    middot: '·',
-    lsquo: '‘',
-    rsquo: '’',
-    ldquo: '“',
-    rdquo: '”',
-    bull: '•',
-    hellip: '…'
-  },
-  // 默认的标签样式
-  tagStyle: {
-    address: 'font-style:italic',
-    big: 'display:inline;font-size:1.2em',
-    caption: 'display:table-caption;text-align:center',
-    center: 'text-align:center',
-    cite: 'font-style:italic',
-    dd: 'margin-left:40px',
-    mark: 'background-color:yellow',
-    pre: 'font-family:monospace;white-space:pre',
-    s: 'text-decoration:line-through',
-    small: 'display:inline;font-size:0.8em',
-    u: 'text-decoration:underline'
-  }
-};
-var _uni$getSystemInfoSyn = uni.getSystemInfoSync(),
-  windowWidth = _uni$getSystemInfoSyn.windowWidth;
-var blankChar = makeMap(' ,\r,\n,\t,\f');
-var idIndex = 0;
-
-/**
- * @description 创建 map
- * @param {String} str 逗号分隔
- */
-
-function makeMap(str) {
-  var map = Object.create(null);
-  var list = str.split(',');
-  for (var i = list.length; i--;) {
-    map[list[i]] = true;
-  }
-  return map;
-}
-/**
- * @description 解码 html 实体
- * @param {String} str 要解码的字符串
- * @param {Boolean} amp 要不要解码 &amp;
- * @returns {String} 解码后的字符串
- */
-
-function decodeEntity(str, amp) {
-  var i = str.indexOf('&');
-  while (i != -1) {
-    var j = str.indexOf(';', i + 3);
-    var code = void 0;
-    if (j == -1) break;
-    if (str[i + 1] == '#') {
-      // &#123; 形式的实体
-      code = parseInt((str[i + 2] == 'x' ? '0' : '') + str.substring(i + 2, j));
-      if (!isNaN(code)) str = str.substr(0, i) + String.fromCharCode(code) + str.substr(j + 1);
-    } else {
-      // &nbsp; 形式的实体
-      code = str.substring(i + 1, j);
-      if (config.entities[code] || code == 'amp' && amp) str = str.substr(0, i) + (config.entities[code] || '&') + str.substr(j + 1);
-    }
-    i = str.indexOf('&', i + 1);
-  }
-  return str;
-}
-/**
- * @description html 解析器
- * @param {Object} vm 组件实例
- */
-
-function parser(vm) {
-  this.options = vm || {};
-  this.tagStyle = Object.assign(config.tagStyle, this.options.tagStyle);
-  this.imgList = vm.imgList || [];
-  this.plugins = vm.plugins || [];
-  this.attrs = Object.create(null);
-  this.stack = [];
-  this.nodes = [];
-}
-/**
- * @description 执行解析
- * @param {String} content 要解析的文本
- */
-
-parser.prototype.parse = function (content) {
-  // 插件处理
-  for (var i = this.plugins.length; i--;) {
-    if (this.plugins[i].onUpdate) content = this.plugins[i].onUpdate(content, config) || content;
-  }
-  new lexer(this).parse(content); // 出栈未闭合的标签
-
-  while (this.stack.length) {
-    this.popNode();
-  }
-  return this.nodes;
-};
-/**
- * @description 将标签暴露出来（不被 rich-text 包含）
- */
-
-parser.prototype.expose = function () {
-  for (var i = this.stack.length; i--;) {
-    var item = this.stack[i];
-    if (item.name == 'a' || item.c) return;
-    item.c = 1;
-  }
-};
-/**
- * @description 处理插件
- * @param {Object} node 要处理的标签
- * @returns {Boolean} 是否要移除此标签
- */
-
-parser.prototype.hook = function (node) {
-  for (var i = this.plugins.length; i--;) {
-    if (this.plugins[i].onParse && this.plugins[i].onParse(node, this) == false) return false;
-  }
-  return true;
-};
-/**
- * @description 将链接拼接上主域名
- * @param {String} url 需要拼接的链接
- * @returns {String} 拼接后的链接
- */
-
-parser.prototype.getUrl = function (url) {
-  var domain = this.options.domain;
-  if (url[0] == '/') {
-    // // 开头的补充协议名
-    if (url[1] == '/') url = "".concat(domain ? domain.split('://')[0] : 'http', ":").concat(url); // 否则补充整个域名
-    else if (domain) url = domain + url;
-  } else if (domain && !url.includes('data:') && !url.includes('://')) url = "".concat(domain, "/").concat(url);
-  return url;
-};
-/**
- * @description 解析样式表
- * @param {Object} node 标签
- * @returns {Object}
- */
-
-parser.prototype.parseStyle = function (node) {
-  var attrs = node.attrs;
-  var list = (this.tagStyle[node.name] || '').split(';').concat((attrs.style || '').split(';'));
-  var styleObj = {};
-  var tmp = '';
-  if (attrs.id) {
-    // 暴露锚点
-    if (this.options.useAnchor) this.expose();else if (node.name != 'img' && node.name != 'a' && node.name != 'video' && node.name != 'audio') attrs.id = void 0;
-  } // 转换 width 和 height 属性
-
-  if (attrs.width) {
-    styleObj.width = parseFloat(attrs.width) + (attrs.width.includes('%') ? '%' : 'px');
-    attrs.width = void 0;
-  }
-  if (attrs.height) {
-    styleObj.height = parseFloat(attrs.height) + (attrs.height.includes('%') ? '%' : 'px');
-    attrs.height = void 0;
-  }
-  for (var i = 0, len = list.length; i < len; i++) {
-    var info = list[i].split(':');
-    if (info.length < 2) continue;
-    var key = info.shift().trim().toLowerCase();
-    var value = info.join(':').trim(); // 兼容性的 css 不压缩
-
-    if (value[0] == '-' && value.lastIndexOf('-') > 0 || value.includes('safe')) tmp += ';'.concat(key, ':').concat(value); // 重复的样式进行覆盖
-    else if (!styleObj[key] || value.includes('import') || !styleObj[key].includes('import')) {
-      // 填充链接
-      if (value.includes('url')) {
-        var j = value.indexOf('(') + 1;
-        if (j) {
-          while (value[j] == '"' || value[j] == "'" || blankChar[value[j]]) {
-            j++;
-          }
-          value = value.substr(0, j) + this.getUrl(value.substr(j));
-        }
-      } // 转换 rpx（rich-text 内部不支持 rpx）
-      else if (value.includes('rpx')) {
-        value = value.replace(/[0-9.]+\s*rpx/g, function ($) {
-          return "".concat(parseFloat($) * windowWidth / 750, "px");
-        });
-      }
-      styleObj[key] = value;
-    }
-  }
-  node.attrs.style = tmp;
-  return styleObj;
-};
-/**
- * @description 解析到标签名
- * @param {String} name 标签名
- * @private
- */
-
-parser.prototype.onTagName = function (name) {
-  this.tagName = this.xml ? name : name.toLowerCase();
-  if (this.tagName == 'svg') this.xml = true; // svg 标签内大小写敏感
-};
-/**
- * @description 解析到属性名
- * @param {String} name 属性名
- * @private
- */
-
-parser.prototype.onAttrName = function (name) {
-  name = this.xml ? name : name.toLowerCase();
-  if (name.substr(0, 5) == 'data-') {
-    // data-src 自动转为 src
-    if (name == 'data-src' && !this.attrs.src) this.attrName = 'src'; // a 和 img 标签保留 data- 的属性，可以在 imgtap 和 linktap 事件中使用
-    else if (this.tagName == 'img' || this.tagName == 'a') this.attrName = name; // 剩余的移除以减小大小
-    else this.attrName = void 0;
-  } else {
-    this.attrName = name;
-    this.attrs[name] = 'T'; // boolean 型属性缺省设置
-  }
-};
-/**
- * @description 解析到属性值
- * @param {String} val 属性值
- * @private
- */
-
-parser.prototype.onAttrVal = function (val) {
-  var name = this.attrName || ''; // 部分属性进行实体解码
-
-  if (name == 'style' || name == 'href') this.attrs[name] = decodeEntity(val, true); // 拼接主域名
-  else if (name.includes('src')) this.attrs[name] = this.getUrl(decodeEntity(val, true));else if (name) this.attrs[name] = val;
-};
-/**
- * @description 解析到标签开始
- * @param {Boolean} selfClose 是否有自闭合标识 />
- * @private
- */
-
-parser.prototype.onOpenTag = function (selfClose) {
-  // 拼装 node
-  var node = Object.create(null);
-  node.name = this.tagName;
-  node.attrs = this.attrs;
-  this.attrs = Object.create(null);
-  var attrs = node.attrs;
-  var parent = this.stack[this.stack.length - 1];
-  var siblings = parent ? parent.children : this.nodes;
-  var close = this.xml ? selfClose : config.voidTags[node.name]; // 转换 embed 标签
-
-  if (node.name == 'embed') {
-    var src = attrs.src || ''; // 按照后缀名和 type 将 embed 转为 video 或 audio
-
-    if (src.includes('.mp4') || src.includes('.3gp') || src.includes('.m3u8') || (attrs.type || '').includes('video')) node.name = 'video';else if (src.includes('.mp3') || src.includes('.wav') || src.includes('.aac') || src.includes('.m4a') || (attrs.type || '').includes('audio')) node.name = 'audio';
-    if (attrs.autostart) attrs.autoplay = 'T';
-    attrs.controls = 'T';
-  }
-  // 处理音视频
-
-  if (node.name == 'video' || node.name == 'audio') {
-    // 设置 id 以便获取 context
-    if (node.name == 'video' && !attrs.id) attrs.id = "v".concat(idIndex++); // 没有设置 controls 也没有设置 autoplay 的自动设置 controls
-
-    if (!attrs.controls && !attrs.autoplay) attrs.controls = 'T'; // 用数组存储所有可用的 source
-
-    node.src = [];
-    if (attrs.src) {
-      node.src.push(attrs.src);
-      attrs.src = void 0;
-    }
-    this.expose();
-  }
-  // 处理自闭合标签
-
-  if (close) {
-    if (!this.hook(node) || config.ignoreTags[node.name]) {
-      // 通过 base 标签设置主域名
-      if (node.name == 'base' && !this.options.domain) this.options.domain = attrs.href;
-      // 设置 source 标签（仅父节点为 video 或 audio 时有效）
-      else if (node.name == 'source' && parent && (parent.name == 'video' || parent.name == 'audio') && attrs.src) parent.src.push(attrs.src);
-      return;
-    } // 解析 style
-
-    var styleObj = this.parseStyle(node); // 处理图片
-
-    if (node.name == 'img') {
-      if (attrs.src) {
-        // 标记 webp
-        if (attrs.src.includes('webp')) node.webp = 'T'; // data url 图片如果没有设置 original-src 默认为不可预览的小图片
-
-        if (attrs.src.includes('data:') && !attrs['original-src']) attrs.ignore = 'T';
-        if (!attrs.ignore || node.webp || attrs.src.includes('cloud://')) {
-          for (var i = this.stack.length; i--;) {
-            var item = this.stack[i];
-            if (item.name == 'a') {
-              node.a = item.attrs;
-              break;
-            }
-            var style = item.attrs.style || '';
-            if (style.includes('flex:') && !style.includes('flex:0') && !style.includes('flex: 0') && (!styleObj.width || !styleObj.width.includes('%'))) {
-              styleObj.width = '100% !important';
-              styleObj.height = '';
-              for (var j = i + 1; j < this.stack.length; j++) {
-                this.stack[j].attrs.style = (this.stack[j].attrs.style || '').replace('inline-', '');
-              }
-            } else if (style.includes('flex') && styleObj.width == '100%') {
-              for (var _j = i + 1; _j < this.stack.length; _j++) {
-                var _style = this.stack[_j].attrs.style || '';
-                if (!_style.includes(';width') && !_style.includes(' width') && _style.indexOf('width') != 0) {
-                  styleObj.width = '';
-                  break;
-                }
-              }
-            } else if (style.includes('inline-block')) {
-              if (styleObj.width && styleObj.width[styleObj.width.length - 1] == '%') {
-                item.attrs.style += ";max-width:".concat(styleObj.width);
-                styleObj.width = '';
-              } else item.attrs.style += ';max-width:100%';
-            }
-            item.c = 1;
-          }
-          attrs.i = this.imgList.length.toString();
-          var _src = attrs['original-src'] || attrs.src;
-          if (this.imgList.includes(_src)) {
-            // 如果有重复的链接则对域名进行随机大小写变换避免预览时错位
-            var _i = _src.indexOf('://');
-            if (_i != -1) {
-              _i += 3;
-              var newSrc = _src.substr(0, _i);
-              for (; _i < _src.length; _i++) {
-                if (_src[_i] == '/') break;
-                newSrc += Math.random() > 0.5 ? _src[_i].toUpperCase() : _src[_i];
-              }
-              newSrc += _src.substr(_i);
-              _src = newSrc;
-            }
-          }
-          this.imgList.push(_src);
-        }
-      }
-      if (styleObj.display == 'inline') styleObj.display = '';
-      if (attrs.ignore) {
-        styleObj['max-width'] = styleObj['max-width'] || '100%';
-        attrs.style += ';-webkit-touch-callout:none';
-      }
-      // 设置的宽度超出屏幕，为避免变形，高度转为自动
-
-      if (parseInt(styleObj.width) > windowWidth) styleObj.height = void 0; // 记录是否设置了宽高
-
-      if (styleObj.width) {
-        if (styleObj.width.includes('auto')) styleObj.width = '';else {
-          node.w = 'T';
-          if (styleObj.height && !styleObj.height.includes('auto')) node.h = 'T';
-        }
-      }
-    } else if (node.name == 'svg') {
-      siblings.push(node);
-      this.stack.push(node);
-      this.popNode();
-      return;
-    }
-    for (var key in styleObj) {
-      if (styleObj[key]) attrs.style += ';'.concat(key, ':').concat(styleObj[key].replace(' !important', ''));
-    }
-    attrs.style = attrs.style.substr(1) || void 0;
-  } else {
-    if (node.name == 'pre' || (attrs.style || '').includes('white-space') && attrs.style.includes('pre')) this.pre = node.pre = true;
-    node.children = [];
-    this.stack.push(node);
-  } // 加入节点树
-
-  siblings.push(node);
-};
-/**
- * @description 解析到标签结束
- * @param {String} name 标签名
- * @private
- */
-
-parser.prototype.onCloseTag = function (name) {
-  // 依次出栈到匹配为止
-  name = this.xml ? name : name.toLowerCase();
-  var i;
-  for (i = this.stack.length; i--;) {
-    if (this.stack[i].name == name) break;
-  }
-  if (i != -1) {
-    while (this.stack.length > i) {
-      this.popNode();
-    }
-  } else if (name == 'p' || name == 'br') {
-    var siblings = this.stack.length ? this.stack[this.stack.length - 1].children : this.nodes;
-    siblings.push({
-      name: name,
-      attrs: {}
-    });
-  }
-};
-/**
- * @description 处理标签出栈
- * @private
- */
-
-parser.prototype.popNode = function () {
-  var node = this.stack.pop();
-  var attrs = node.attrs;
-  var children = node.children;
-  var parent = this.stack[this.stack.length - 1];
-  var siblings = parent ? parent.children : this.nodes;
-  if (!this.hook(node) || config.ignoreTags[node.name]) {
-    // 获取标题
-    if (node.name == 'title' && children.length && children[0].type == 'text' && this.options.setTitle) {
-      uni.setNavigationBarTitle({
-        title: children[0].text
-      });
-    }
-    siblings.pop();
-    return;
-  }
-  if (node.pre) {
-    // 是否合并空白符标识
-    node.pre = this.pre = void 0;
-    for (var i = this.stack.length; i--;) {
-      if (this.stack[i].pre) this.pre = true;
-    }
-  }
-  var styleObj = {}; // 转换 svg
-
-  if (node.name == 'svg') {
-    var src = '';
-    var _attrs = attrs,
-      style = _attrs.style;
-    attrs.style = '';
-    attrs.xmlns = 'http://www.w3.org/2000/svg';
-    (function traversal(node) {
-      src += "<".concat(node.name);
-      for (var item in node.attrs) {
-        var val = node.attrs[item];
-        if (val) {
-          if (item == 'viewbox') item = 'viewBox';
-          src += ' '.concat(item, '="').concat(val, '"');
-        }
-      }
-      if (!node.children) src += '/>';else {
-        src += '>';
-        for (var _i2 = 0; _i2 < node.children.length; _i2++) {
-          traversal(node.children[_i2]);
-        }
-        src += "</".concat(node.name, ">");
-      }
-    })(node);
-    node.name = 'img';
-    node.attrs = {
-      src: "data:image/svg+xml;utf8,".concat(src.replace(/#/g, '%23')),
-      style: style,
-      ignore: 'T'
-    };
-    node.children = void 0;
-    this.xml = false;
-    return;
-  }
-  // 转换 align 属性
-
-  if (attrs.align) {
-    if (node.name == 'table') {
-      if (attrs.align == 'center') styleObj['margin-inline-start'] = styleObj['margin-inline-end'] = 'auto';else styleObj.float = attrs.align;
-    } else styleObj['text-align'] = attrs.align;
-    attrs.align = void 0;
-  } // 转换 font 标签的属性
-
-  if (node.name == 'font') {
-    if (attrs.color) {
-      styleObj.color = attrs.color;
-      attrs.color = void 0;
-    }
-    if (attrs.face) {
-      styleObj['font-family'] = attrs.face;
-      attrs.face = void 0;
-    }
-    if (attrs.size) {
-      var size = parseInt(attrs.size);
-      if (!isNaN(size)) {
-        if (size < 1) size = 1;else if (size > 7) size = 7;
-        styleObj['font-size'] = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'][size - 1];
-      }
-      attrs.size = void 0;
-    }
-  }
-  // 一些编辑器的自带 class
-
-  if ((attrs.class || '').includes('align-center')) styleObj['text-align'] = 'center';
-  Object.assign(styleObj, this.parseStyle(node));
-  if (parseInt(styleObj.width) > windowWidth) {
-    styleObj['max-width'] = '100%';
-    styleObj['box-sizing'] = 'border-box';
-  }
-  if (config.blockTags[node.name]) node.name = 'div'; // 未知标签转为 span，避免无法显示
-  else if (!config.trustTags[node.name] && !this.xml) node.name = 'span';
-  if (node.name == 'a' || node.name == 'ad') this.expose();
-
-  // 列表处理
-  else if ((node.name == 'ul' || node.name == 'ol') && node.c) {
-    var types = {
-      a: 'lower-alpha',
-      A: 'upper-alpha',
-      i: 'lower-roman',
-      I: 'upper-roman'
-    };
-    if (types[attrs.type]) {
-      attrs.style += ";list-style-type:".concat(types[attrs.type]);
-      attrs.type = void 0;
-    }
-    for (var _i4 = children.length; _i4--;) {
-      if (children[_i4].name == 'li') children[_i4].c = 1;
-    }
-  } // 表格处理
-  else if (node.name == 'table') {
-    // cellpadding、cellspacing、border 这几个常用表格属性需要通过转换实现
-    var padding = parseFloat(attrs.cellpadding);
-    var spacing = parseFloat(attrs.cellspacing);
-    var border = parseFloat(attrs.border);
-    if (node.c) {
-      // padding 和 spacing 默认 2
-      if (isNaN(padding)) padding = 2;
-      if (isNaN(spacing)) spacing = 2;
-    }
-    if (border) attrs.style += ";border:".concat(border, "px solid gray");
-    if (node.flag && node.c) {
-      // 有 colspan 或 rowspan 且含有链接的表格通过 grid 布局实现
-      styleObj.display = 'grid';
-      if (spacing) {
-        styleObj['grid-gap'] = "".concat(spacing, "px");
-        styleObj.padding = "".concat(spacing, "px");
-      } // 无间隔的情况下避免边框重叠
-      else if (border) attrs.style += ';border-left:0;border-top:0';
-      var width = [];
-      // 表格的列宽
-      var trList = [];
-      // tr 列表
-      var cells = [];
-      // 保存新的单元格
-      var map = {}; // 被合并单元格占用的格子
-
-      (function traversal(nodes) {
-        for (var _i5 = 0; _i5 < nodes.length; _i5++) {
-          if (nodes[_i5].name == 'tr') trList.push(nodes[_i5]);else traversal(nodes[_i5].children || []);
-        }
-      })(children);
-      for (var row = 1; row <= trList.length; row++) {
-        var col = 1;
-        for (var j = 0; j < trList[row - 1].children.length; j++, col++) {
-          var td = trList[row - 1].children[j];
-          if (td.name == 'td' || td.name == 'th') {
-            // 这个格子被上面的单元格占用，则列号++
-            while (map["".concat(row, ".").concat(col)]) {
-              col++;
-            }
-            var _style2 = td.attrs.style || '';
-            var start = _style2.indexOf('width') ? _style2.indexOf(';width') : 0; // 提取出 td 的宽度
-
-            if (start != -1) {
-              var end = _style2.indexOf(';', start + 6);
-              if (end == -1) end = _style2.length;
-              if (!td.attrs.colspan) width[col] = _style2.substring(start ? start + 7 : 6, end);
-              _style2 = _style2.substr(0, start) + _style2.substr(end);
-            }
-            _style2 += (border ? ';border:'.concat(border, 'px solid gray') + (spacing ? '' : ';border-right:0;border-bottom:0') : '') + (padding ? ';padding:'.concat(padding, 'px') : ''); // 处理列合并
-
-            if (td.attrs.colspan) {
-              _style2 += ';grid-column-start:'.concat(col, ';grid-column-end:').concat(col + parseInt(td.attrs.colspan));
-              if (!td.attrs.rowspan) _style2 += ';grid-row-start:'.concat(row, ';grid-row-end:').concat(row + 1);
-              col += parseInt(td.attrs.colspan) - 1;
-            } // 处理行合并
-
-            if (td.attrs.rowspan) {
-              _style2 += ';grid-row-start:'.concat(row, ';grid-row-end:').concat(row + parseInt(td.attrs.rowspan));
-              if (!td.attrs.colspan) _style2 += ';grid-column-start:'.concat(col, ';grid-column-end:').concat(col + 1); // 记录下方单元格被占用
-
-              for (var k = 1; k < td.attrs.rowspan; k++) {
-                map["".concat(row + k, ".").concat(col)] = 1;
-              }
-            }
-            if (_style2) td.attrs.style = _style2;
-            cells.push(td);
-          }
-        }
-        if (row == 1) {
-          var temp = '';
-          for (var _i6 = 1; _i6 < col; _i6++) {
-            temp += "".concat(width[_i6] ? width[_i6] : 'auto', " ");
-          }
-          styleObj['grid-template-columns'] = temp;
-        }
-      }
-      node.children = cells;
-    } else {
-      // 没有使用合并单元格的表格通过 table 布局实现
-      if (node.c) styleObj.display = 'table';
-      if (!isNaN(spacing)) styleObj['border-spacing'] = "".concat(spacing, "px");
-      if (border || padding) {
-        // 遍历
-        (function traversal(nodes) {
-          for (var _i7 = 0; _i7 < nodes.length; _i7++) {
-            var _td = nodes[_i7];
-            if (_td.name == 'th' || _td.name == 'td') {
-              if (border) _td.attrs.style = 'border:'.concat(border, 'px solid gray;').concat(_td.attrs.style || '');
-              if (padding) _td.attrs.style = 'padding:'.concat(padding, 'px;').concat(_td.attrs.style || '');
-            } else if (_td.children) traversal(_td.children);
-          }
-        })(children);
-      }
-    } // 给表格添加一个单独的横向滚动层
-
-    if (this.options.scrollTable && !(attrs.style || '').includes('inline')) {
-      var table = _objectSpread({}, node);
-      node.name = 'div';
-      node.attrs = {
-        style: 'overflow:auto'
-      };
-      node.children = [table];
-      attrs = table.attrs;
-    }
-  } else if ((node.name == 'td' || node.name == 'th') && (attrs.colspan || attrs.rowspan)) {
-    for (var _i8 = this.stack.length; _i8--;) {
-      if (this.stack[_i8].name == 'table') {
-        this.stack[_i8].flag = 1; // 指示含有合并单元格
-
-        break;
-      }
-    }
-  } // 转换 ruby
-  else if (node.name == 'ruby') {
-    node.name = 'span';
-    for (var _i9 = 0; _i9 < children.length - 1; _i9++) {
-      if (children[_i9].type == 'text' && children[_i9 + 1].name == 'rt') {
-        children[_i9] = {
-          name: 'div',
-          attrs: {
-            style: 'display:inline-block'
-          },
-          children: [{
-            name: 'div',
-            attrs: {
-              style: 'font-size:50%;text-align:start'
-            },
-            children: children[_i9 + 1].children
-          }, children[_i9]]
-        };
-        children.splice(_i9 + 1, 1);
-      }
-    }
-  } else if (node.c) {
-    node.c = 2;
-    for (var _i10 = node.children.length; _i10--;) {
-      if (!node.children[_i10].c || node.children[_i10].name == 'table') node.c = 1;
-    }
-  }
-  if ((styleObj.display || '').includes('flex') && !node.c) {
-    for (var _i11 = children.length; _i11--;) {
-      var _item = children[_i11];
-      if (_item.f) {
-        _item.attrs.style = (_item.attrs.style || '') + _item.f;
-        _item.f = void 0;
-      }
-    }
-  } // flex 布局时部分样式需要提取到 rich-text 外层
-
-  var flex = parent && (parent.attrs.style || '').includes('flex')
-  // 检查基础库版本 virtualHost 是否可用
-  && !(node.c && wx.getNFCAdapter);
-  if (flex) node.f = ';max-width:100%';
-  for (var key in styleObj) {
-    if (styleObj[key]) {
-      var val = ';'.concat(key, ':').concat(styleObj[key].replace(' !important', ''));
-      if (flex && (key.includes('flex') && key != 'flex-direction' || key == 'align-self' || styleObj[key][0] == '-' || key == 'width' && val.includes('%'))) {
-        node.f += val;
-        if (key == 'width') attrs.style += ';width:100%';
-      } else {
-        attrs.style += val;
-      }
-    }
-  }
-  attrs.style = attrs.style.substr(1) || void 0;
-};
-/**
- * @description 解析到文本
- * @param {String} text 文本内容
- */
-
-parser.prototype.onText = function (text) {
-  if (!this.pre) {
-    // 合并空白符
-    var trim = '';
-    var flag;
-    for (var i = 0, len = text.length; i < len; i++) {
-      if (!blankChar[text[i]]) trim += text[i];else {
-        if (trim[trim.length - 1] != ' ') trim += ' ';
-        if (text[i] == '\n' && !flag) flag = true;
-      }
-    } // 去除含有换行符的空串
-
-    if (trim == ' ' && flag) return;
-    text = trim;
-  }
-  var node = Object.create(null);
-  node.type = 'text';
-  node.text = decodeEntity(text);
-  if (this.hook(node)) {
-    var siblings = this.stack.length ? this.stack[this.stack.length - 1].children : this.nodes;
-    siblings.push(node);
-  }
-};
-/**
- * @description html 词法分析器
- * @param {Object} handler 高层处理器
- */
-
-function lexer(handler) {
-  this.handler = handler;
-}
-/**
- * @description 执行解析
- * @param {String} content 要解析的文本
- */
-
-lexer.prototype.parse = function (content) {
-  this.content = content || '';
-  this.i = 0; // 标记解析位置
-
-  this.start = 0; // 标记一个单词的开始位置
-
-  this.state = this.text; // 当前状态
-
-  for (var len = this.content.length; this.i != -1 && this.i < len;) {
-    this.state();
-  }
-};
-/**
- * @description 检查标签是否闭合
- * @param {String} method 如果闭合要进行的操作
- * @returns {Boolean} 是否闭合
- * @private
- */
-
-lexer.prototype.checkClose = function (method) {
-  var selfClose = this.content[this.i] == '/';
-  if (this.content[this.i] == '>' || selfClose && this.content[this.i + 1] == '>') {
-    if (method) this.handler[method](this.content.substring(this.start, this.i));
-    this.i += selfClose ? 2 : 1;
-    this.start = this.i;
-    this.handler.onOpenTag(selfClose);
-    if (this.handler.tagName == 'script') {
-      this.i = this.content.indexOf('</', this.i);
-      if (this.i != -1) {
-        this.i += 2;
-        this.start = this.i;
-      }
-      this.state = this.endTag;
-    } else this.state = this.text;
-    return true;
-  }
-  return false;
-};
-/**
- * @description 文本状态
- * @private
- */
-
-lexer.prototype.text = function () {
-  this.i = this.content.indexOf('<', this.i); // 查找最近的标签
-
-  if (this.i == -1) {
-    // 没有标签了
-    if (this.start < this.content.length) this.handler.onText(this.content.substring(this.start, this.content.length));
-    return;
-  }
-  var c = this.content[this.i + 1];
-  if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
-    // 标签开头
-    if (this.start != this.i) this.handler.onText(this.content.substring(this.start, this.i));
-    this.start = ++this.i;
-    this.state = this.tagName;
-  } else if (c == '/' || c == '!' || c == '?') {
-    if (this.start != this.i) this.handler.onText(this.content.substring(this.start, this.i));
-    var next = this.content[this.i + 2];
-    if (c == '/' && (next >= 'a' && next <= 'z' || next >= 'A' && next <= 'Z')) {
-      // 标签结尾
-      this.i += 2;
-      this.start = this.i;
-      return this.state = this.endTag;
-    } // 处理注释
-
-    var end = '-->';
-    if (c != '!' || this.content[this.i + 2] != '-' || this.content[this.i + 3] != '-') end = '>';
-    this.i = this.content.indexOf(end, this.i);
-    if (this.i != -1) {
-      this.i += end.length;
-      this.start = this.i;
-    }
-  } else this.i++;
-};
-/**
- * @description 标签名状态
- * @private
- */
-
-lexer.prototype.tagName = function () {
-  if (blankChar[this.content[this.i]]) {
-    // 解析到标签名
-    this.handler.onTagName(this.content.substring(this.start, this.i));
-    while (blankChar[this.content[++this.i]]) {}
-    if (this.i < this.content.length && !this.checkClose()) {
-      this.start = this.i;
-      this.state = this.attrName;
-    }
-  } else if (!this.checkClose('onTagName')) this.i++;
-};
-/**
- * @description 属性名状态
- * @private
- */
-
-lexer.prototype.attrName = function () {
-  var c = this.content[this.i];
-  if (blankChar[c] || c == '=') {
-    // 解析到属性名
-    this.handler.onAttrName(this.content.substring(this.start, this.i));
-    var needVal = c == '=';
-    var len = this.content.length;
-    while (++this.i < len) {
-      c = this.content[this.i];
-      if (!blankChar[c]) {
-        if (this.checkClose()) return;
-        if (needVal) {
-          // 等号后遇到第一个非空字符
-          this.start = this.i;
-          return this.state = this.attrVal;
-        }
-        if (this.content[this.i] == '=') needVal = true;else {
-          this.start = this.i;
-          return this.state = this.attrName;
-        }
-      }
-    }
-  } else if (!this.checkClose('onAttrName')) this.i++;
-};
-/**
- * @description 属性值状态
- * @private
- */
-
-lexer.prototype.attrVal = function () {
-  var c = this.content[this.i];
-  var len = this.content.length; // 有冒号的属性
-
-  if (c == '"' || c == "'") {
-    this.start = ++this.i;
-    this.i = this.content.indexOf(c, this.i);
-    if (this.i == -1) return;
-    this.handler.onAttrVal(this.content.substring(this.start, this.i));
-  } // 没有冒号的属性
-  else {
-    for (; this.i < len; this.i++) {
-      if (blankChar[this.content[this.i]]) {
-        this.handler.onAttrVal(this.content.substring(this.start, this.i));
-        break;
-      } else if (this.checkClose('onAttrVal')) return;
-    }
-  }
-  while (blankChar[this.content[++this.i]]) {}
-  if (this.i < len && !this.checkClose()) {
-    this.start = this.i;
-    this.state = this.attrName;
-  }
-};
-/**
- * @description 结束标签状态
- * @returns {String} 结束的标签名
- * @private
- */
-
-lexer.prototype.endTag = function () {
-  var c = this.content[this.i];
-  if (blankChar[c] || c == '>' || c == '/') {
-    this.handler.onCloseTag(this.content.substring(this.start, this.i));
-    if (c != '>') {
-      this.i = this.content.indexOf('>', this.i);
-      if (this.i == -1) return;
-    }
-    this.start = ++this.i;
-    this.state = this.text;
-  } else this.i++;
-};
-module.exports = parser;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
-
-/***/ }),
-/* 493 */,
-/* 494 */,
-/* 495 */,
-/* 496 */,
-/* 497 */,
-/* 498 */,
-/* 499 */,
-/* 500 */,
-/* 501 */,
-/* 502 */,
-/* 503 */,
-/* 504 */,
-/* 505 */
-/*!***********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-icon/icons.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  'uicon-level': "\uE693",
-  'uicon-column-line': "\uE68E",
-  'uicon-checkbox-mark': "\uE807",
-  'uicon-folder': "\uE7F5",
-  'uicon-movie': "\uE7F6",
-  'uicon-star-fill': "\uE669",
-  'uicon-star': "\uE65F",
-  'uicon-phone-fill': "\uE64F",
-  'uicon-phone': "\uE622",
-  'uicon-apple-fill': "\uE881",
-  'uicon-chrome-circle-fill': "\uE885",
-  'uicon-backspace': "\uE67B",
-  'uicon-attach': "\uE632",
-  'uicon-cut': "\uE948",
-  'uicon-empty-car': "\uE602",
-  'uicon-empty-coupon': "\uE682",
-  'uicon-empty-address': "\uE646",
-  'uicon-empty-favor': "\uE67C",
-  'uicon-empty-permission': "\uE686",
-  'uicon-empty-news': "\uE687",
-  'uicon-empty-search': "\uE664",
-  'uicon-github-circle-fill': "\uE887",
-  'uicon-rmb': "\uE608",
-  'uicon-person-delete-fill': "\uE66A",
-  'uicon-reload': "\uE788",
-  'uicon-order': "\uE68F",
-  'uicon-server-man': "\uE6BC",
-  'uicon-search': "\uE62A",
-  'uicon-fingerprint': "\uE955",
-  'uicon-more-dot-fill': "\uE630",
-  'uicon-scan': "\uE662",
-  'uicon-share-square': "\uE60B",
-  'uicon-map': "\uE61D",
-  'uicon-map-fill': "\uE64E",
-  'uicon-tags': "\uE629",
-  'uicon-tags-fill': "\uE651",
-  'uicon-bookmark-fill': "\uE63B",
-  'uicon-bookmark': "\uE60A",
-  'uicon-eye': "\uE613",
-  'uicon-eye-fill': "\uE641",
-  'uicon-mic': "\uE64A",
-  'uicon-mic-off': "\uE649",
-  'uicon-calendar': "\uE66E",
-  'uicon-calendar-fill': "\uE634",
-  'uicon-trash': "\uE623",
-  'uicon-trash-fill': "\uE658",
-  'uicon-play-left': "\uE66D",
-  'uicon-play-right': "\uE610",
-  'uicon-minus': "\uE618",
-  'uicon-plus': "\uE62D",
-  'uicon-info': "\uE653",
-  'uicon-info-circle': "\uE7D2",
-  'uicon-info-circle-fill': "\uE64B",
-  'uicon-question': "\uE715",
-  'uicon-error': "\uE6D3",
-  'uicon-close': "\uE685",
-  'uicon-checkmark': "\uE6A8",
-  'uicon-android-circle-fill': "\uE67E",
-  'uicon-android-fill': "\uE67D",
-  'uicon-ie': "\uE87B",
-  'uicon-IE-circle-fill': "\uE889",
-  'uicon-google': "\uE87A",
-  'uicon-google-circle-fill': "\uE88A",
-  'uicon-setting-fill': "\uE872",
-  'uicon-setting': "\uE61F",
-  'uicon-minus-square-fill': "\uE855",
-  'uicon-plus-square-fill': "\uE856",
-  'uicon-heart': "\uE7DF",
-  'uicon-heart-fill': "\uE851",
-  'uicon-camera': "\uE7D7",
-  'uicon-camera-fill': "\uE870",
-  'uicon-more-circle': "\uE63E",
-  'uicon-more-circle-fill': "\uE645",
-  'uicon-chat': "\uE620",
-  'uicon-chat-fill': "\uE61E",
-  'uicon-bag-fill': "\uE617",
-  'uicon-bag': "\uE619",
-  'uicon-error-circle-fill': "\uE62C",
-  'uicon-error-circle': "\uE624",
-  'uicon-close-circle': "\uE63F",
-  'uicon-close-circle-fill': "\uE637",
-  'uicon-checkmark-circle': "\uE63D",
-  'uicon-checkmark-circle-fill': "\uE635",
-  'uicon-question-circle-fill': "\uE666",
-  'uicon-question-circle': "\uE625",
-  'uicon-share': "\uE631",
-  'uicon-share-fill': "\uE65E",
-  'uicon-shopping-cart': "\uE621",
-  'uicon-shopping-cart-fill': "\uE65D",
-  'uicon-bell': "\uE609",
-  'uicon-bell-fill': "\uE640",
-  'uicon-list': "\uE650",
-  'uicon-list-dot': "\uE616",
-  'uicon-zhihu': "\uE6BA",
-  'uicon-zhihu-circle-fill': "\uE709",
-  'uicon-zhifubao': "\uE6B9",
-  'uicon-zhifubao-circle-fill': "\uE6B8",
-  'uicon-weixin-circle-fill': "\uE6B1",
-  'uicon-weixin-fill': "\uE6B2",
-  'uicon-twitter-circle-fill': "\uE6AB",
-  'uicon-twitter': "\uE6AA",
-  'uicon-taobao-circle-fill': "\uE6A7",
-  'uicon-taobao': "\uE6A6",
-  'uicon-weibo-circle-fill': "\uE6A5",
-  'uicon-weibo': "\uE6A4",
-  'uicon-qq-fill': "\uE6A1",
-  'uicon-qq-circle-fill': "\uE6A0",
-  'uicon-moments-circel-fill': "\uE69A",
-  'uicon-moments': "\uE69B",
-  'uicon-qzone': "\uE695",
-  'uicon-qzone-circle-fill': "\uE696",
-  'uicon-baidu-circle-fill': "\uE680",
-  'uicon-baidu': "\uE681",
-  'uicon-facebook-circle-fill': "\uE68A",
-  'uicon-facebook': "\uE689",
-  'uicon-car': "\uE60C",
-  'uicon-car-fill': "\uE636",
-  'uicon-warning-fill': "\uE64D",
-  'uicon-warning': "\uE694",
-  'uicon-clock-fill': "\uE638",
-  'uicon-clock': "\uE60F",
-  'uicon-edit-pen': "\uE612",
-  'uicon-edit-pen-fill': "\uE66B",
-  'uicon-email': "\uE611",
-  'uicon-email-fill': "\uE642",
-  'uicon-minus-circle': "\uE61B",
-  'uicon-minus-circle-fill': "\uE652",
-  'uicon-plus-circle': "\uE62E",
-  'uicon-plus-circle-fill': "\uE661",
-  'uicon-file-text': "\uE663",
-  'uicon-file-text-fill': "\uE665",
-  'uicon-pushpin': "\uE7E3",
-  'uicon-pushpin-fill': "\uE86E",
-  'uicon-grid': "\uE673",
-  'uicon-grid-fill': "\uE678",
-  'uicon-play-circle': "\uE647",
-  'uicon-play-circle-fill': "\uE655",
-  'uicon-pause-circle-fill': "\uE654",
-  'uicon-pause': "\uE8FA",
-  'uicon-pause-circle': "\uE643",
-  'uicon-eye-off': "\uE648",
-  'uicon-eye-off-outline': "\uE62B",
-  'uicon-gift-fill': "\uE65C",
-  'uicon-gift': "\uE65B",
-  'uicon-rmb-circle-fill': "\uE657",
-  'uicon-rmb-circle': "\uE677",
-  'uicon-kefu-ermai': "\uE656",
-  'uicon-server-fill': "\uE751",
-  'uicon-coupon-fill': "\uE8C4",
-  'uicon-coupon': "\uE8AE",
-  'uicon-integral': "\uE704",
-  'uicon-integral-fill': "\uE703",
-  'uicon-home-fill': "\uE964",
-  'uicon-home': "\uE965",
-  'uicon-hourglass-half-fill': "\uE966",
-  'uicon-hourglass': "\uE967",
-  'uicon-account': "\uE628",
-  'uicon-plus-people-fill': "\uE626",
-  'uicon-minus-people-fill': "\uE615",
-  'uicon-account-fill': "\uE614",
-  'uicon-thumb-down-fill': "\uE726",
-  'uicon-thumb-down': "\uE727",
-  'uicon-thumb-up': "\uE733",
-  'uicon-thumb-up-fill': "\uE72F",
-  'uicon-lock-fill': "\uE979",
-  'uicon-lock-open': "\uE973",
-  'uicon-lock-opened-fill': "\uE974",
-  'uicon-lock': "\uE97A",
-  'uicon-red-packet-fill': "\uE690",
-  'uicon-photo-fill': "\uE98B",
-  'uicon-photo': "\uE98D",
-  'uicon-volume-off-fill': "\uE659",
-  'uicon-volume-off': "\uE644",
-  'uicon-volume-fill': "\uE670",
-  'uicon-volume': "\uE633",
-  'uicon-red-packet': "\uE691",
-  'uicon-download': "\uE63C",
-  'uicon-arrow-up-fill': "\uE6B0",
-  'uicon-arrow-down-fill': "\uE600",
-  'uicon-play-left-fill': "\uE675",
-  'uicon-play-right-fill': "\uE676",
-  'uicon-rewind-left-fill': "\uE679",
-  'uicon-rewind-right-fill': "\uE67A",
-  'uicon-arrow-downward': "\uE604",
-  'uicon-arrow-leftward': "\uE601",
-  'uicon-arrow-rightward': "\uE603",
-  'uicon-arrow-upward': "\uE607",
-  'uicon-arrow-down': "\uE60D",
-  'uicon-arrow-right': "\uE605",
-  'uicon-arrow-left': "\uE60E",
-  'uicon-arrow-up': "\uE606",
-  'uicon-skip-back-left': "\uE674",
-  'uicon-skip-forward-right': "\uE672",
-  'uicon-rewind-right': "\uE66F",
-  'uicon-rewind-left': "\uE671",
-  'uicon-arrow-right-double': "\uE68D",
-  'uicon-arrow-left-double': "\uE68C",
-  'uicon-wifi-off': "\uE668",
-  'uicon-wifi': "\uE667",
-  'uicon-empty-data': "\uE62F",
-  'uicon-empty-history': "\uE684",
-  'uicon-empty-list': "\uE68B",
-  'uicon-empty-page': "\uE627",
-  'uicon-empty-order': "\uE639",
-  'uicon-man': "\uE697",
-  'uicon-woman': "\uE69C",
-  'uicon-man-add': "\uE61C",
-  'uicon-man-add-fill': "\uE64C",
-  'uicon-man-delete': "\uE61A",
-  'uicon-man-delete-fill': "\uE66A",
-  'uicon-zh': "\uE70A",
-  'uicon-en': "\uE692"
-};
-exports.default = _default;
-
-/***/ }),
-/* 506 */
-/*!***********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-icon/props.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 图标类名
-    name: {
-      type: String,
-      default: uni.$u.props.icon.name
-    },
-    // 图标颜色，可接受主题色
-    color: {
-      type: String,
-      default: uni.$u.props.icon.color
-    },
-    // 字体大小，单位px
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.icon.size
-    },
-    // 是否显示粗体
-    bold: {
-      type: Boolean,
-      default: uni.$u.props.icon.bold
-    },
-    // 点击图标的时候传递事件出去的index（用于区分点击了哪一个）
-    index: {
-      type: [String, Number],
-      default: uni.$u.props.icon.index
-    },
-    // 触摸图标时的类名
-    hoverClass: {
-      type: String,
-      default: uni.$u.props.icon.hoverClass
-    },
-    // 自定义扩展前缀，方便用户扩展自己的图标库
-    customPrefix: {
-      type: String,
-      default: uni.$u.props.icon.customPrefix
-    },
-    // 图标右边或者下面的文字
-    label: {
-      type: [String, Number],
-      default: uni.$u.props.icon.label
-    },
-    // label的位置，只能右边或者下边
-    labelPos: {
-      type: String,
-      default: uni.$u.props.icon.labelPos
-    },
-    // label的大小
-    labelSize: {
-      type: [String, Number],
-      default: uni.$u.props.icon.labelSize
-    },
-    // label的颜色
-    labelColor: {
-      type: String,
-      default: uni.$u.props.icon.labelColor
-    },
-    // label与图标的距离
-    space: {
-      type: [String, Number],
-      default: uni.$u.props.icon.space
-    },
-    // 图片的mode
-    imgMode: {
-      type: String,
-      default: uni.$u.props.icon.imgMode
-    },
-    // 用于显示图片小图标时，图片的宽度
-    width: {
-      type: [String, Number],
-      default: uni.$u.props.icon.width
-    },
-    // 用于显示图片小图标时，图片的高度
-    height: {
-      type: [String, Number],
-      default: uni.$u.props.icon.height
-    },
-    // 用于解决某些情况下，让图标垂直居中的用途
-    top: {
-      type: [String, Number],
-      default: uni.$u.props.icon.top
-    },
-    // 是否阻止事件传播
-    stop: {
-      type: Boolean,
-      default: uni.$u.props.icon.stop
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 507 */,
-/* 508 */,
-/* 509 */,
-/* 510 */,
-/* 511 */,
-/* 512 */,
-/* 513 */,
-/* 514 */
-/*!***************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-calendar/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 日历顶部标题
-    title: {
-      type: String,
-      default: uni.$u.props.calendar.title
-    },
-    // 是否显示标题
-    showTitle: {
-      type: Boolean,
-      default: uni.$u.props.calendar.showTitle
-    },
-    // 是否显示副标题
-    showSubtitle: {
-      type: Boolean,
-      default: uni.$u.props.calendar.showSubtitle
-    },
-    // 日期类型选择，single-选择单个日期，multiple-可以选择多个日期，range-选择日期范围
-    mode: {
-      type: String,
-      default: uni.$u.props.calendar.mode
-    },
-    // mode=range时，第一个日期底部的提示文字
-    startText: {
-      type: String,
-      default: uni.$u.props.calendar.startText
-    },
-    // mode=range时，最后一个日期底部的提示文字
-    endText: {
-      type: String,
-      default: uni.$u.props.calendar.endText
-    },
-    // 自定义列表
-    customList: {
-      type: Array,
-      default: uni.$u.props.calendar.customList
-    },
-    // 主题色，对底部按钮和选中日期有效
-    color: {
-      type: String,
-      default: uni.$u.props.calendar.color
-    },
-    // 最小的可选日期
-    minDate: {
-      type: [String, Number],
-      default: uni.$u.props.calendar.minDate
-    },
-    // 最大可选日期
-    maxDate: {
-      type: [String, Number],
-      default: uni.$u.props.calendar.maxDate
-    },
-    // 默认选中的日期，mode为multiple或range是必须为数组格式
-    defaultDate: {
-      type: [Array, String, Date, null],
-      default: uni.$u.props.calendar.defaultDate
-    },
-    // mode=multiple时，最多可选多少个日期
-    maxCount: {
-      type: [String, Number],
-      default: uni.$u.props.calendar.maxCount
-    },
-    // 日期行高
-    rowHeight: {
-      type: [String, Number],
-      default: uni.$u.props.calendar.rowHeight
-    },
-    // 日期格式化函数
-    formatter: {
-      type: [Function, null],
-      default: uni.$u.props.calendar.formatter
-    },
-    // 是否显示农历
-    showLunar: {
-      type: Boolean,
-      default: uni.$u.props.calendar.showLunar
-    },
-    // 是否显示月份背景色
-    showMark: {
-      type: Boolean,
-      default: uni.$u.props.calendar.showMark
-    },
-    // 确定按钮的文字
-    confirmText: {
-      type: String,
-      default: uni.$u.props.calendar.confirmText
-    },
-    // 确认按钮处于禁用状态时的文字
-    confirmDisabledText: {
-      type: String,
-      default: uni.$u.props.calendar.confirmDisabledText
-    },
-    // 是否显示日历弹窗
-    show: {
-      type: Boolean,
-      default: uni.$u.props.calendar.show
-    },
-    // 是否允许点击遮罩关闭日历
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.calendar.closeOnClickOverlay
-    },
-    // 是否为只读状态，只读状态下禁止选择日期
-    readonly: {
-      type: Boolean,
-      default: uni.$u.props.calendar.readonly
-    },
-    // 	是否展示确认按钮
-    showConfirm: {
-      type: Boolean,
-      default: uni.$u.props.calendar.showConfirm
-    },
-    // 日期区间最多可选天数，默认无限制，mode = range时有效
-    maxRange: {
-      type: [Number, String],
-      default: uni.$u.props.calendar.maxRange
-    },
-    // 范围选择超过最多可选天数时的提示文案，mode = range时有效
-    rangePrompt: {
-      type: String,
-      default: uni.$u.props.calendar.rangePrompt
-    },
-    // 范围选择超过最多可选天数时，是否展示提示文案，mode = range时有效
-    showRangePrompt: {
-      type: Boolean,
-      default: uni.$u.props.calendar.showRangePrompt
-    },
-    // 是否允许日期范围的起止时间为同一天，mode = range时有效
-    allowSameDay: {
-      type: Boolean,
-      default: uni.$u.props.calendar.allowSameDay
-    },
-    // 圆角值
-    round: {
-      type: [Boolean, String, Number],
-      default: uni.$u.props.calendar.round
-    },
-    // 最多展示月份数量
-    monthNum: {
-      type: [Number, String],
-      default: 3
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 515 */
-/*!**************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-calendar/util.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-var _default = {
-  methods: {
-    // 设置月份数据
-    setMonth: function setMonth() {
-      var _this = this;
-      // 月初是周几
-      var day = dayjs(this.date).date(1).day();
-      var start = day == 0 ? 6 : day - 1;
-
-      // 本月天数
-      var days = dayjs(this.date).endOf('month').format('D');
-
-      // 上个月天数
-      var prevDays = dayjs(this.date).endOf('month').subtract(1, 'month').format('D');
-
-      // 日期数据
-      var arr = [];
-      // 清空表格
-      this.month = [];
-
-      // 添加上月数据
-      arr.push.apply(arr, (0, _toConsumableArray2.default)(new Array(start).fill(1).map(function (e, i) {
-        var day = prevDays - start + i + 1;
-        return {
-          value: day,
-          disabled: true,
-          date: dayjs(_this.date).subtract(1, 'month').date(day).format('YYYY-MM-DD')
-        };
-      })));
-
-      // 添加本月数据
-      arr.push.apply(arr, (0, _toConsumableArray2.default)(new Array(days - 0).fill(1).map(function (e, i) {
-        var day = i + 1;
-        return {
-          value: day,
-          date: dayjs(_this.date).date(day).format('YYYY-MM-DD')
-        };
-      })));
-
-      // 添加下个月
-      arr.push.apply(arr, (0, _toConsumableArray2.default)(new Array(42 - days - start).fill(1).map(function (e, i) {
-        var day = i + 1;
-        return {
-          value: day,
-          disabled: true,
-          date: dayjs(_this.date).add(1, 'month').date(day).format('YYYY-MM-DD')
-        };
-      })));
-
-      // 分割数组
-      var _loop = function _loop(n) {
-        _this.month.push(arr.slice(n, n + 7).map(function (e, i) {
-          e.index = i + n;
-
-          // 自定义信息
-          var custom = _this.customList.find(function (c) {
-            return c.date == e.date;
-          });
-
-          // 农历
-          if (_this.lunar) {
-            var _this$getLunar = _this.getLunar(e.date),
-              IDayCn = _this$getLunar.IDayCn,
-              IMonthCn = _this$getLunar.IMonthCn;
-            e.lunar = IDayCn == '初一' ? IMonthCn : IDayCn;
-          }
-          return _objectSpread(_objectSpread({}, e), custom);
-        }));
-      };
-      for (var n = 0; n < arr.length; n += 7) {
-        _loop(n);
-      }
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 516 */
-/*!***************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/util/dayjs.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
-!function (t, e) {
-  ( false ? undefined : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = e() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (e),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
-}(this, function () {
-  'use strict';
-
-  var t = 'millisecond';
-  var e = 'second';
-  var n = 'minute';
-  var r = 'hour';
-  var i = 'day';
-  var s = 'week';
-  var u = 'month';
-  var a = 'quarter';
-  var o = 'year';
-  var f = 'date';
-  var h = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d+)?$/;
-  var c = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g;
-  var d = {
-    name: 'en',
-    weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
-    months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_')
-  };
-  var $ = function $(t, e, n) {
-    var r = String(t);
-    return !r || r.length >= e ? t : "".concat(Array(e + 1 - r.length).join(n)).concat(t);
-  };
-  var l = {
-    s: $,
-    z: function z(t) {
-      var e = -t.utcOffset();
-      var n = Math.abs(e);
-      var r = Math.floor(n / 60);
-      var i = n % 60;
-      return "".concat((e <= 0 ? '+' : '-') + $(r, 2, '0'), ":").concat($(i, 2, '0'));
-    },
-    m: function t(e, n) {
-      if (e.date() < n.date()) return -t(n, e);
-      var r = 12 * (n.year() - e.year()) + (n.month() - e.month());
-      var i = e.clone().add(r, u);
-      var s = n - i < 0;
-      var a = e.clone().add(r + (s ? -1 : 1), u);
-      return +(-(r + (n - i) / (s ? i - a : a - i)) || 0);
-    },
-    a: function a(t) {
-      return t < 0 ? Math.ceil(t) || 0 : Math.floor(t);
-    },
-    p: function p(h) {
-      return {
-        M: u,
-        y: o,
-        w: s,
-        d: i,
-        D: f,
-        h: r,
-        m: n,
-        s: e,
-        ms: t,
-        Q: a
-      }[h] || String(h || '').toLowerCase().replace(/s$/, '');
-    },
-    u: function u(t) {
-      return void 0 === t;
-    }
-  };
-  var y = 'en';
-  var M = {};
-  M[y] = d;
-  var m = function m(t) {
-    return t instanceof S;
-  };
-  var D = function D(t, e, n) {
-    var r;
-    if (!t) return y;
-    if (typeof t === 'string') M[t] && (r = t), e && (M[t] = e, r = t);else {
-      var _i = t.name;
-      M[_i] = t, r = _i;
-    }
-    return !n && r && (y = r), r || !n && y;
-  };
-  var v = function v(t, e) {
-    if (m(t)) return t.clone();
-    var n = _typeof(e) === 'object' ? e : {};
-    return n.date = t, n.args = arguments, new S(n);
-  };
-  var g = l;
-  g.l = D, g.i = m, g.w = function (t, e) {
-    return v(t, {
-      locale: e.$L,
-      utc: e.$u,
-      x: e.$x,
-      $offset: e.$offset
-    });
-  };
-  var S = function () {
-    function d(t) {
-      this.$L = D(t.locale, null, !0), this.parse(t);
-    }
-    var $ = d.prototype;
-    return $.parse = function (t) {
-      this.$d = function (t) {
-        var e = t.date;
-        var n = t.utc;
-        if (e === null) return new Date(NaN);
-        if (g.u(e)) return new Date();
-        if (e instanceof Date) return new Date(e);
-        if (typeof e === 'string' && !/Z$/i.test(e)) {
-          var _r = e.match(h);
-          if (_r) {
-            var _i2 = _r[2] - 1 || 0;
-            var _s = (_r[7] || '0').substring(0, 3);
-            return n ? new Date(Date.UTC(_r[1], _i2, _r[3] || 1, _r[4] || 0, _r[5] || 0, _r[6] || 0, _s)) : new Date(_r[1], _i2, _r[3] || 1, _r[4] || 0, _r[5] || 0, _r[6] || 0, _s);
-          }
-        }
-        return new Date(e);
-      }(t), this.$x = t.x || {}, this.init();
-    }, $.init = function () {
-      var t = this.$d;
-      this.$y = t.getFullYear(), this.$M = t.getMonth(), this.$D = t.getDate(), this.$W = t.getDay(), this.$H = t.getHours(), this.$m = t.getMinutes(), this.$s = t.getSeconds(), this.$ms = t.getMilliseconds();
-    }, $.$utils = function () {
-      return g;
-    }, $.isValid = function () {
-      return !(this.$d.toString() === 'Invalid Date');
-    }, $.isSame = function (t, e) {
-      var n = v(t);
-      return this.startOf(e) <= n && n <= this.endOf(e);
-    }, $.isAfter = function (t, e) {
-      return v(t) < this.startOf(e);
-    }, $.isBefore = function (t, e) {
-      return this.endOf(e) < v(t);
-    }, $.$g = function (t, e, n) {
-      return g.u(t) ? this[e] : this.set(n, t);
-    }, $.unix = function () {
-      return Math.floor(this.valueOf() / 1e3);
-    }, $.valueOf = function () {
-      return this.$d.getTime();
-    }, $.startOf = function (t, a) {
-      var h = this;
-      var c = !!g.u(a) || a;
-      var d = g.p(t);
-      var $ = function $(t, e) {
-        var n = g.w(h.$u ? Date.UTC(h.$y, e, t) : new Date(h.$y, e, t), h);
-        return c ? n : n.endOf(i);
-      };
-      var l = function l(t, e) {
-        return g.w(h.toDate()[t].apply(h.toDate('s'), (c ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)), h);
-      };
-      var y = this.$W;
-      var M = this.$M;
-      var m = this.$D;
-      var D = "set".concat(this.$u ? 'UTC' : '');
-      switch (d) {
-        case o:
-          return c ? $(1, 0) : $(31, 11);
-        case u:
-          return c ? $(1, M) : $(0, M + 1);
-        case s:
-          var v = this.$locale().weekStart || 0;
-          var S = (y < v ? y + 7 : y) - v;
-          return $(c ? m - S : m + (6 - S), M);
-        case i:
-        case f:
-          return l("".concat(D, "Hours"), 0);
-        case r:
-          return l("".concat(D, "Minutes"), 1);
-        case n:
-          return l("".concat(D, "Seconds"), 2);
-        case e:
-          return l("".concat(D, "Milliseconds"), 3);
-        default:
-          return this.clone();
-      }
-    }, $.endOf = function (t) {
-      return this.startOf(t, !1);
-    }, $.$set = function (s, a) {
-      var h;
-      var c = g.p(s);
-      var d = "set".concat(this.$u ? 'UTC' : '');
-      var $ = (h = {}, h[i] = "".concat(d, "Date"), h[f] = "".concat(d, "Date"), h[u] = "".concat(d, "Month"), h[o] = "".concat(d, "FullYear"), h[r] = "".concat(d, "Hours"), h[n] = "".concat(d, "Minutes"), h[e] = "".concat(d, "Seconds"), h[t] = "".concat(d, "Milliseconds"), h)[c];
-      var l = c === i ? this.$D + (a - this.$W) : a;
-      if (c === u || c === o) {
-        var _y = this.clone().set(f, 1);
-        _y.$d[$](l), _y.init(), this.$d = _y.set(f, Math.min(this.$D, _y.daysInMonth())).$d;
-      } else $ && this.$d[$](l);
-      return this.init(), this;
-    }, $.set = function (t, e) {
-      return this.clone().$set(t, e);
-    }, $.get = function (t) {
-      return this[g.p(t)]();
-    }, $.add = function (t, a) {
-      var f;
-      var h = this;
-      t = Number(t);
-      var c = g.p(a);
-      var d = function d(e) {
-        var n = v(h);
-        return g.w(n.date(n.date() + Math.round(e * t)), h);
-      };
-      if (c === u) return this.set(u, this.$M + t);
-      if (c === o) return this.set(o, this.$y + t);
-      if (c === i) return d(1);
-      if (c === s) return d(7);
-      var $ = (f = {}, f[n] = 6e4, f[r] = 36e5, f[e] = 1e3, f)[c] || 1;
-      var l = this.$d.getTime() + t * $;
-      return g.w(l, this);
-    }, $.subtract = function (t, e) {
-      return this.add(-1 * t, e);
-    }, $.format = function (t) {
-      var e = this;
-      if (!this.isValid()) return 'Invalid Date';
-      var n = t || 'YYYY-MM-DDTHH:mm:ssZ';
-      var r = g.z(this);
-      var i = this.$locale();
-      var s = this.$H;
-      var u = this.$m;
-      var a = this.$M;
-      var o = i.weekdays;
-      var f = i.months;
-      var h = function h(t, r, i, s) {
-        return t && (t[r] || t(e, n)) || i[r].substr(0, s);
-      };
-      var d = function d(t) {
-        return g.s(s % 12 || 12, t, '0');
-      };
-      var $ = i.meridiem || function (t, e, n) {
-        var r = t < 12 ? 'AM' : 'PM';
-        return n ? r.toLowerCase() : r;
-      };
-      var l = {
-        YY: String(this.$y).slice(-2),
-        YYYY: this.$y,
-        M: a + 1,
-        MM: g.s(a + 1, 2, '0'),
-        MMM: h(i.monthsShort, a, f, 3),
-        MMMM: h(f, a),
-        D: this.$D,
-        DD: g.s(this.$D, 2, '0'),
-        d: String(this.$W),
-        dd: h(i.weekdaysMin, this.$W, o, 2),
-        ddd: h(i.weekdaysShort, this.$W, o, 3),
-        dddd: o[this.$W],
-        H: String(s),
-        HH: g.s(s, 2, '0'),
-        h: d(1),
-        hh: d(2),
-        a: $(s, u, !0),
-        A: $(s, u, !1),
-        m: String(u),
-        mm: g.s(u, 2, '0'),
-        s: String(this.$s),
-        ss: g.s(this.$s, 2, '0'),
-        SSS: g.s(this.$ms, 3, '0'),
-        Z: r
-      };
-      return n.replace(c, function (t, e) {
-        return e || l[t] || r.replace(':', '');
-      });
-    }, $.utcOffset = function () {
-      return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
-    }, $.diff = function (t, f, h) {
-      var c;
-      var d = g.p(f);
-      var $ = v(t);
-      var l = 6e4 * ($.utcOffset() - this.utcOffset());
-      var y = this - $;
-      var M = g.m(this, $);
-      return M = (c = {}, c[o] = M / 12, c[u] = M, c[a] = M / 3, c[s] = (y - l) / 6048e5, c[i] = (y - l) / 864e5, c[r] = y / 36e5, c[n] = y / 6e4, c[e] = y / 1e3, c)[d] || y, h ? M : g.a(M);
-    }, $.daysInMonth = function () {
-      return this.endOf(u).$D;
-    }, $.$locale = function () {
-      return M[this.$L];
-    }, $.locale = function (t, e) {
-      if (!t) return this.$L;
-      var n = this.clone();
-      var r = D(t, e, !0);
-      return r && (n.$L = r), n;
-    }, $.clone = function () {
-      return g.w(this.$d, this);
-    }, $.toDate = function () {
-      return new Date(this.valueOf());
-    }, $.toJSON = function () {
-      return this.isValid() ? this.toISOString() : null;
-    }, $.toISOString = function () {
-      return this.$d.toISOString();
-    }, $.toString = function () {
-      return this.$d.toUTCString();
-    }, d;
-  }();
-  var p = S.prototype;
-  return v.prototype = p, [['$ms', t], ['$s', e], ['$m', n], ['$H', r], ['$W', i], ['$M', u], ['$y', o], ['$D', f]].forEach(function (t) {
-    p[t[1]] = function (e) {
-      return this.$g(e, t[0], t[1]);
-    };
-  }), v.extend = function (t, e) {
-    return t.$i || (t(e, S, v), t.$i = !0), v;
-  }, v.locale = D, v.isDayjs = m, v.unix = function (t) {
-    return v(1e3 * t);
-  }, v.en = M[y], v.Ls = M, v.p = {}, v;
-});
-
-/***/ }),
-/* 517 */
-/*!******************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/util/calendar.js ***!
-  \******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-/**
-* @1900-2100区间内的公历、农历互转
-* @charset UTF-8
-* @github  https://github.com/jjonline/calendar.js
-* @Author  Jea杨(JJonline@JJonline.Cn)
-* @Time    2014-7-21
-* @Time    2016-8-13 Fixed 2033hex、Attribution Annals
-* @Time    2016-9-25 Fixed lunar LeapMonth Param Bug
-* @Time    2017-7-24 Fixed use getTerm Func Param Error.use solar year,NOT lunar year
-* @Version 1.0.3
-* @公历转农历：calendar.solar2lunar(1987,11,01); //[you can ignore params of prefix 0]
-* @农历转公历：calendar.lunar2solar(1987,09,10); //[you can ignore params of prefix 0]
-*/
-/* eslint-disable */
-var calendar = {
-  /**
-      * 农历1900-2100的润大小信息表
-      * @Array Of Property
-      * @return Hex
-      */
-  lunarInfo: [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
-  // 1900-1909
-  0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
-  // 1910-1919
-  0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
-  // 1920-1929
-  0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
-  // 1930-1939
-  0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
-  // 1940-1949
-  0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0,
-  // 1950-1959
-  0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
-  // 1960-1969
-  0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0, 0x195a6,
-  // 1970-1979
-  0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
-  // 1980-1989
-  0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x05ac0, 0x0ab60, 0x096d5, 0x092e0,
-  // 1990-1999
-  0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
-  // 2000-2009
-  0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
-  // 2010-2019
-  0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
-  // 2020-2029
-  0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
-  // 2030-2039
-  0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0,
-  // 2040-2049
-  /** Add By JJonline@JJonline.Cn**/
-  0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0,
-  // 2050-2059
-  0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4,
-  // 2060-2069
-  0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0,
-  // 2070-2079
-  0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d160,
-  // 2080-2089
-  0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a2d0, 0x0d150, 0x0f252,
-  // 2090-2099
-  0x0d520],
-  // 2100
-
-  /**
-      * 公历每个月份的天数普通表
-      * @Array Of Property
-      * @return Number
-      */
-  solarMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-  /**
-      * 天干地支之天干速查表
-      * @Array Of Property trans["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]
-      * @return Cn string
-      */
-  Gan: ["\u7532", "\u4E59", "\u4E19", "\u4E01", "\u620A", "\u5DF1", "\u5E9A", "\u8F9B", "\u58EC", "\u7678"],
-  /**
-      * 天干地支之地支速查表
-      * @Array Of Property
-      * @trans["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]
-      * @return Cn string
-      */
-  Zhi: ["\u5B50", "\u4E11", "\u5BC5", "\u536F", "\u8FB0", "\u5DF3", "\u5348", "\u672A", "\u7533", "\u9149", "\u620C", "\u4EA5"],
-  /**
-      * 天干地支之地支速查表<=>生肖
-      * @Array Of Property
-      * @trans["鼠","牛","虎","兔","龙","蛇","马","羊","猴","鸡","狗","猪"]
-      * @return Cn string
-      */
-  Animals: ["\u9F20", "\u725B", "\u864E", "\u5154", "\u9F99", "\u86C7", "\u9A6C", "\u7F8A", "\u7334", "\u9E21", "\u72D7", "\u732A"],
-  /**
-      * 24节气速查表
-      * @Array Of Property
-      * @trans["小寒","大寒","立春","雨水","惊蛰","春分","清明","谷雨","立夏","小满","芒种","夏至","小暑","大暑","立秋","处暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至"]
-      * @return Cn string
-      */
-  solarTerm: ["\u5C0F\u5BD2", "\u5927\u5BD2", "\u7ACB\u6625", "\u96E8\u6C34", "\u60CA\u86F0", "\u6625\u5206", "\u6E05\u660E", "\u8C37\u96E8", "\u7ACB\u590F", "\u5C0F\u6EE1", "\u8292\u79CD", "\u590F\u81F3", "\u5C0F\u6691", "\u5927\u6691", "\u7ACB\u79CB", "\u5904\u6691", "\u767D\u9732", "\u79CB\u5206", "\u5BD2\u9732", "\u971C\u964D", "\u7ACB\u51AC", "\u5C0F\u96EA", "\u5927\u96EA", "\u51AC\u81F3"],
-  /**
-      * 1900-2100各年的24节气日期速查表
-      * @Array Of Property
-      * @return 0x string For splice
-      */
-  sTermInfo: ['9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '9778397bd19801ec9210c965cc920e', '97b6b97bd19801ec95f8c965cc920f', '97bd09801d98082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd197c36c9210c9274c91aa', '97b6b97bd19801ec95f8c965cc920e', '97bd09801d98082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec95f8c965cc920e', '97bcf97c3598082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd07f595b0b6fc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '9778397bd19801ec9210c9274c920e', '97b6b97bd19801ec95f8c965cc920f', '97bd07f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c920e', '97b6b97bd19801ec95f8c965cc920f', '97bd07f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bd07f1487f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c9274c920e', '97bcf7f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c91aa', '97b6b97bd197c36c9210c9274c920e', '97bcf7f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c920e', '97b6b7f0e47f531b0723b0b6fb0722', '7f0e37f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36b0b70c9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0787b0721', '7f0e27f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c91aa', '97b6b7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '977837f0e37f149b0723b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f5307f595b0b0bc920fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '977837f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0723b06bd', '7f07e7f0e37f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e37f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e37f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0723b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0723b06bd', '7f07e7f0e37f14998083b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14898082b0723b02d5', '7f07e7f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e36665b66aa89801e9808297c35', '665f67f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e36665b66a449801e9808297c35', '665f67f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e36665b66a449801e9808297c35', '665f67f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e26665b66a449801e9808297c35', '665f67f0e37f1489801eb072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722'],
-  /**
-      * 数字转中文速查表
-      * @Array Of Property
-      * @trans ['日','一','二','三','四','五','六','七','八','九','十']
-      * @return Cn string
-      */
-  nStr1: ["\u65E5", "\u4E00", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", "\u516D", "\u4E03", "\u516B", "\u4E5D", "\u5341"],
-  /**
-      * 日期转农历称呼速查表
-      * @Array Of Property
-      * @trans ['初','十','廿','卅']
-      * @return Cn string
-      */
-  nStr2: ["\u521D", "\u5341", "\u5EFF", "\u5345"],
-  /**
-      * 月份转农历称呼速查表
-      * @Array Of Property
-      * @trans ['正','一','二','三','四','五','六','七','八','九','十','冬','腊']
-      * @return Cn string
-      */
-  nStr3: ["\u6B63", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", "\u516D", "\u4E03", "\u516B", "\u4E5D", "\u5341", "\u51AC", "\u814A"],
-  /**
-      * 返回农历y年一整年的总天数
-      * @param lunar Year
-      * @return Number
-      * @eg:var count = calendar.lYearDays(1987) ;//count=387
-      */
-  lYearDays: function lYearDays(y) {
-    var i;
-    var sum = 348;
-    for (i = 0x8000; i > 0x8; i >>= 1) {
-      sum += this.lunarInfo[y - 1900] & i ? 1 : 0;
-    }
-    return sum + this.leapDays(y);
-  },
-  /**
-      * 返回农历y年闰月是哪个月；若y年没有闰月 则返回0
-      * @param lunar Year
-      * @return Number (0-12)
-      * @eg:var leapMonth = calendar.leapMonth(1987) ;//leapMonth=6
-      */
-  leapMonth: function leapMonth(y) {
-    // 闰字编码 \u95f0
-    return this.lunarInfo[y - 1900] & 0xf;
-  },
-  /**
-      * 返回农历y年闰月的天数 若该年没有闰月则返回0
-      * @param lunar Year
-      * @return Number (0、29、30)
-      * @eg:var leapMonthDay = calendar.leapDays(1987) ;//leapMonthDay=29
-      */
-  leapDays: function leapDays(y) {
-    if (this.leapMonth(y)) {
-      return this.lunarInfo[y - 1900] & 0x10000 ? 30 : 29;
-    }
-    return 0;
-  },
-  /**
-      * 返回农历y年m月（非闰月）的总天数，计算m为闰月时的天数请使用leapDays方法
-      * @param lunar Year
-      * @return Number (-1、29、30)
-      * @eg:var MonthDay = calendar.monthDays(1987,9) ;//MonthDay=29
-      */
-  monthDays: function monthDays(y, m) {
-    if (m > 12 || m < 1) {
-      return -1;
-    } // 月份参数从1至12，参数错误返回-1
-    return this.lunarInfo[y - 1900] & 0x10000 >> m ? 30 : 29;
-  },
-  /**
-      * 返回公历(!)y年m月的天数
-      * @param solar Year
-      * @return Number (-1、28、29、30、31)
-      * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
-      */
-  solarDays: function solarDays(y, m) {
-    if (m > 12 || m < 1) {
-      return -1;
-    } // 若参数错误 返回-1
-    var ms = m - 1;
-    if (ms == 1) {
-      // 2月份的闰平规律测算后确认返回28或29
-      return y % 4 == 0 && y % 100 != 0 || y % 400 == 0 ? 29 : 28;
-    } else {
-      return this.solarMonth[ms];
-    }
-  },
-  /**
-     * 农历年份转换为干支纪年
-     * @param  lYear 农历年的年份数
-     * @return Cn string
-     */
-  toGanZhiYear: function toGanZhiYear(lYear) {
-    var ganKey = (lYear - 3) % 10;
-    var zhiKey = (lYear - 3) % 12;
-    if (ganKey == 0) ganKey = 10; // 如果余数为0则为最后一个天干
-    if (zhiKey == 0) zhiKey = 12; // 如果余数为0则为最后一个地支
-    return this.Gan[ganKey - 1] + this.Zhi[zhiKey - 1];
-  },
-  /**
-     * 公历月、日判断所属星座
-     * @param  cMonth [description]
-     * @param  cDay [description]
-     * @return Cn string
-     */
-  toAstro: function toAstro(cMonth, cDay) {
-    var s = "\u9B54\u7FAF\u6C34\u74F6\u53CC\u9C7C\u767D\u7F8A\u91D1\u725B\u53CC\u5B50\u5DE8\u87F9\u72EE\u5B50\u5904\u5973\u5929\u79E4\u5929\u874E\u5C04\u624B\u9B54\u7FAF";
-    var arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
-    return s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2) + "\u5EA7"; // 座
-  },
-
-  /**
-      * 传入offset偏移量返回干支
-      * @param offset 相对甲子的偏移量
-      * @return Cn string
-      */
-  toGanZhi: function toGanZhi(offset) {
-    return this.Gan[offset % 10] + this.Zhi[offset % 12];
-  },
-  /**
-      * 传入公历(!)y年获得该年第n个节气的公历日期
-      * @param y公历年(1900-2100)；n二十四节气中的第几个节气(1~24)；从n=1(小寒)算起
-      * @return day Number
-      * @eg:var _24 = calendar.getTerm(1987,3) ;//_24=4;意即1987年2月4日立春
-      */
-  getTerm: function getTerm(y, n) {
-    if (y < 1900 || y > 2100) {
-      return -1;
-    }
-    if (n < 1 || n > 24) {
-      return -1;
-    }
-    var _table = this.sTermInfo[y - 1900];
-    var _info = [parseInt('0x' + _table.substr(0, 5)).toString(), parseInt('0x' + _table.substr(5, 5)).toString(), parseInt('0x' + _table.substr(10, 5)).toString(), parseInt('0x' + _table.substr(15, 5)).toString(), parseInt('0x' + _table.substr(20, 5)).toString(), parseInt('0x' + _table.substr(25, 5)).toString()];
-    var _calday = [_info[0].substr(0, 1), _info[0].substr(1, 2), _info[0].substr(3, 1), _info[0].substr(4, 2), _info[1].substr(0, 1), _info[1].substr(1, 2), _info[1].substr(3, 1), _info[1].substr(4, 2), _info[2].substr(0, 1), _info[2].substr(1, 2), _info[2].substr(3, 1), _info[2].substr(4, 2), _info[3].substr(0, 1), _info[3].substr(1, 2), _info[3].substr(3, 1), _info[3].substr(4, 2), _info[4].substr(0, 1), _info[4].substr(1, 2), _info[4].substr(3, 1), _info[4].substr(4, 2), _info[5].substr(0, 1), _info[5].substr(1, 2), _info[5].substr(3, 1), _info[5].substr(4, 2)];
-    return parseInt(_calday[n - 1]);
-  },
-  /**
-      * 传入农历数字月份返回汉语通俗表示法
-      * @param lunar month
-      * @return Cn string
-      * @eg:var cnMonth = calendar.toChinaMonth(12) ;//cnMonth='腊月'
-      */
-  toChinaMonth: function toChinaMonth(m) {
-    // 月 => \u6708
-    if (m > 12 || m < 1) {
-      return -1;
-    } // 若参数错误 返回-1
-    var s = this.nStr3[m - 1];
-    s += "\u6708"; // 加上月字
-    return s;
-  },
-  /**
-      * 传入农历日期数字返回汉字表示法
-      * @param lunar day
-      * @return Cn string
-      * @eg:var cnDay = calendar.toChinaDay(21) ;//cnMonth='廿一'
-      */
-  toChinaDay: function toChinaDay(d) {
-    // 日 => \u65e5
-    var s;
-    switch (d) {
-      case 10:
-        s = "\u521D\u5341";
-        break;
-      case 20:
-        s = "\u4E8C\u5341";
-        break;
-        break;
-      case 30:
-        s = "\u4E09\u5341";
-        break;
-        break;
-      default:
-        s = this.nStr2[Math.floor(d / 10)];
-        s += this.nStr1[d % 10];
-    }
-    return s;
-  },
-  /**
-      * 年份转生肖[!仅能大致转换] => 精确划分生肖分界线是“立春”
-      * @param y year
-      * @return Cn string
-      * @eg:var animal = calendar.getAnimal(1987) ;//animal='兔'
-      */
-  getAnimal: function getAnimal(y) {
-    return this.Animals[(y - 4) % 12];
-  },
-  /**
-      * 传入阳历年月日获得详细的公历、农历object信息 <=>JSON
-      * @param y  solar year
-      * @param m  solar month
-      * @param d  solar day
-      * @return JSON object
-      * @eg:console.log(calendar.solar2lunar(1987,11,01));
-      */
-  solar2lunar: function solar2lunar(y, m, d) {
-    // 参数区间1900.1.31~2100.12.31
-    // 年份限定、上限
-    if (y < 1900 || y > 2100) {
-      return -1; // undefined转换为数字变为NaN
-    }
-    // 公历传参最下限
-    if (y == 1900 && m == 1 && d < 31) {
-      return -1;
-    }
-    // 未传参  获得当天
-    if (!y) {
-      var objDate = new Date();
-    } else {
-      var objDate = new Date(y, parseInt(m) - 1, d);
-    }
-    var i;
-    var leap = 0;
-    var temp = 0;
-    // 修正ymd参数
-    var y = objDate.getFullYear();
-    var m = objDate.getMonth() + 1;
-    var d = objDate.getDate();
-    var offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900, 0, 31)) / 86400000;
-    for (i = 1900; i < 2101 && offset > 0; i++) {
-      temp = this.lYearDays(i);
-      offset -= temp;
-    }
-    if (offset < 0) {
-      offset += temp;
-      i--;
-    }
-
-    // 是否今天
-    var isTodayObj = new Date();
-    var isToday = false;
-    if (isTodayObj.getFullYear() == y && isTodayObj.getMonth() + 1 == m && isTodayObj.getDate() == d) {
-      isToday = true;
-    }
-    // 星期几
-    var nWeek = objDate.getDay();
-    var cWeek = this.nStr1[nWeek];
-    // 数字表示周几顺应天朝周一开始的惯例
-    if (nWeek == 0) {
-      nWeek = 7;
-    }
-    // 农历年
-    var year = i;
-    var leap = this.leapMonth(i); // 闰哪个月
-    var isLeap = false;
-
-    // 效验闰月
-    for (i = 1; i < 13 && offset > 0; i++) {
-      // 闰月
-      if (leap > 0 && i == leap + 1 && isLeap == false) {
-        --i;
-        isLeap = true;
-        temp = this.leapDays(year); // 计算农历闰月天数
-      } else {
-        temp = this.monthDays(year, i); // 计算农历普通月天数
-      }
-      // 解除闰月
-      if (isLeap == true && i == leap + 1) {
-        isLeap = false;
-      }
-      offset -= temp;
-    }
-    // 闰月导致数组下标重叠取反
-    if (offset == 0 && leap > 0 && i == leap + 1) {
-      if (isLeap) {
-        isLeap = false;
-      } else {
-        isLeap = true;
-        --i;
-      }
-    }
-    if (offset < 0) {
-      offset += temp;
-      --i;
-    }
-    // 农历月
-    var month = i;
-    // 农历日
-    var day = offset + 1;
-    // 天干地支处理
-    var sm = m - 1;
-    var gzY = this.toGanZhiYear(year);
-
-    // 当月的两个节气
-    // bugfix-2017-7-24 11:03:38 use lunar Year Param `y` Not `year`
-    var firstNode = this.getTerm(y, m * 2 - 1); // 返回当月「节」为几日开始
-    var secondNode = this.getTerm(y, m * 2); // 返回当月「节」为几日开始
-
-    // 依据12节气修正干支月
-    var gzM = this.toGanZhi((y - 1900) * 12 + m + 11);
-    if (d >= firstNode) {
-      gzM = this.toGanZhi((y - 1900) * 12 + m + 12);
-    }
-
-    // 传入的日期的节气与否
-    var isTerm = false;
-    var Term = null;
-    if (firstNode == d) {
-      isTerm = true;
-      Term = this.solarTerm[m * 2 - 2];
-    }
-    if (secondNode == d) {
-      isTerm = true;
-      Term = this.solarTerm[m * 2 - 1];
-    }
-    // 日柱 当月一日与 1900/1/1 相差天数
-    var dayCyclical = Date.UTC(y, sm, 1, 0, 0, 0, 0) / 86400000 + 25567 + 10;
-    var gzD = this.toGanZhi(dayCyclical + d - 1);
-    // 该日期所属的星座
-    var astro = this.toAstro(m, d);
-    return {
-      'lYear': year,
-      'lMonth': month,
-      'lDay': day,
-      'Animal': this.getAnimal(year),
-      'IMonthCn': (isLeap ? "\u95F0" : '') + this.toChinaMonth(month),
-      'IDayCn': this.toChinaDay(day),
-      'cYear': y,
-      'cMonth': m,
-      'cDay': d,
-      'gzYear': gzY,
-      'gzMonth': gzM,
-      'gzDay': gzD,
-      'isToday': isToday,
-      'isLeap': isLeap,
-      'nWeek': nWeek,
-      'ncWeek': "\u661F\u671F" + cWeek,
-      'isTerm': isTerm,
-      'Term': Term,
-      'astro': astro
-    };
-  },
-  /**
-      * 传入农历年月日以及传入的月份是否闰月获得详细的公历、农历object信息 <=>JSON
-      * @param y  lunar year
-      * @param m  lunar month
-      * @param d  lunar day
-      * @param isLeapMonth  lunar month is leap or not.[如果是农历闰月第四个参数赋值true即可]
-      * @return JSON object
-      * @eg:console.log(calendar.lunar2solar(1987,9,10));
-      */
-  lunar2solar: function lunar2solar(y, m, d, isLeapMonth) {
-    // 参数区间1900.1.31~2100.12.1
-    var isLeapMonth = !!isLeapMonth;
-    var leapOffset = 0;
-    var leapMonth = this.leapMonth(y);
-    var leapDay = this.leapDays(y);
-    if (isLeapMonth && leapMonth != m) {
-      return -1;
-    } // 传参要求计算该闰月公历 但该年得出的闰月与传参的月份并不同
-    if (y == 2100 && m == 12 && d > 1 || y == 1900 && m == 1 && d < 31) {
-      return -1;
-    } // 超出了最大极限值
-    var day = this.monthDays(y, m);
-    var _day = day;
-    // bugFix 2016-9-25
-    // if month is leap, _day use leapDays method
-    if (isLeapMonth) {
-      _day = this.leapDays(y, m);
-    }
-    if (y < 1900 || y > 2100 || d > _day) {
-      return -1;
-    } // 参数合法性效验
-
-    // 计算农历的时间差
-    var offset = 0;
-    for (var i = 1900; i < y; i++) {
-      offset += this.lYearDays(i);
-    }
-    var leap = 0;
-    var isAdd = false;
-    for (var i = 1; i < m; i++) {
-      leap = this.leapMonth(y);
-      if (!isAdd) {
-        // 处理闰月
-        if (leap <= i && leap > 0) {
-          offset += this.leapDays(y);
-          isAdd = true;
-        }
-      }
-      offset += this.monthDays(y, i);
-    }
-    // 转换闰月农历 需补充该年闰月的前一个月的时差
-    if (isLeapMonth) {
-      offset += day;
-    }
-    // 1900年农历正月一日的公历时间为1900年1月30日0时0分0秒(该时间也是本农历的最开始起始点)
-    var stmap = Date.UTC(1900, 1, 30, 0, 0, 0);
-    var calObj = new Date((offset + d - 31) * 86400000 + stmap);
-    var cY = calObj.getUTCFullYear();
-    var cM = calObj.getUTCMonth() + 1;
-    var cD = calObj.getUTCDate();
-    return this.solar2lunar(cY, cM, cD);
-  }
-};
-var _default = calendar;
-exports.default = _default;
-
-/***/ }),
-/* 518 */,
-/* 519 */,
-/* 520 */,
-/* 521 */,
-/* 522 */,
-/* 523 */,
-/* 524 */,
-/* 525 */
+/* 249 */
 /*!*************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/util/async-validator.js ***!
   \*************************************************************************************************/
@@ -26623,10 +21949,10 @@ Schema.warning = warning;
 Schema.messages = messages;
 var _default = Schema; // # sourceMappingURL=index.js.map
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../HBuilderX.3.6.3.20220917/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 526)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../HBuilderX.3.6.3.20220917/HBuilderX/plugins/uniapp-cli/node_modules/node-libs-browser/mock/process.js */ 250)))
 
 /***/ }),
-/* 526 */
+/* 250 */
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
   \********************************************************/
@@ -26657,7 +21983,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 527);
+        if (!path) path = __webpack_require__(/*! path */ 251);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -26670,7 +21996,7 @@ exports.features = {};
 
 
 /***/ }),
-/* 527 */
+/* 251 */
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
@@ -26980,15 +22306,1284 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 526)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 250)))
 
 /***/ }),
-/* 528 */,
-/* 529 */,
-/* 530 */,
-/* 531 */,
-/* 532 */,
-/* 533 */
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */
+/*!****************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-form-item/props.js ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // input的label提示语
+    label: {
+      type: String,
+      default: uni.$u.props.formItem.label
+    },
+    // 绑定的值
+    prop: {
+      type: String,
+      default: uni.$u.props.formItem.prop
+    },
+    // 是否显示表单域的下划线边框
+    borderBottom: {
+      type: [String, Boolean],
+      default: uni.$u.props.formItem.borderBottom
+    },
+    // label的宽度，单位px
+    labelWidth: {
+      type: [String, Number],
+      default: uni.$u.props.formItem.labelWidth
+    },
+    // 右侧图标
+    rightIcon: {
+      type: String,
+      default: uni.$u.props.formItem.rightIcon
+    },
+    // 左侧图标
+    leftIcon: {
+      type: String,
+      default: uni.$u.props.formItem.leftIcon
+    },
+    // 是否显示左边的必填星号，只作显示用，具体校验必填的逻辑，请在rules中配置
+    required: {
+      type: Boolean,
+      default: uni.$u.props.formItem.required
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */
+/*!************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-input/props.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 输入的值
+    value: {
+      type: [String, Number],
+      default: uni.$u.props.input.value
+    },
+    // 输入框类型
+    // number-数字输入键盘，app-vue下可以输入浮点数，app-nvue和小程序平台下只能输入整数
+    // idcard-身份证输入键盘，微信、支付宝、百度、QQ小程序
+    // digit-带小数点的数字键盘，App的nvue页面、微信、支付宝、百度、头条、QQ小程序
+    // text-文本输入键盘
+    type: {
+      type: String,
+      default: uni.$u.props.input.type
+    },
+    // 如果 textarea 是在一个 position:fixed 的区域，需要显示指定属性 fixed 为 true，
+    // 兼容性：微信小程序、百度小程序、字节跳动小程序、QQ小程序
+    fixed: {
+      type: Boolean,
+      default: uni.$u.props.input.fixed
+    },
+    // 是否禁用输入框
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.input.disabled
+    },
+    // 禁用状态时的背景色
+    disabledColor: {
+      type: String,
+      default: uni.$u.props.input.disabledColor
+    },
+    // 是否显示清除控件
+    clearable: {
+      type: Boolean,
+      default: uni.$u.props.input.clearable
+    },
+    // 是否密码类型
+    password: {
+      type: Boolean,
+      default: uni.$u.props.input.password
+    },
+    // 最大输入长度，设置为 -1 的时候不限制最大长度
+    maxlength: {
+      type: [String, Number],
+      default: uni.$u.props.input.maxlength
+    },
+    // 	输入框为空时的占位符
+    placeholder: {
+      type: String,
+      default: uni.$u.props.input.placeholder
+    },
+    // 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要在类名前写/deep/
+    placeholderClass: {
+      type: String,
+      default: uni.$u.props.input.placeholderClass
+    },
+    // 指定placeholder的样式
+    placeholderStyle: {
+      type: [String, Object],
+      default: uni.$u.props.input.placeholderStyle
+    },
+    // 是否显示输入字数统计，只在 type ="text"或type ="textarea"时有效
+    showWordLimit: {
+      type: Boolean,
+      default: uni.$u.props.input.showWordLimit
+    },
+    // 设置右下角按钮的文字，有效值：send|search|next|go|done，兼容性详见uni-app文档
+    // https://uniapp.dcloud.io/component/input
+    // https://uniapp.dcloud.io/component/textarea
+    confirmType: {
+      type: String,
+      default: uni.$u.props.input.confirmType
+    },
+    // 点击键盘右下角按钮时是否保持键盘不收起，H5无效
+    confirmHold: {
+      type: Boolean,
+      default: uni.$u.props.input.confirmHold
+    },
+    // focus时，点击页面的时候不收起键盘，微信小程序有效
+    holdKeyboard: {
+      type: Boolean,
+      default: uni.$u.props.input.holdKeyboard
+    },
+    // 自动获取焦点
+    // 在 H5 平台能否聚焦以及软键盘是否跟随弹出，取决于当前浏览器本身的实现。nvue 页面不支持，需使用组件的 focus()、blur() 方法控制焦点
+    focus: {
+      type: Boolean,
+      default: uni.$u.props.input.focus
+    },
+    // 键盘收起时，是否自动失去焦点，目前仅App3.0.0+有效
+    autoBlur: {
+      type: Boolean,
+      default: uni.$u.props.input.autoBlur
+    },
+    // 是否去掉 iOS 下的默认内边距，仅微信小程序，且type=textarea时有效
+    disableDefaultPadding: {
+      type: Boolean,
+      default: uni.$u.props.input.disableDefaultPadding
+    },
+    // 指定focus时光标的位置
+    cursor: {
+      type: [String, Number],
+      default: uni.$u.props.input.cursor
+    },
+    // 输入框聚焦时底部与键盘的距离
+    cursorSpacing: {
+      type: [String, Number],
+      default: uni.$u.props.input.cursorSpacing
+    },
+    // 光标起始位置，自动聚集时有效，需与selection-end搭配使用
+    selectionStart: {
+      type: [String, Number],
+      default: uni.$u.props.input.selectionStart
+    },
+    // 光标结束位置，自动聚集时有效，需与selection-start搭配使用
+    selectionEnd: {
+      type: [String, Number],
+      default: uni.$u.props.input.selectionEnd
+    },
+    // 键盘弹起时，是否自动上推页面
+    adjustPosition: {
+      type: Boolean,
+      default: uni.$u.props.input.adjustPosition
+    },
+    // 输入框内容对齐方式，可选值为：left|center|right
+    inputAlign: {
+      type: String,
+      default: uni.$u.props.input.inputAlign
+    },
+    // 输入框字体的大小
+    fontSize: {
+      type: [String, Number],
+      default: uni.$u.props.input.fontSize
+    },
+    // 输入框字体颜色
+    color: {
+      type: String,
+      default: uni.$u.props.input.color
+    },
+    // 输入框前置图标
+    prefixIcon: {
+      type: String,
+      default: uni.$u.props.input.prefixIcon
+    },
+    // 前置图标样式，对象或字符串
+    prefixIconStyle: {
+      type: [String, Object],
+      default: uni.$u.props.input.prefixIconStyle
+    },
+    // 输入框后置图标
+    suffixIcon: {
+      type: String,
+      default: uni.$u.props.input.suffixIcon
+    },
+    // 后置图标样式，对象或字符串
+    suffixIconStyle: {
+      type: [String, Object],
+      default: uni.$u.props.input.suffixIconStyle
+    },
+    // 边框类型，surround-四周边框，bottom-底部边框，none-无边框
+    border: {
+      type: String,
+      default: uni.$u.props.input.border
+    },
+    // 是否只读，与disabled不同之处在于disabled会置灰组件，而readonly则不会
+    readonly: {
+      type: Boolean,
+      default: uni.$u.props.input.readonly
+    },
+    // 输入框形状，circle-圆形，square-方形
+    shape: {
+      type: String,
+      default: uni.$u.props.input.shape
+    },
+    // 用于处理或者过滤输入框内容的方法
+    formatter: {
+      type: [Function, null],
+      default: uni.$u.props.input.formatter
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */
+/*!***********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-icon/icons.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  'uicon-level': "\uE693",
+  'uicon-column-line': "\uE68E",
+  'uicon-checkbox-mark': "\uE807",
+  'uicon-folder': "\uE7F5",
+  'uicon-movie': "\uE7F6",
+  'uicon-star-fill': "\uE669",
+  'uicon-star': "\uE65F",
+  'uicon-phone-fill': "\uE64F",
+  'uicon-phone': "\uE622",
+  'uicon-apple-fill': "\uE881",
+  'uicon-chrome-circle-fill': "\uE885",
+  'uicon-backspace': "\uE67B",
+  'uicon-attach': "\uE632",
+  'uicon-cut': "\uE948",
+  'uicon-empty-car': "\uE602",
+  'uicon-empty-coupon': "\uE682",
+  'uicon-empty-address': "\uE646",
+  'uicon-empty-favor': "\uE67C",
+  'uicon-empty-permission': "\uE686",
+  'uicon-empty-news': "\uE687",
+  'uicon-empty-search': "\uE664",
+  'uicon-github-circle-fill': "\uE887",
+  'uicon-rmb': "\uE608",
+  'uicon-person-delete-fill': "\uE66A",
+  'uicon-reload': "\uE788",
+  'uicon-order': "\uE68F",
+  'uicon-server-man': "\uE6BC",
+  'uicon-search': "\uE62A",
+  'uicon-fingerprint': "\uE955",
+  'uicon-more-dot-fill': "\uE630",
+  'uicon-scan': "\uE662",
+  'uicon-share-square': "\uE60B",
+  'uicon-map': "\uE61D",
+  'uicon-map-fill': "\uE64E",
+  'uicon-tags': "\uE629",
+  'uicon-tags-fill': "\uE651",
+  'uicon-bookmark-fill': "\uE63B",
+  'uicon-bookmark': "\uE60A",
+  'uicon-eye': "\uE613",
+  'uicon-eye-fill': "\uE641",
+  'uicon-mic': "\uE64A",
+  'uicon-mic-off': "\uE649",
+  'uicon-calendar': "\uE66E",
+  'uicon-calendar-fill': "\uE634",
+  'uicon-trash': "\uE623",
+  'uicon-trash-fill': "\uE658",
+  'uicon-play-left': "\uE66D",
+  'uicon-play-right': "\uE610",
+  'uicon-minus': "\uE618",
+  'uicon-plus': "\uE62D",
+  'uicon-info': "\uE653",
+  'uicon-info-circle': "\uE7D2",
+  'uicon-info-circle-fill': "\uE64B",
+  'uicon-question': "\uE715",
+  'uicon-error': "\uE6D3",
+  'uicon-close': "\uE685",
+  'uicon-checkmark': "\uE6A8",
+  'uicon-android-circle-fill': "\uE67E",
+  'uicon-android-fill': "\uE67D",
+  'uicon-ie': "\uE87B",
+  'uicon-IE-circle-fill': "\uE889",
+  'uicon-google': "\uE87A",
+  'uicon-google-circle-fill': "\uE88A",
+  'uicon-setting-fill': "\uE872",
+  'uicon-setting': "\uE61F",
+  'uicon-minus-square-fill': "\uE855",
+  'uicon-plus-square-fill': "\uE856",
+  'uicon-heart': "\uE7DF",
+  'uicon-heart-fill': "\uE851",
+  'uicon-camera': "\uE7D7",
+  'uicon-camera-fill': "\uE870",
+  'uicon-more-circle': "\uE63E",
+  'uicon-more-circle-fill': "\uE645",
+  'uicon-chat': "\uE620",
+  'uicon-chat-fill': "\uE61E",
+  'uicon-bag-fill': "\uE617",
+  'uicon-bag': "\uE619",
+  'uicon-error-circle-fill': "\uE62C",
+  'uicon-error-circle': "\uE624",
+  'uicon-close-circle': "\uE63F",
+  'uicon-close-circle-fill': "\uE637",
+  'uicon-checkmark-circle': "\uE63D",
+  'uicon-checkmark-circle-fill': "\uE635",
+  'uicon-question-circle-fill': "\uE666",
+  'uicon-question-circle': "\uE625",
+  'uicon-share': "\uE631",
+  'uicon-share-fill': "\uE65E",
+  'uicon-shopping-cart': "\uE621",
+  'uicon-shopping-cart-fill': "\uE65D",
+  'uicon-bell': "\uE609",
+  'uicon-bell-fill': "\uE640",
+  'uicon-list': "\uE650",
+  'uicon-list-dot': "\uE616",
+  'uicon-zhihu': "\uE6BA",
+  'uicon-zhihu-circle-fill': "\uE709",
+  'uicon-zhifubao': "\uE6B9",
+  'uicon-zhifubao-circle-fill': "\uE6B8",
+  'uicon-weixin-circle-fill': "\uE6B1",
+  'uicon-weixin-fill': "\uE6B2",
+  'uicon-twitter-circle-fill': "\uE6AB",
+  'uicon-twitter': "\uE6AA",
+  'uicon-taobao-circle-fill': "\uE6A7",
+  'uicon-taobao': "\uE6A6",
+  'uicon-weibo-circle-fill': "\uE6A5",
+  'uicon-weibo': "\uE6A4",
+  'uicon-qq-fill': "\uE6A1",
+  'uicon-qq-circle-fill': "\uE6A0",
+  'uicon-moments-circel-fill': "\uE69A",
+  'uicon-moments': "\uE69B",
+  'uicon-qzone': "\uE695",
+  'uicon-qzone-circle-fill': "\uE696",
+  'uicon-baidu-circle-fill': "\uE680",
+  'uicon-baidu': "\uE681",
+  'uicon-facebook-circle-fill': "\uE68A",
+  'uicon-facebook': "\uE689",
+  'uicon-car': "\uE60C",
+  'uicon-car-fill': "\uE636",
+  'uicon-warning-fill': "\uE64D",
+  'uicon-warning': "\uE694",
+  'uicon-clock-fill': "\uE638",
+  'uicon-clock': "\uE60F",
+  'uicon-edit-pen': "\uE612",
+  'uicon-edit-pen-fill': "\uE66B",
+  'uicon-email': "\uE611",
+  'uicon-email-fill': "\uE642",
+  'uicon-minus-circle': "\uE61B",
+  'uicon-minus-circle-fill': "\uE652",
+  'uicon-plus-circle': "\uE62E",
+  'uicon-plus-circle-fill': "\uE661",
+  'uicon-file-text': "\uE663",
+  'uicon-file-text-fill': "\uE665",
+  'uicon-pushpin': "\uE7E3",
+  'uicon-pushpin-fill': "\uE86E",
+  'uicon-grid': "\uE673",
+  'uicon-grid-fill': "\uE678",
+  'uicon-play-circle': "\uE647",
+  'uicon-play-circle-fill': "\uE655",
+  'uicon-pause-circle-fill': "\uE654",
+  'uicon-pause': "\uE8FA",
+  'uicon-pause-circle': "\uE643",
+  'uicon-eye-off': "\uE648",
+  'uicon-eye-off-outline': "\uE62B",
+  'uicon-gift-fill': "\uE65C",
+  'uicon-gift': "\uE65B",
+  'uicon-rmb-circle-fill': "\uE657",
+  'uicon-rmb-circle': "\uE677",
+  'uicon-kefu-ermai': "\uE656",
+  'uicon-server-fill': "\uE751",
+  'uicon-coupon-fill': "\uE8C4",
+  'uicon-coupon': "\uE8AE",
+  'uicon-integral': "\uE704",
+  'uicon-integral-fill': "\uE703",
+  'uicon-home-fill': "\uE964",
+  'uicon-home': "\uE965",
+  'uicon-hourglass-half-fill': "\uE966",
+  'uicon-hourglass': "\uE967",
+  'uicon-account': "\uE628",
+  'uicon-plus-people-fill': "\uE626",
+  'uicon-minus-people-fill': "\uE615",
+  'uicon-account-fill': "\uE614",
+  'uicon-thumb-down-fill': "\uE726",
+  'uicon-thumb-down': "\uE727",
+  'uicon-thumb-up': "\uE733",
+  'uicon-thumb-up-fill': "\uE72F",
+  'uicon-lock-fill': "\uE979",
+  'uicon-lock-open': "\uE973",
+  'uicon-lock-opened-fill': "\uE974",
+  'uicon-lock': "\uE97A",
+  'uicon-red-packet-fill': "\uE690",
+  'uicon-photo-fill': "\uE98B",
+  'uicon-photo': "\uE98D",
+  'uicon-volume-off-fill': "\uE659",
+  'uicon-volume-off': "\uE644",
+  'uicon-volume-fill': "\uE670",
+  'uicon-volume': "\uE633",
+  'uicon-red-packet': "\uE691",
+  'uicon-download': "\uE63C",
+  'uicon-arrow-up-fill': "\uE6B0",
+  'uicon-arrow-down-fill': "\uE600",
+  'uicon-play-left-fill': "\uE675",
+  'uicon-play-right-fill': "\uE676",
+  'uicon-rewind-left-fill': "\uE679",
+  'uicon-rewind-right-fill': "\uE67A",
+  'uicon-arrow-downward': "\uE604",
+  'uicon-arrow-leftward': "\uE601",
+  'uicon-arrow-rightward': "\uE603",
+  'uicon-arrow-upward': "\uE607",
+  'uicon-arrow-down': "\uE60D",
+  'uicon-arrow-right': "\uE605",
+  'uicon-arrow-left': "\uE60E",
+  'uicon-arrow-up': "\uE606",
+  'uicon-skip-back-left': "\uE674",
+  'uicon-skip-forward-right': "\uE672",
+  'uicon-rewind-right': "\uE66F",
+  'uicon-rewind-left': "\uE671",
+  'uicon-arrow-right-double': "\uE68D",
+  'uicon-arrow-left-double': "\uE68C",
+  'uicon-wifi-off': "\uE668",
+  'uicon-wifi': "\uE667",
+  'uicon-empty-data': "\uE62F",
+  'uicon-empty-history': "\uE684",
+  'uicon-empty-list': "\uE68B",
+  'uicon-empty-page': "\uE627",
+  'uicon-empty-order': "\uE639",
+  'uicon-man': "\uE697",
+  'uicon-woman': "\uE69C",
+  'uicon-man-add': "\uE61C",
+  'uicon-man-add-fill': "\uE64C",
+  'uicon-man-delete': "\uE61A",
+  'uicon-man-delete-fill': "\uE66A",
+  'uicon-zh': "\uE70A",
+  'uicon-en': "\uE692"
+};
+exports.default = _default;
+
+/***/ }),
+/* 274 */
+/*!***********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-icon/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 图标类名
+    name: {
+      type: String,
+      default: uni.$u.props.icon.name
+    },
+    // 图标颜色，可接受主题色
+    color: {
+      type: String,
+      default: uni.$u.props.icon.color
+    },
+    // 字体大小，单位px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.icon.size
+    },
+    // 是否显示粗体
+    bold: {
+      type: Boolean,
+      default: uni.$u.props.icon.bold
+    },
+    // 点击图标的时候传递事件出去的index（用于区分点击了哪一个）
+    index: {
+      type: [String, Number],
+      default: uni.$u.props.icon.index
+    },
+    // 触摸图标时的类名
+    hoverClass: {
+      type: String,
+      default: uni.$u.props.icon.hoverClass
+    },
+    // 自定义扩展前缀，方便用户扩展自己的图标库
+    customPrefix: {
+      type: String,
+      default: uni.$u.props.icon.customPrefix
+    },
+    // 图标右边或者下面的文字
+    label: {
+      type: [String, Number],
+      default: uni.$u.props.icon.label
+    },
+    // label的位置，只能右边或者下边
+    labelPos: {
+      type: String,
+      default: uni.$u.props.icon.labelPos
+    },
+    // label的大小
+    labelSize: {
+      type: [String, Number],
+      default: uni.$u.props.icon.labelSize
+    },
+    // label的颜色
+    labelColor: {
+      type: String,
+      default: uni.$u.props.icon.labelColor
+    },
+    // label与图标的距离
+    space: {
+      type: [String, Number],
+      default: uni.$u.props.icon.space
+    },
+    // 图片的mode
+    imgMode: {
+      type: String,
+      default: uni.$u.props.icon.imgMode
+    },
+    // 用于显示图片小图标时，图片的宽度
+    width: {
+      type: [String, Number],
+      default: uni.$u.props.icon.width
+    },
+    // 用于显示图片小图标时，图片的高度
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.icon.height
+    },
+    // 用于解决某些情况下，让图标垂直居中的用途
+    top: {
+      type: [String, Number],
+      default: uni.$u.props.icon.top
+    },
+    // 是否阻止事件传播
+    stop: {
+      type: Boolean,
+      default: uni.$u.props.icon.stop
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */
+/*!*****************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/mixin/button.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    lang: String,
+    sessionFrom: String,
+    sendMessageTitle: String,
+    sendMessagePath: String,
+    sendMessageImg: String,
+    showMessageCard: Boolean,
+    appParameter: String,
+    formType: String,
+    openType: String
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 283 */
+/*!*******************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/mixin/openType.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    openType: String
+  },
+  methods: {
+    onGetUserInfo: function onGetUserInfo(event) {
+      this.$emit('getuserinfo', event.detail);
+    },
+    onContact: function onContact(event) {
+      this.$emit('contact', event.detail);
+    },
+    onGetPhoneNumber: function onGetPhoneNumber(event) {
+      this.$emit('getphonenumber', event.detail);
+    },
+    onError: function onError(event) {
+      this.$emit('error', event.detail);
+    },
+    onLaunchApp: function onLaunchApp(event) {
+      this.$emit('launchapp', event.detail);
+    },
+    onOpenSetting: function onOpenSetting(event) {
+      this.$emit('opensetting', event.detail);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 284 */
+/*!*************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-button/props.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/*
+ * @Author       : LQ
+ * @Description  :
+ * @version      : 1.0
+ * @Date         : 2021-08-16 10:04:04
+ * @LastAuthor   : LQ
+ * @lastTime     : 2021-08-16 10:04:24
+ * @FilePath     : /u-view2.0/uview-ui/components/u-button/props.js
+ */
+var _default = {
+  props: {
+    // 是否细边框
+    hairline: {
+      type: Boolean,
+      default: uni.$u.props.button.hairline
+    },
+    // 按钮的预置样式，info，primary，error，warning，success
+    type: {
+      type: String,
+      default: uni.$u.props.button.type
+    },
+    // 按钮尺寸，large，normal，small，mini
+    size: {
+      type: String,
+      default: uni.$u.props.button.size
+    },
+    // 按钮形状，circle（两边为半圆），square（带圆角）
+    shape: {
+      type: String,
+      default: uni.$u.props.button.shape
+    },
+    // 按钮是否镂空
+    plain: {
+      type: Boolean,
+      default: uni.$u.props.button.plain
+    },
+    // 是否禁止状态
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.button.disabled
+    },
+    // 是否加载中
+    loading: {
+      type: Boolean,
+      default: uni.$u.props.button.loading
+    },
+    // 加载中提示文字
+    loadingText: {
+      type: [String, Number],
+      default: uni.$u.props.button.loadingText
+    },
+    // 加载状态图标类型
+    loadingMode: {
+      type: String,
+      default: uni.$u.props.button.loadingMode
+    },
+    // 加载图标大小
+    loadingSize: {
+      type: [String, Number],
+      default: uni.$u.props.button.loadingSize
+    },
+    // 开放能力，具体请看uniapp稳定关于button组件部分说明
+    // https://uniapp.dcloud.io/component/button
+    openType: {
+      type: String,
+      default: uni.$u.props.button.openType
+    },
+    // 用于 <form> 组件，点击分别会触发 <form> 组件的 submit/reset 事件
+    // 取值为submit（提交表单），reset（重置表单）
+    formType: {
+      type: String,
+      default: uni.$u.props.button.formType
+    },
+    // 打开 APP 时，向 APP 传递的参数，open-type=launchApp时有效
+    // 只微信小程序、QQ小程序有效
+    appParameter: {
+      type: String,
+      default: uni.$u.props.button.appParameter
+    },
+    // 指定是否阻止本节点的祖先节点出现点击态，微信小程序有效
+    hoverStopPropagation: {
+      type: Boolean,
+      default: uni.$u.props.button.hoverStopPropagation
+    },
+    // 指定返回用户信息的语言，zh_CN 简体中文，zh_TW 繁体中文，en 英文。只微信小程序有效
+    lang: {
+      type: String,
+      default: uni.$u.props.button.lang
+    },
+    // 会话来源，open-type="contact"时有效。只微信小程序有效
+    sessionFrom: {
+      type: String,
+      default: uni.$u.props.button.sessionFrom
+    },
+    // 会话内消息卡片标题，open-type="contact"时有效
+    // 默认当前标题，只微信小程序有效
+    sendMessageTitle: {
+      type: String,
+      default: uni.$u.props.button.sendMessageTitle
+    },
+    // 会话内消息卡片点击跳转小程序路径，open-type="contact"时有效
+    // 默认当前分享路径，只微信小程序有效
+    sendMessagePath: {
+      type: String,
+      default: uni.$u.props.button.sendMessagePath
+    },
+    // 会话内消息卡片图片，open-type="contact"时有效
+    // 默认当前页面截图，只微信小程序有效
+    sendMessageImg: {
+      type: String,
+      default: uni.$u.props.button.sendMessageImg
+    },
+    // 是否显示会话内消息卡片，设置此参数为 true，用户进入客服会话会在右下角显示"可能要发送的小程序"提示，
+    // 用户点击后可以快速发送小程序消息，open-type="contact"时有效
+    showMessageCard: {
+      type: Boolean,
+      default: uni.$u.props.button.showMessageCard
+    },
+    // 额外传参参数，用于小程序的data-xxx属性，通过target.dataset.name获取
+    dataName: {
+      type: String,
+      default: uni.$u.props.button.dataName
+    },
+    // 节流，一定时间内只能触发一次
+    throttleTime: {
+      type: [String, Number],
+      default: uni.$u.props.button.throttleTime
+    },
+    // 按住后多久出现点击态，单位毫秒
+    hoverStartTime: {
+      type: [String, Number],
+      default: uni.$u.props.button.hoverStartTime
+    },
+    // 手指松开后点击态保留时间，单位毫秒
+    hoverStayTime: {
+      type: [String, Number],
+      default: uni.$u.props.button.hoverStayTime
+    },
+    // 按钮文字，之所以通过props传入，是因为slot传入的话
+    // nvue中无法控制文字的样式
+    text: {
+      type: [String, Number],
+      default: uni.$u.props.button.text
+    },
+    // 按钮图标
+    icon: {
+      type: String,
+      default: uni.$u.props.button.icon
+    },
+    // 按钮图标
+    iconColor: {
+      type: String,
+      default: uni.$u.props.button.icon
+    },
+    // 按钮颜色，支持传入linear-gradient渐变色
+    color: {
+      type: String,
+      default: uni.$u.props.button.color
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */
+/*!*******************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否自动关闭其他swipe按钮组
+    autoClose: {
+      type: Boolean,
+      default: uni.$u.props.swipeAction.autoClose
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */
+/*!****************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/mixin/touch.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var MIN_DISTANCE = 10;
+function getDirection(x, y) {
+  if (x > y && x > MIN_DISTANCE) {
+    return 'horizontal';
+  }
+  if (y > x && y > MIN_DISTANCE) {
+    return 'vertical';
+  }
+  return '';
+}
+var _default = {
+  methods: {
+    getTouchPoint: function getTouchPoint(e) {
+      if (!e) {
+        return {
+          x: 0,
+          y: 0
+        };
+      }
+      if (e.touches && e.touches[0]) {
+        return {
+          x: e.touches[0].pageX,
+          y: e.touches[0].pageY
+        };
+      }
+      if (e.changedTouches && e.changedTouches[0]) {
+        return {
+          x: e.changedTouches[0].pageX,
+          y: e.changedTouches[0].pageY
+        };
+      }
+      return {
+        x: e.clientX || 0,
+        y: e.clientY || 0
+      };
+    },
+    resetTouchStatus: function resetTouchStatus() {
+      this.direction = '';
+      this.deltaX = 0;
+      this.deltaY = 0;
+      this.offsetX = 0;
+      this.offsetY = 0;
+    },
+    touchStart: function touchStart(event) {
+      this.resetTouchStatus();
+      var touch = this.getTouchPoint(event);
+      this.startX = touch.x;
+      this.startY = touch.y;
+    },
+    touchMove: function touchMove(event) {
+      var touch = this.getTouchPoint(event);
+      this.deltaX = touch.x - this.startX;
+      this.deltaY = touch.y - this.startY;
+      this.offsetX = Math.abs(this.deltaX);
+      this.offsetY = Math.abs(this.deltaY);
+      this.direction = this.direction || getDirection(this.offsetX, this.offsetY);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 299 */
+/*!************************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default2 = {
+  props: {
+    // 控制打开或者关闭
+    show: {
+      type: Boolean,
+      default: uni.$u.props.swipeActionItem.show
+    },
+    // 标识符，如果是v-for，可用index索引值
+    name: {
+      type: [String, Number],
+      default: uni.$u.props.swipeActionItem.name
+    },
+    // 是否禁用
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.swipeActionItem.disabled
+    },
+    // 是否自动关闭其他swipe按钮组
+    autoClose: {
+      type: Boolean,
+      default: uni.$u.props.swipeActionItem.autoClose
+    },
+    // 滑动距离阈值，只有大于此值，才被认为是要打开菜单
+    threshold: {
+      type: Number,
+      default: uni.$u.props.swipeActionItem.threshold
+    },
+    // 右侧按钮内容
+    options: {
+      type: Array,
+      default: function _default() {
+        return uni.$u.props.swipeActionItem.rightOptions;
+      }
+    },
+    // 动画过渡时间，单位ms
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.swipeActionItem.duration
+    }
+  }
+};
+exports.default = _default2;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 300 */
+/*!**********************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  methods: {
+    // 关闭时执行
+    closeHandler: function closeHandler() {
+      this.status = 'close';
+    },
+    setState: function setState(status) {
+      this.status = status;
+    },
+    closeOther: function closeOther() {
+      // 尝试关闭其他打开的单元格
+      this.parent && this.parent.closeOther(this);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */
+/*!*************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-avatar/props.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 头像图片路径(不能为相对路径)
+    src: {
+      type: String,
+      default: uni.$u.props.avatar.src
+    },
+    // 头像形状，circle-圆形，square-方形
+    shape: {
+      type: String,
+      default: uni.$u.props.avatar.shape
+    },
+    // 头像尺寸
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.avatar.size
+    },
+    // 裁剪模式
+    mode: {
+      type: String,
+      default: uni.$u.props.avatar.mode
+    },
+    // 显示的文字
+    text: {
+      type: String,
+      default: uni.$u.props.avatar.text
+    },
+    // 背景色
+    bgColor: {
+      type: String,
+      default: uni.$u.props.avatar.bgColor
+    },
+    // 文字颜色
+    color: {
+      type: String,
+      default: uni.$u.props.avatar.color
+    },
+    // 文字大小
+    fontSize: {
+      type: [String, Number],
+      default: uni.$u.props.avatar.fontSize
+    },
+    // 显示的图标
+    icon: {
+      type: String,
+      default: uni.$u.props.avatar.icon
+    },
+    // 显示小程序头像，只对百度，微信，QQ小程序有效
+    mpAvatar: {
+      type: Boolean,
+      default: uni.$u.props.avatar.mpAvatar
+    },
+    // 是否使用随机背景色
+    randomBgColor: {
+      type: Boolean,
+      default: uni.$u.props.avatar.randomBgColor
+    },
+    // 加载失败的默认头像(组件有内置默认图片)
+    defaultUrl: {
+      type: String,
+      default: uni.$u.props.avatar.defaultUrl
+    },
+    // 如果配置了randomBgColor为true，且配置了此值，则从默认的背景色数组中取出对应索引的颜色值，取值0-19之间
+    colorIndex: {
+      type: [String, Number],
+      // 校验参数规则，索引在0-19之间
+      validator: function validator(n) {
+        return uni.$u.test.range(n, [0, 19]) || n === '';
+      },
+      default: uni.$u.props.avatar.colorIndex
+    },
+    // 组件标识符
+    name: {
+      type: String,
+      default: uni.$u.props.avatar.name
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */
+/*!************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-empty/props.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 内置图标名称，或图片路径，建议绝对路径
+    icon: {
+      type: String,
+      default: uni.$u.props.empty.icon
+    },
+    // 提示文字
+    text: {
+      type: String,
+      default: uni.$u.props.empty.text
+    },
+    // 文字颜色
+    textColor: {
+      type: String,
+      default: uni.$u.props.empty.textColor
+    },
+    // 文字大小
+    textSize: {
+      type: [String, Number],
+      default: uni.$u.props.empty.textSize
+    },
+    // 图标的颜色
+    iconColor: {
+      type: String,
+      default: uni.$u.props.empty.iconColor
+    },
+    // 图标的大小
+    iconSize: {
+      type: [String, Number],
+      default: uni.$u.props.empty.iconSize
+    },
+    // 选择预置的图标类型
+    mode: {
+      type: String,
+      default: uni.$u.props.empty.mode
+    },
+    //  图标宽度，单位px
+    width: {
+      type: [String, Number],
+      default: uni.$u.props.empty.width
+    },
+    // 图标高度，单位px
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.empty.height
+    },
+    // 是否显示组件
+    show: {
+      type: Boolean,
+      default: uni.$u.props.empty.show
+    },
+    // 组件距离上一个元素之间的距离，默认px单位
+    marginTop: {
+      type: [String, Number],
+      default: uni.$u.props.empty.marginTop
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */
 /*!***************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-textarea/props.js ***!
   \***************************************************************************************************/
@@ -27120,12 +23715,12 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 534 */,
-/* 535 */,
-/* 536 */,
-/* 537 */,
-/* 538 */,
-/* 539 */
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */
 /*!*******************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
   \*******************************************************************************************************/
@@ -27197,14 +23792,2376 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 540 */,
-/* 541 */,
-/* 542 */,
-/* 543 */,
-/* 544 */,
-/* 545 */,
-/* 546 */,
-/* 547 */
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */
+/*!*******************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否显示组件
+    show: {
+      type: Boolean,
+      default: uni.$u.props.loadingIcon.show
+    },
+    // 颜色
+    color: {
+      type: String,
+      default: uni.$u.props.loadingIcon.color
+    },
+    // 提示文字颜色
+    textColor: {
+      type: String,
+      default: uni.$u.props.loadingIcon.textColor
+    },
+    // 文字和图标是否垂直排列
+    vertical: {
+      type: Boolean,
+      default: uni.$u.props.loadingIcon.vertical
+    },
+    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
+    mode: {
+      type: String,
+      default: uni.$u.props.loadingIcon.mode
+    },
+    // 图标大小，单位默认px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.size
+    },
+    // 文字大小
+    textSize: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.textSize
+    },
+    // 文字内容
+    text: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.text
+    },
+    // 动画模式
+    timingFunction: {
+      type: String,
+      default: uni.$u.props.loadingIcon.timingFunction
+    },
+    // 动画执行周期时间
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.duration
+    },
+    // mode=circle时的暗边颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.loadingIcon.inactiveColor
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */
+/*!*************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-sticky/props.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 吸顶容器到顶部某个距离的时候，进行吸顶，在H5平台，NavigationBar为44px
+    offsetTop: {
+      type: [String, Number],
+      default: uni.$u.props.sticky.offsetTop
+    },
+    // 自定义导航栏的高度
+    customNavHeight: {
+      type: [String, Number],
+      default: uni.$u.props.sticky.customNavHeight
+    },
+    // 是否开启吸顶功能
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.sticky.disabled
+    },
+    // 吸顶区域的背景颜色
+    bgColor: {
+      type: String,
+      default: uni.$u.props.sticky.bgColor
+    },
+    // z-index值
+    zIndex: {
+      type: [String, Number],
+      default: uni.$u.props.sticky.zIndex
+    },
+    // 列表中的索引值
+    index: {
+      type: [String, Number],
+      default: uni.$u.props.sticky.index
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */
+/*!***********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-tabs/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 滑块的移动过渡时间，单位ms
+    duration: {
+      type: Number,
+      default: uni.$u.props.tabs.duration
+    },
+    // tabs标签数组
+    list: {
+      type: Array,
+      default: uni.$u.props.tabs.list
+    },
+    // 滑块颜色
+    lineColor: {
+      type: String,
+      default: uni.$u.props.tabs.lineColor
+    },
+    // 菜单选择中时的样式
+    activeStyle: {
+      type: [String, Object],
+      default: uni.$u.props.tabs.activeStyle
+    },
+    // 菜单非选中时的样式
+    inactiveStyle: {
+      type: [String, Object],
+      default: uni.$u.props.tabs.inactiveStyle
+    },
+    // 滑块长度
+    lineWidth: {
+      type: [String, Number],
+      default: uni.$u.props.tabs.lineWidth
+    },
+    // 滑块高度
+    lineHeight: {
+      type: [String, Number],
+      default: uni.$u.props.tabs.lineHeight
+    },
+    // 菜单item的样式
+    itemStyle: {
+      type: [String, Object],
+      default: uni.$u.props.tabs.itemStyle
+    },
+    // 菜单是否可滚动
+    scrollable: {
+      type: Boolean,
+      default: uni.$u.props.tabs.scrollable
+    },
+    // 当前选中标签的索引
+    current: {
+      type: [Number, String],
+      default: uni.$u.props.tabs.current
+    },
+    // 默认读取的键名
+    keyName: {
+      type: String,
+      default: uni.$u.props.tabs.keyName
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */
+/*!**********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-row/props.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 给col添加间距，左右边距各占一半
+    gutter: {
+      type: [String, Number],
+      default: uni.$u.props.row.gutter
+    },
+    // 水平排列方式，可选值为`start`(或`flex-start`)、`end`(或`flex-end`)、`center`、`around`(或`space-around`)、`between`(或`space-between`)
+    justify: {
+      type: String,
+      default: uni.$u.props.row.justify
+    },
+    // 垂直对齐方式，可选值为top、center、bottom
+    align: {
+      type: String,
+      default: uni.$u.props.row.align
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */
+/*!**********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-col/props.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 占父容器宽度的多少等分，总分为12份
+    span: {
+      type: [String, Number],
+      default: uni.$u.props.col.span
+    },
+    // 指定栅格左侧的间隔数(总12栏)
+    offset: {
+      type: [String, Number],
+      default: uni.$u.props.col.offset
+    },
+    // 水平排列方式，可选值为`start`(或`flex-start`)、`end`(或`flex-end`)、`center`、`around`(或`space-around`)、`between`(或`space-between`)
+    justify: {
+      type: String,
+      default: uni.$u.props.col.justify
+    },
+    // 垂直对齐方式，可选值为top、center、bottom、stretch
+    align: {
+      type: String,
+      default: uni.$u.props.col.align
+    },
+    // 文字对齐方式
+    textAlign: {
+      type: String,
+      default: uni.$u.props.col.textAlign
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */
+/*!***********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-code/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 倒计时总秒数
+    seconds: {
+      type: [String, Number],
+      default: uni.$u.props.code.seconds
+    },
+    // 尚未开始时提示
+    startText: {
+      type: String,
+      default: uni.$u.props.code.startText
+    },
+    // 正在倒计时中的提示
+    changeText: {
+      type: String,
+      default: uni.$u.props.code.changeText
+    },
+    // 倒计时结束时的提示
+    endText: {
+      type: String,
+      default: uni.$u.props.code.endText
+    },
+    // 是否在H5刷新或各端返回再进入时继续倒计时
+    keepRunning: {
+      type: Boolean,
+      default: uni.$u.props.code.keepRunning
+    },
+    // 为了区分多个页面，或者一个页面多个倒计时组件本地存储的继续倒计时变了
+    uniqueKey: {
+      type: String,
+      default: uni.$u.props.code.uniqueKey
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */
+/*!*********************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-checkbox-group/props.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 标识符
+    name: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.name
+    },
+    // 绑定的值
+    value: {
+      type: Array,
+      default: uni.$u.props.checkboxGroup.value
+    },
+    // 形状，circle-圆形，square-方形
+    shape: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.shape
+    },
+    // 是否禁用全部checkbox
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.checkboxGroup.disabled
+    },
+    // 选中状态下的颜色，如设置此值，将会覆盖parent的activeColor值
+    activeColor: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.activeColor
+    },
+    // 未选中的颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.inactiveColor
+    },
+    // 整个组件的尺寸，默认px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.checkboxGroup.size
+    },
+    // 布局方式，row-横向，column-纵向
+    placement: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.placement
+    },
+    // label的字体大小，px单位
+    labelSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkboxGroup.labelSize
+    },
+    // label的字体颜色
+    labelColor: {
+      type: [String],
+      default: uni.$u.props.checkboxGroup.labelColor
+    },
+    // 是否禁止点击文本操作
+    labelDisabled: {
+      type: Boolean,
+      default: uni.$u.props.checkboxGroup.labelDisabled
+    },
+    // 图标颜色
+    iconColor: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.iconColor
+    },
+    // 图标的大小，单位px
+    iconSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkboxGroup.iconSize
+    },
+    // 勾选图标的对齐方式，left-左边，right-右边
+    iconPlacement: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.iconPlacement
+    },
+    // 竖向配列时，是否显示下划线
+    borderBottom: {
+      type: Boolean,
+      default: uni.$u.props.checkboxGroup.borderBottom
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */
+/*!***************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-checkbox/props.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // checkbox的名称
+    name: {
+      type: [String, Number, Boolean],
+      default: uni.$u.props.checkbox.name
+    },
+    // 形状，square为方形，circle为圆型
+    shape: {
+      type: String,
+      default: uni.$u.props.checkbox.shape
+    },
+    // 整体的大小
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.size
+    },
+    // 是否默认选中
+    checked: {
+      type: Boolean,
+      default: uni.$u.props.checkbox.checked
+    },
+    // 是否禁用
+    disabled: {
+      type: [String, Boolean],
+      default: uni.$u.props.checkbox.disabled
+    },
+    // 选中状态下的颜色，如设置此值，将会覆盖parent的activeColor值
+    activeColor: {
+      type: String,
+      default: uni.$u.props.checkbox.activeColor
+    },
+    // 未选中的颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.checkbox.inactiveColor
+    },
+    // 图标的大小，单位px
+    iconSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.iconSize
+    },
+    // 图标颜色
+    iconColor: {
+      type: String,
+      default: uni.$u.props.checkbox.iconColor
+    },
+    // label提示文字，因为nvue下，直接slot进来的文字，由于特殊的结构，无法修改样式
+    label: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.label
+    },
+    // label的字体大小，px单位
+    labelSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.labelSize
+    },
+    // label的颜色
+    labelColor: {
+      type: String,
+      default: uni.$u.props.checkbox.labelColor
+    },
+    // 是否禁止点击提示语选中复选框
+    labelDisabled: {
+      type: [String, Boolean],
+      default: uni.$u.props.checkbox.labelDisabled
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */
+/*!***********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-text/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 主题颜色
+    type: {
+      type: String,
+      default: uni.$u.props.text.type
+    },
+    // 是否显示
+    show: {
+      type: Boolean,
+      default: uni.$u.props.text.show
+    },
+    // 显示的值
+    text: {
+      type: [String, Number],
+      default: uni.$u.props.text.text
+    },
+    // 前置图标
+    prefixIcon: {
+      type: String,
+      default: uni.$u.props.text.prefixIcon
+    },
+    // 后置图标
+    suffixIcon: {
+      type: String,
+      default: uni.$u.props.text.suffixIcon
+    },
+    // 文本处理的匹配模式
+    // text-普通文本，price-价格，phone-手机号，name-姓名，date-日期，link-超链接
+    mode: {
+      type: String,
+      default: uni.$u.props.text.mode
+    },
+    // mode=link下，配置的链接
+    href: {
+      type: String,
+      default: uni.$u.props.text.href
+    },
+    // 格式化规则
+    format: {
+      type: [String, Function],
+      default: uni.$u.props.text.format
+    },
+    // mode=phone时，点击文本是否拨打电话
+    call: {
+      type: Boolean,
+      default: uni.$u.props.text.call
+    },
+    // 小程序的打开方式
+    openType: {
+      type: String,
+      default: uni.$u.props.text.openType
+    },
+    // 是否粗体，默认normal
+    bold: {
+      type: Boolean,
+      default: uni.$u.props.text.bold
+    },
+    // 是否块状
+    block: {
+      type: Boolean,
+      default: uni.$u.props.text.block
+    },
+    // 文本显示的行数，如果设置，超出此行数，将会显示省略号
+    lines: {
+      type: [String, Number],
+      default: uni.$u.props.text.lines
+    },
+    // 文本颜色
+    color: {
+      type: String,
+      default: uni.$u.props.text.color
+    },
+    // 字体大小
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.text.size
+    },
+    // 图标的样式
+    iconStyle: {
+      type: [Object, String],
+      default: uni.$u.props.text.iconStyle
+    },
+    // 文字装饰，下划线，中划线等，可选值 none|underline|line-through
+    decoration: {
+      tepe: String,
+      default: uni.$u.props.text.decoration
+    },
+    // 外边距，对象、字符串，数值形式均可
+    margin: {
+      type: [Object, String, Number],
+      default: uni.$u.props.text.margin
+    },
+    // 文本行高
+    lineHeight: {
+      type: [String, Number],
+      default: uni.$u.props.text.lineHeight
+    },
+    // 文本对齐方式，可选值left|center|right
+    align: {
+      type: String,
+      default: uni.$u.props.text.align
+    },
+    // 文字换行，可选值break-word|normal|anywhere
+    wordWrap: {
+      type: String,
+      default: uni.$u.props.text.wordWrap
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */
+/*!*****************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-cell-group/props.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 分组标题
+    title: {
+      type: String,
+      default: uni.$u.props.cellGroup.title
+    },
+    // 是否显示外边框
+    border: {
+      type: Boolean,
+      default: uni.$u.props.cellGroup.border
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */
+/*!***********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-cell/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default2 = {
+  props: {
+    // 标题
+    title: {
+      type: [String, Number],
+      default: uni.$u.props.cell.title
+    },
+    // 标题下方的描述信息
+    label: {
+      type: [String, Number],
+      default: uni.$u.props.cell.label
+    },
+    // 右侧的内容
+    value: {
+      type: [String, Number],
+      default: uni.$u.props.cell.value
+    },
+    // 左侧图标名称，或者图片链接(本地文件建议使用绝对地址)
+    icon: {
+      type: String,
+      default: uni.$u.props.cell.icon
+    },
+    // 标题的宽度，单位任意，数值默认为px单位
+    titleWidth: {
+      type: [String, Number],
+      default: uni.$u.props.cell.titleWidth
+    },
+    // 是否禁用cell
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.cell.disabled
+    },
+    // 是否显示下边框
+    border: {
+      type: Boolean,
+      default: uni.$u.props.cell.border
+    },
+    // 内容是否垂直居中(主要是针对右侧的value部分)
+    center: {
+      type: Boolean,
+      default: uni.$u.props.cell.center
+    },
+    // 点击后跳转的URL地址
+    url: {
+      type: String,
+      default: uni.$u.props.cell.url
+    },
+    // 链接跳转的方式，内部使用的是uView封装的route方法，可能会进行拦截操作
+    linkType: {
+      type: String,
+      default: uni.$u.props.cell.linkType
+    },
+    // 是否开启点击反馈(表现为点击时加上灰色背景)
+    clickable: {
+      type: Boolean,
+      default: uni.$u.props.cell.clickable
+    },
+    // 是否展示右侧箭头并开启点击反馈
+    isLink: {
+      type: Boolean,
+      default: uni.$u.props.cell.isLink
+    },
+    // 是否显示表单状态下的必填星号(此组件可能会内嵌入input组件)
+    required: {
+      type: Boolean,
+      default: uni.$u.props.cell.required
+    },
+    // 右侧的图标箭头
+    rightIcon: {
+      type: String,
+      default: uni.$u.props.cell.rightIcon
+    },
+    // 右侧箭头的方向，可选值为：left，up，down
+    arrowDirection: {
+      type: String,
+      default: uni.$u.props.cell.arrowDirection
+    },
+    // 左侧图标样式
+    iconStyle: {
+      type: [Object, String],
+      default: function _default() {
+        return uni.$u.props.cell.iconStyle;
+      }
+    },
+    // 右侧箭头图标的样式
+    rightIconStyle: {
+      type: [Object, String],
+      default: function _default() {
+        return uni.$u.props.cell.rightIconStyle;
+      }
+    },
+    // 标题的样式
+    titleStyle: {
+      type: [Object, String],
+      default: function _default() {
+        return uni.$u.props.cell.titleStyle;
+      }
+    },
+    // 单位元的大小，可选值为large
+    size: {
+      type: String,
+      default: uni.$u.props.cell.size
+    },
+    // 点击cell是否阻止事件传播
+    stop: {
+      type: Boolean,
+      default: uni.$u.props.cell.stop
+    },
+    // 标识符，cell被点击时返回
+    name: {
+      type: [Number, String],
+      default: uni.$u.props.cell.name
+    }
+  }
+};
+exports.default = _default2;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */
+/*!*************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-search/props.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 搜索框形状，round-圆形，square-方形
+    shape: {
+      type: String,
+      default: uni.$u.props.search.shape
+    },
+    // 搜索框背景色，默认值#f2f2f2
+    bgColor: {
+      type: String,
+      default: uni.$u.props.search.bgColor
+    },
+    // 占位提示文字
+    placeholder: {
+      type: String,
+      default: uni.$u.props.search.placeholder
+    },
+    // 是否启用清除控件
+    clearabled: {
+      type: Boolean,
+      default: uni.$u.props.search.clearabled
+    },
+    // 是否自动聚焦
+    focus: {
+      type: Boolean,
+      default: uni.$u.props.search.focus
+    },
+    // 是否在搜索框右侧显示取消按钮
+    showAction: {
+      type: Boolean,
+      default: uni.$u.props.search.showAction
+    },
+    // 右边控件的样式
+    actionStyle: {
+      type: Object,
+      default: uni.$u.props.search.actionStyle
+    },
+    // 取消按钮文字
+    actionText: {
+      type: String,
+      default: uni.$u.props.search.actionText
+    },
+    // 输入框内容对齐方式，可选值为 left|center|right
+    inputAlign: {
+      type: String,
+      default: uni.$u.props.search.inputAlign
+    },
+    // input输入框的样式，可以定义文字颜色，大小等，对象形式
+    inputStyle: {
+      type: Object,
+      default: uni.$u.props.search.inputStyle
+    },
+    // 是否启用输入框
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.search.disabled
+    },
+    // 边框颜色
+    borderColor: {
+      type: String,
+      default: uni.$u.props.search.borderColor
+    },
+    // 搜索图标的颜色，默认同输入框字体颜色
+    searchIconColor: {
+      type: String,
+      default: uni.$u.props.search.searchIconColor
+    },
+    // 输入框字体颜色
+    color: {
+      type: String,
+      default: uni.$u.props.search.color
+    },
+    // placeholder的颜色
+    placeholderColor: {
+      type: String,
+      default: uni.$u.props.search.placeholderColor
+    },
+    // 左边输入框的图标，可以为uView图标名称或图片路径
+    searchIcon: {
+      type: String,
+      default: uni.$u.props.search.searchIcon
+    },
+    // 组件与其他上下左右元素之间的距离，带单位的字符串形式，如"30px"、"30px 20px"等写法
+    margin: {
+      type: String,
+      default: uni.$u.props.search.margin
+    },
+    // 开启showAction时，是否在input获取焦点时才显示
+    animation: {
+      type: Boolean,
+      default: uni.$u.props.search.animation
+    },
+    // 输入框的初始化内容
+    value: {
+      type: String,
+      default: uni.$u.props.search.value
+    },
+    // 输入框最大能输入的长度，-1为不限制长度(来自uniapp文档)
+    maxlength: {
+      type: [String, Number],
+      default: uni.$u.props.search.maxlength
+    },
+    // 搜索框高度，单位px
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.search.height
+    },
+    // 搜索框左侧文本
+    label: {
+      type: [String, Number, null],
+      default: uni.$u.props.search.label
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */
+/*!***************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-loadmore/props.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 组件状态，loadmore-加载前的状态，loading-加载中的状态，nomore-没有更多的状态
+    status: {
+      type: String,
+      default: uni.$u.props.loadmore.status
+    },
+    // 组件背景色
+    bgColor: {
+      type: String,
+      default: uni.$u.props.loadmore.bgColor
+    },
+    // 是否显示加载中的图标
+    icon: {
+      type: Boolean,
+      default: uni.$u.props.loadmore.icon
+    },
+    // 字体大小
+    fontSize: {
+      type: [String, Number],
+      default: uni.$u.props.loadmore.fontSize
+    },
+    // 字体颜色
+    color: {
+      type: String,
+      default: uni.$u.props.loadmore.color
+    },
+    // 加载中状态的图标，spinner-花朵状图标，circle-圆圈状，semicircle-半圆
+    loadingIcon: {
+      type: String,
+      default: uni.$u.props.loadmore.loadingIcon
+    },
+    // 加载前的提示语
+    loadmoreText: {
+      type: String,
+      default: uni.$u.props.loadmore.loadmoreText
+    },
+    // 加载中提示语
+    loadingText: {
+      type: String,
+      default: uni.$u.props.loadmore.loadingText
+    },
+    // 没有更多的提示语
+    nomoreText: {
+      type: String,
+      default: uni.$u.props.loadmore.nomoreText
+    },
+    // 在“没有更多”状态下，是否显示粗点
+    isDot: {
+      type: Boolean,
+      default: uni.$u.props.loadmore.isDot
+    },
+    // 加载中图标的颜色
+    iconColor: {
+      type: String,
+      default: uni.$u.props.loadmore.iconColor
+    },
+    // 上边距
+    marginTop: {
+      type: [String, Number],
+      default: uni.$u.props.loadmore.marginTop
+    },
+    // 下边距
+    marginBottom: {
+      type: [String, Number],
+      default: uni.$u.props.loadmore.marginBottom
+    },
+    // 高度，单位px
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.loadmore.height
+    },
+    // 是否显示左边分割线
+    line: {
+      type: Boolean,
+      default: uni.$u.props.loadmore.line
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */
+/*!************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-steps/props.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 排列方向
+    direction: {
+      type: String,
+      default: uni.$u.props.steps.direction
+    },
+    // 设置第几个步骤
+    current: {
+      type: [String, Number],
+      default: uni.$u.props.steps.current
+    },
+    // 激活状态颜色
+    activeColor: {
+      type: String,
+      default: uni.$u.props.steps.activeColor
+    },
+    // 未激活状态颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.steps.inactiveColor
+    },
+    // 激活状态的图标
+    activeIcon: {
+      type: String,
+      default: uni.$u.props.steps.activeIcon
+    },
+    // 未激活状态图标
+    inactiveIcon: {
+      type: String,
+      default: uni.$u.props.steps.inactiveIcon
+    },
+    // 是否显示点类型
+    dot: {
+      type: Boolean,
+      default: uni.$u.props.steps.dot
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */
+/*!*****************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-steps-item/props.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 标题
+    title: {
+      type: [String, Number],
+      default: uni.$u.props.stepsItem.title
+    },
+    // 描述文本
+    desc: {
+      type: [String, Number],
+      default: uni.$u.props.stepsItem.desc
+    },
+    // 图标大小
+    iconSize: {
+      type: [String, Number],
+      default: uni.$u.props.stepsItem.iconSize
+    },
+    // 当前步骤是否处于失败状态
+    error: {
+      type: Boolean,
+      default: uni.$u.props.stepsItem.error
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */,
+/* 466 */,
+/* 467 */,
+/* 468 */,
+/* 469 */,
+/* 470 */,
+/* 471 */,
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */
+/*!***************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-calendar/props.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 日历顶部标题
+    title: {
+      type: String,
+      default: uni.$u.props.calendar.title
+    },
+    // 是否显示标题
+    showTitle: {
+      type: Boolean,
+      default: uni.$u.props.calendar.showTitle
+    },
+    // 是否显示副标题
+    showSubtitle: {
+      type: Boolean,
+      default: uni.$u.props.calendar.showSubtitle
+    },
+    // 日期类型选择，single-选择单个日期，multiple-可以选择多个日期，range-选择日期范围
+    mode: {
+      type: String,
+      default: uni.$u.props.calendar.mode
+    },
+    // mode=range时，第一个日期底部的提示文字
+    startText: {
+      type: String,
+      default: uni.$u.props.calendar.startText
+    },
+    // mode=range时，最后一个日期底部的提示文字
+    endText: {
+      type: String,
+      default: uni.$u.props.calendar.endText
+    },
+    // 自定义列表
+    customList: {
+      type: Array,
+      default: uni.$u.props.calendar.customList
+    },
+    // 主题色，对底部按钮和选中日期有效
+    color: {
+      type: String,
+      default: uni.$u.props.calendar.color
+    },
+    // 最小的可选日期
+    minDate: {
+      type: [String, Number],
+      default: uni.$u.props.calendar.minDate
+    },
+    // 最大可选日期
+    maxDate: {
+      type: [String, Number],
+      default: uni.$u.props.calendar.maxDate
+    },
+    // 默认选中的日期，mode为multiple或range是必须为数组格式
+    defaultDate: {
+      type: [Array, String, Date, null],
+      default: uni.$u.props.calendar.defaultDate
+    },
+    // mode=multiple时，最多可选多少个日期
+    maxCount: {
+      type: [String, Number],
+      default: uni.$u.props.calendar.maxCount
+    },
+    // 日期行高
+    rowHeight: {
+      type: [String, Number],
+      default: uni.$u.props.calendar.rowHeight
+    },
+    // 日期格式化函数
+    formatter: {
+      type: [Function, null],
+      default: uni.$u.props.calendar.formatter
+    },
+    // 是否显示农历
+    showLunar: {
+      type: Boolean,
+      default: uni.$u.props.calendar.showLunar
+    },
+    // 是否显示月份背景色
+    showMark: {
+      type: Boolean,
+      default: uni.$u.props.calendar.showMark
+    },
+    // 确定按钮的文字
+    confirmText: {
+      type: String,
+      default: uni.$u.props.calendar.confirmText
+    },
+    // 确认按钮处于禁用状态时的文字
+    confirmDisabledText: {
+      type: String,
+      default: uni.$u.props.calendar.confirmDisabledText
+    },
+    // 是否显示日历弹窗
+    show: {
+      type: Boolean,
+      default: uni.$u.props.calendar.show
+    },
+    // 是否允许点击遮罩关闭日历
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: uni.$u.props.calendar.closeOnClickOverlay
+    },
+    // 是否为只读状态，只读状态下禁止选择日期
+    readonly: {
+      type: Boolean,
+      default: uni.$u.props.calendar.readonly
+    },
+    // 	是否展示确认按钮
+    showConfirm: {
+      type: Boolean,
+      default: uni.$u.props.calendar.showConfirm
+    },
+    // 日期区间最多可选天数，默认无限制，mode = range时有效
+    maxRange: {
+      type: [Number, String],
+      default: uni.$u.props.calendar.maxRange
+    },
+    // 范围选择超过最多可选天数时的提示文案，mode = range时有效
+    rangePrompt: {
+      type: String,
+      default: uni.$u.props.calendar.rangePrompt
+    },
+    // 范围选择超过最多可选天数时，是否展示提示文案，mode = range时有效
+    showRangePrompt: {
+      type: Boolean,
+      default: uni.$u.props.calendar.showRangePrompt
+    },
+    // 是否允许日期范围的起止时间为同一天，mode = range时有效
+    allowSameDay: {
+      type: Boolean,
+      default: uni.$u.props.calendar.allowSameDay
+    },
+    // 圆角值
+    round: {
+      type: [Boolean, String, Number],
+      default: uni.$u.props.calendar.round
+    },
+    // 最多展示月份数量
+    monthNum: {
+      type: [Number, String],
+      default: 3
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 476 */
+/*!**************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-calendar/util.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var _default = {
+  methods: {
+    // 设置月份数据
+    setMonth: function setMonth() {
+      var _this = this;
+      // 月初是周几
+      var day = dayjs(this.date).date(1).day();
+      var start = day == 0 ? 6 : day - 1;
+
+      // 本月天数
+      var days = dayjs(this.date).endOf('month').format('D');
+
+      // 上个月天数
+      var prevDays = dayjs(this.date).endOf('month').subtract(1, 'month').format('D');
+
+      // 日期数据
+      var arr = [];
+      // 清空表格
+      this.month = [];
+
+      // 添加上月数据
+      arr.push.apply(arr, (0, _toConsumableArray2.default)(new Array(start).fill(1).map(function (e, i) {
+        var day = prevDays - start + i + 1;
+        return {
+          value: day,
+          disabled: true,
+          date: dayjs(_this.date).subtract(1, 'month').date(day).format('YYYY-MM-DD')
+        };
+      })));
+
+      // 添加本月数据
+      arr.push.apply(arr, (0, _toConsumableArray2.default)(new Array(days - 0).fill(1).map(function (e, i) {
+        var day = i + 1;
+        return {
+          value: day,
+          date: dayjs(_this.date).date(day).format('YYYY-MM-DD')
+        };
+      })));
+
+      // 添加下个月
+      arr.push.apply(arr, (0, _toConsumableArray2.default)(new Array(42 - days - start).fill(1).map(function (e, i) {
+        var day = i + 1;
+        return {
+          value: day,
+          disabled: true,
+          date: dayjs(_this.date).add(1, 'month').date(day).format('YYYY-MM-DD')
+        };
+      })));
+
+      // 分割数组
+      var _loop = function _loop(n) {
+        _this.month.push(arr.slice(n, n + 7).map(function (e, i) {
+          e.index = i + n;
+
+          // 自定义信息
+          var custom = _this.customList.find(function (c) {
+            return c.date == e.date;
+          });
+
+          // 农历
+          if (_this.lunar) {
+            var _this$getLunar = _this.getLunar(e.date),
+              IDayCn = _this$getLunar.IDayCn,
+              IMonthCn = _this$getLunar.IMonthCn;
+            e.lunar = IDayCn == '初一' ? IMonthCn : IDayCn;
+          }
+          return _objectSpread(_objectSpread({}, e), custom);
+        }));
+      };
+      for (var n = 0; n < arr.length; n += 7) {
+        _loop(n);
+      }
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 477 */
+/*!***************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/util/dayjs.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = __webpack_require__(/*! @babel/runtime/helpers/typeof */ 13);
+!function (t, e) {
+  ( false ? undefined : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = e() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (e),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
+}(this, function () {
+  'use strict';
+
+  var t = 'millisecond';
+  var e = 'second';
+  var n = 'minute';
+  var r = 'hour';
+  var i = 'day';
+  var s = 'week';
+  var u = 'month';
+  var a = 'quarter';
+  var o = 'year';
+  var f = 'date';
+  var h = /^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d+)?$/;
+  var c = /\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g;
+  var d = {
+    name: 'en',
+    weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+    months: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_')
+  };
+  var $ = function $(t, e, n) {
+    var r = String(t);
+    return !r || r.length >= e ? t : "".concat(Array(e + 1 - r.length).join(n)).concat(t);
+  };
+  var l = {
+    s: $,
+    z: function z(t) {
+      var e = -t.utcOffset();
+      var n = Math.abs(e);
+      var r = Math.floor(n / 60);
+      var i = n % 60;
+      return "".concat((e <= 0 ? '+' : '-') + $(r, 2, '0'), ":").concat($(i, 2, '0'));
+    },
+    m: function t(e, n) {
+      if (e.date() < n.date()) return -t(n, e);
+      var r = 12 * (n.year() - e.year()) + (n.month() - e.month());
+      var i = e.clone().add(r, u);
+      var s = n - i < 0;
+      var a = e.clone().add(r + (s ? -1 : 1), u);
+      return +(-(r + (n - i) / (s ? i - a : a - i)) || 0);
+    },
+    a: function a(t) {
+      return t < 0 ? Math.ceil(t) || 0 : Math.floor(t);
+    },
+    p: function p(h) {
+      return {
+        M: u,
+        y: o,
+        w: s,
+        d: i,
+        D: f,
+        h: r,
+        m: n,
+        s: e,
+        ms: t,
+        Q: a
+      }[h] || String(h || '').toLowerCase().replace(/s$/, '');
+    },
+    u: function u(t) {
+      return void 0 === t;
+    }
+  };
+  var y = 'en';
+  var M = {};
+  M[y] = d;
+  var m = function m(t) {
+    return t instanceof S;
+  };
+  var D = function D(t, e, n) {
+    var r;
+    if (!t) return y;
+    if (typeof t === 'string') M[t] && (r = t), e && (M[t] = e, r = t);else {
+      var _i = t.name;
+      M[_i] = t, r = _i;
+    }
+    return !n && r && (y = r), r || !n && y;
+  };
+  var v = function v(t, e) {
+    if (m(t)) return t.clone();
+    var n = _typeof(e) === 'object' ? e : {};
+    return n.date = t, n.args = arguments, new S(n);
+  };
+  var g = l;
+  g.l = D, g.i = m, g.w = function (t, e) {
+    return v(t, {
+      locale: e.$L,
+      utc: e.$u,
+      x: e.$x,
+      $offset: e.$offset
+    });
+  };
+  var S = function () {
+    function d(t) {
+      this.$L = D(t.locale, null, !0), this.parse(t);
+    }
+    var $ = d.prototype;
+    return $.parse = function (t) {
+      this.$d = function (t) {
+        var e = t.date;
+        var n = t.utc;
+        if (e === null) return new Date(NaN);
+        if (g.u(e)) return new Date();
+        if (e instanceof Date) return new Date(e);
+        if (typeof e === 'string' && !/Z$/i.test(e)) {
+          var _r = e.match(h);
+          if (_r) {
+            var _i2 = _r[2] - 1 || 0;
+            var _s = (_r[7] || '0').substring(0, 3);
+            return n ? new Date(Date.UTC(_r[1], _i2, _r[3] || 1, _r[4] || 0, _r[5] || 0, _r[6] || 0, _s)) : new Date(_r[1], _i2, _r[3] || 1, _r[4] || 0, _r[5] || 0, _r[6] || 0, _s);
+          }
+        }
+        return new Date(e);
+      }(t), this.$x = t.x || {}, this.init();
+    }, $.init = function () {
+      var t = this.$d;
+      this.$y = t.getFullYear(), this.$M = t.getMonth(), this.$D = t.getDate(), this.$W = t.getDay(), this.$H = t.getHours(), this.$m = t.getMinutes(), this.$s = t.getSeconds(), this.$ms = t.getMilliseconds();
+    }, $.$utils = function () {
+      return g;
+    }, $.isValid = function () {
+      return !(this.$d.toString() === 'Invalid Date');
+    }, $.isSame = function (t, e) {
+      var n = v(t);
+      return this.startOf(e) <= n && n <= this.endOf(e);
+    }, $.isAfter = function (t, e) {
+      return v(t) < this.startOf(e);
+    }, $.isBefore = function (t, e) {
+      return this.endOf(e) < v(t);
+    }, $.$g = function (t, e, n) {
+      return g.u(t) ? this[e] : this.set(n, t);
+    }, $.unix = function () {
+      return Math.floor(this.valueOf() / 1e3);
+    }, $.valueOf = function () {
+      return this.$d.getTime();
+    }, $.startOf = function (t, a) {
+      var h = this;
+      var c = !!g.u(a) || a;
+      var d = g.p(t);
+      var $ = function $(t, e) {
+        var n = g.w(h.$u ? Date.UTC(h.$y, e, t) : new Date(h.$y, e, t), h);
+        return c ? n : n.endOf(i);
+      };
+      var l = function l(t, e) {
+        return g.w(h.toDate()[t].apply(h.toDate('s'), (c ? [0, 0, 0, 0] : [23, 59, 59, 999]).slice(e)), h);
+      };
+      var y = this.$W;
+      var M = this.$M;
+      var m = this.$D;
+      var D = "set".concat(this.$u ? 'UTC' : '');
+      switch (d) {
+        case o:
+          return c ? $(1, 0) : $(31, 11);
+        case u:
+          return c ? $(1, M) : $(0, M + 1);
+        case s:
+          var v = this.$locale().weekStart || 0;
+          var S = (y < v ? y + 7 : y) - v;
+          return $(c ? m - S : m + (6 - S), M);
+        case i:
+        case f:
+          return l("".concat(D, "Hours"), 0);
+        case r:
+          return l("".concat(D, "Minutes"), 1);
+        case n:
+          return l("".concat(D, "Seconds"), 2);
+        case e:
+          return l("".concat(D, "Milliseconds"), 3);
+        default:
+          return this.clone();
+      }
+    }, $.endOf = function (t) {
+      return this.startOf(t, !1);
+    }, $.$set = function (s, a) {
+      var h;
+      var c = g.p(s);
+      var d = "set".concat(this.$u ? 'UTC' : '');
+      var $ = (h = {}, h[i] = "".concat(d, "Date"), h[f] = "".concat(d, "Date"), h[u] = "".concat(d, "Month"), h[o] = "".concat(d, "FullYear"), h[r] = "".concat(d, "Hours"), h[n] = "".concat(d, "Minutes"), h[e] = "".concat(d, "Seconds"), h[t] = "".concat(d, "Milliseconds"), h)[c];
+      var l = c === i ? this.$D + (a - this.$W) : a;
+      if (c === u || c === o) {
+        var _y = this.clone().set(f, 1);
+        _y.$d[$](l), _y.init(), this.$d = _y.set(f, Math.min(this.$D, _y.daysInMonth())).$d;
+      } else $ && this.$d[$](l);
+      return this.init(), this;
+    }, $.set = function (t, e) {
+      return this.clone().$set(t, e);
+    }, $.get = function (t) {
+      return this[g.p(t)]();
+    }, $.add = function (t, a) {
+      var f;
+      var h = this;
+      t = Number(t);
+      var c = g.p(a);
+      var d = function d(e) {
+        var n = v(h);
+        return g.w(n.date(n.date() + Math.round(e * t)), h);
+      };
+      if (c === u) return this.set(u, this.$M + t);
+      if (c === o) return this.set(o, this.$y + t);
+      if (c === i) return d(1);
+      if (c === s) return d(7);
+      var $ = (f = {}, f[n] = 6e4, f[r] = 36e5, f[e] = 1e3, f)[c] || 1;
+      var l = this.$d.getTime() + t * $;
+      return g.w(l, this);
+    }, $.subtract = function (t, e) {
+      return this.add(-1 * t, e);
+    }, $.format = function (t) {
+      var e = this;
+      if (!this.isValid()) return 'Invalid Date';
+      var n = t || 'YYYY-MM-DDTHH:mm:ssZ';
+      var r = g.z(this);
+      var i = this.$locale();
+      var s = this.$H;
+      var u = this.$m;
+      var a = this.$M;
+      var o = i.weekdays;
+      var f = i.months;
+      var h = function h(t, r, i, s) {
+        return t && (t[r] || t(e, n)) || i[r].substr(0, s);
+      };
+      var d = function d(t) {
+        return g.s(s % 12 || 12, t, '0');
+      };
+      var $ = i.meridiem || function (t, e, n) {
+        var r = t < 12 ? 'AM' : 'PM';
+        return n ? r.toLowerCase() : r;
+      };
+      var l = {
+        YY: String(this.$y).slice(-2),
+        YYYY: this.$y,
+        M: a + 1,
+        MM: g.s(a + 1, 2, '0'),
+        MMM: h(i.monthsShort, a, f, 3),
+        MMMM: h(f, a),
+        D: this.$D,
+        DD: g.s(this.$D, 2, '0'),
+        d: String(this.$W),
+        dd: h(i.weekdaysMin, this.$W, o, 2),
+        ddd: h(i.weekdaysShort, this.$W, o, 3),
+        dddd: o[this.$W],
+        H: String(s),
+        HH: g.s(s, 2, '0'),
+        h: d(1),
+        hh: d(2),
+        a: $(s, u, !0),
+        A: $(s, u, !1),
+        m: String(u),
+        mm: g.s(u, 2, '0'),
+        s: String(this.$s),
+        ss: g.s(this.$s, 2, '0'),
+        SSS: g.s(this.$ms, 3, '0'),
+        Z: r
+      };
+      return n.replace(c, function (t, e) {
+        return e || l[t] || r.replace(':', '');
+      });
+    }, $.utcOffset = function () {
+      return 15 * -Math.round(this.$d.getTimezoneOffset() / 15);
+    }, $.diff = function (t, f, h) {
+      var c;
+      var d = g.p(f);
+      var $ = v(t);
+      var l = 6e4 * ($.utcOffset() - this.utcOffset());
+      var y = this - $;
+      var M = g.m(this, $);
+      return M = (c = {}, c[o] = M / 12, c[u] = M, c[a] = M / 3, c[s] = (y - l) / 6048e5, c[i] = (y - l) / 864e5, c[r] = y / 36e5, c[n] = y / 6e4, c[e] = y / 1e3, c)[d] || y, h ? M : g.a(M);
+    }, $.daysInMonth = function () {
+      return this.endOf(u).$D;
+    }, $.$locale = function () {
+      return M[this.$L];
+    }, $.locale = function (t, e) {
+      if (!t) return this.$L;
+      var n = this.clone();
+      var r = D(t, e, !0);
+      return r && (n.$L = r), n;
+    }, $.clone = function () {
+      return g.w(this.$d, this);
+    }, $.toDate = function () {
+      return new Date(this.valueOf());
+    }, $.toJSON = function () {
+      return this.isValid() ? this.toISOString() : null;
+    }, $.toISOString = function () {
+      return this.$d.toISOString();
+    }, $.toString = function () {
+      return this.$d.toUTCString();
+    }, d;
+  }();
+  var p = S.prototype;
+  return v.prototype = p, [['$ms', t], ['$s', e], ['$m', n], ['$H', r], ['$W', i], ['$M', u], ['$y', o], ['$D', f]].forEach(function (t) {
+    p[t[1]] = function (e) {
+      return this.$g(e, t[0], t[1]);
+    };
+  }), v.extend = function (t, e) {
+    return t.$i || (t(e, S, v), t.$i = !0), v;
+  }, v.locale = D, v.isDayjs = m, v.unix = function (t) {
+    return v(1e3 * t);
+  }, v.en = M[y], v.Ls = M, v.p = {}, v;
+});
+
+/***/ }),
+/* 478 */
+/*!******************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/libs/util/calendar.js ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+/**
+* @1900-2100区间内的公历、农历互转
+* @charset UTF-8
+* @github  https://github.com/jjonline/calendar.js
+* @Author  Jea杨(JJonline@JJonline.Cn)
+* @Time    2014-7-21
+* @Time    2016-8-13 Fixed 2033hex、Attribution Annals
+* @Time    2016-9-25 Fixed lunar LeapMonth Param Bug
+* @Time    2017-7-24 Fixed use getTerm Func Param Error.use solar year,NOT lunar year
+* @Version 1.0.3
+* @公历转农历：calendar.solar2lunar(1987,11,01); //[you can ignore params of prefix 0]
+* @农历转公历：calendar.lunar2solar(1987,09,10); //[you can ignore params of prefix 0]
+*/
+/* eslint-disable */
+var calendar = {
+  /**
+      * 农历1900-2100的润大小信息表
+      * @Array Of Property
+      * @return Hex
+      */
+  lunarInfo: [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+  // 1900-1909
+  0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+  // 1910-1919
+  0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
+  // 1920-1929
+  0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
+  // 1930-1939
+  0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
+  // 1940-1949
+  0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0,
+  // 1950-1959
+  0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
+  // 1960-1969
+  0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0, 0x195a6,
+  // 1970-1979
+  0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
+  // 1980-1989
+  0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x05ac0, 0x0ab60, 0x096d5, 0x092e0,
+  // 1990-1999
+  0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
+  // 2000-2009
+  0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
+  // 2010-2019
+  0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
+  // 2020-2029
+  0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
+  // 2030-2039
+  0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0,
+  // 2040-2049
+  /** Add By JJonline@JJonline.Cn**/
+  0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0,
+  // 2050-2059
+  0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4,
+  // 2060-2069
+  0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0,
+  // 2070-2079
+  0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d160,
+  // 2080-2089
+  0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a2d0, 0x0d150, 0x0f252,
+  // 2090-2099
+  0x0d520],
+  // 2100
+
+  /**
+      * 公历每个月份的天数普通表
+      * @Array Of Property
+      * @return Number
+      */
+  solarMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  /**
+      * 天干地支之天干速查表
+      * @Array Of Property trans["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]
+      * @return Cn string
+      */
+  Gan: ["\u7532", "\u4E59", "\u4E19", "\u4E01", "\u620A", "\u5DF1", "\u5E9A", "\u8F9B", "\u58EC", "\u7678"],
+  /**
+      * 天干地支之地支速查表
+      * @Array Of Property
+      * @trans["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]
+      * @return Cn string
+      */
+  Zhi: ["\u5B50", "\u4E11", "\u5BC5", "\u536F", "\u8FB0", "\u5DF3", "\u5348", "\u672A", "\u7533", "\u9149", "\u620C", "\u4EA5"],
+  /**
+      * 天干地支之地支速查表<=>生肖
+      * @Array Of Property
+      * @trans["鼠","牛","虎","兔","龙","蛇","马","羊","猴","鸡","狗","猪"]
+      * @return Cn string
+      */
+  Animals: ["\u9F20", "\u725B", "\u864E", "\u5154", "\u9F99", "\u86C7", "\u9A6C", "\u7F8A", "\u7334", "\u9E21", "\u72D7", "\u732A"],
+  /**
+      * 24节气速查表
+      * @Array Of Property
+      * @trans["小寒","大寒","立春","雨水","惊蛰","春分","清明","谷雨","立夏","小满","芒种","夏至","小暑","大暑","立秋","处暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至"]
+      * @return Cn string
+      */
+  solarTerm: ["\u5C0F\u5BD2", "\u5927\u5BD2", "\u7ACB\u6625", "\u96E8\u6C34", "\u60CA\u86F0", "\u6625\u5206", "\u6E05\u660E", "\u8C37\u96E8", "\u7ACB\u590F", "\u5C0F\u6EE1", "\u8292\u79CD", "\u590F\u81F3", "\u5C0F\u6691", "\u5927\u6691", "\u7ACB\u79CB", "\u5904\u6691", "\u767D\u9732", "\u79CB\u5206", "\u5BD2\u9732", "\u971C\u964D", "\u7ACB\u51AC", "\u5C0F\u96EA", "\u5927\u96EA", "\u51AC\u81F3"],
+  /**
+      * 1900-2100各年的24节气日期速查表
+      * @Array Of Property
+      * @return 0x string For splice
+      */
+  sTermInfo: ['9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd0b06bdb0722c965ce1cfcc920f', 'b027097bd097c36b0b6fc9274c91aa', '9778397bd19801ec9210c965cc920e', '97b6b97bd19801ec95f8c965cc920f', '97bd09801d98082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd197c36c9210c9274c91aa', '97b6b97bd19801ec95f8c965cc920e', '97bd09801d98082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec95f8c965cc920e', '97bcf97c3598082c95f8e1cfcc920f', '97bd097bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c3598082c95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf97c359801ec95f8c965cc920f', '97bd097bd07f595b0b6fc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '9778397bd19801ec9210c9274c920e', '97b6b97bd19801ec95f8c965cc920f', '97bd07f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c920e', '97b6b97bd19801ec95f8c965cc920f', '97bd07f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bd07f1487f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c965cc920e', '97bcf7f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b97bd19801ec9210c9274c920e', '97bcf7f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c91aa', '97b6b97bd197c36c9210c9274c920e', '97bcf7f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '9778397bd097c36c9210c9274c920e', '97b6b7f0e47f531b0723b0b6fb0722', '7f0e37f5307f595b0b0bc920fb0722', '7f0e397bd097c36b0b6fc9210c8dc2', '9778397bd097c36b0b70c9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9274c91aa', '97b6b7f0e47f531b0723b0787b0721', '7f0e27f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c91aa', '97b6b7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '9778397bd097c36b0b6fc9210c8dc2', '977837f0e37f149b0723b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f5307f595b0b0bc920fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '977837f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc9210c8dc2', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd097c35b0b6fc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0787b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0b0bb0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14998082b0723b06bd', '7f07e7f0e37f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e397bd07f595b0b0bc920fb0722', '977837f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f1487f595b0b0bb0b6fb0722', '7f0e37f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e37f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e37f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f1487f531b0b0bb0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0723b06bd', '7f07e7f0e47f149b0723b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14998082b0723b06bd', '7f07e7f0e37f14998083b0787b0721', '7f0e27f0e47f531b0723b0b6fb0722', '7f0e37f0e366aa89801eb072297c35', '7ec967f0e37f14898082b0723b02d5', '7f07e7f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e36665b66aa89801e9808297c35', '665f67f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b0721', '7f07e7f0e47f531b0723b0b6fb0722', '7f0e36665b66a449801e9808297c35', '665f67f0e37f14898082b0723b02d5', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e36665b66a449801e9808297c35', '665f67f0e37f14898082b072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e26665b66a449801e9808297c35', '665f67f0e37f1489801eb072297c35', '7ec967f0e37f14998082b0787b06bd', '7f07e7f0e47f531b0723b0b6fb0721', '7f0e27f1487f531b0b0bb0b6fb0722'],
+  /**
+      * 数字转中文速查表
+      * @Array Of Property
+      * @trans ['日','一','二','三','四','五','六','七','八','九','十']
+      * @return Cn string
+      */
+  nStr1: ["\u65E5", "\u4E00", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", "\u516D", "\u4E03", "\u516B", "\u4E5D", "\u5341"],
+  /**
+      * 日期转农历称呼速查表
+      * @Array Of Property
+      * @trans ['初','十','廿','卅']
+      * @return Cn string
+      */
+  nStr2: ["\u521D", "\u5341", "\u5EFF", "\u5345"],
+  /**
+      * 月份转农历称呼速查表
+      * @Array Of Property
+      * @trans ['正','一','二','三','四','五','六','七','八','九','十','冬','腊']
+      * @return Cn string
+      */
+  nStr3: ["\u6B63", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", "\u516D", "\u4E03", "\u516B", "\u4E5D", "\u5341", "\u51AC", "\u814A"],
+  /**
+      * 返回农历y年一整年的总天数
+      * @param lunar Year
+      * @return Number
+      * @eg:var count = calendar.lYearDays(1987) ;//count=387
+      */
+  lYearDays: function lYearDays(y) {
+    var i;
+    var sum = 348;
+    for (i = 0x8000; i > 0x8; i >>= 1) {
+      sum += this.lunarInfo[y - 1900] & i ? 1 : 0;
+    }
+    return sum + this.leapDays(y);
+  },
+  /**
+      * 返回农历y年闰月是哪个月；若y年没有闰月 则返回0
+      * @param lunar Year
+      * @return Number (0-12)
+      * @eg:var leapMonth = calendar.leapMonth(1987) ;//leapMonth=6
+      */
+  leapMonth: function leapMonth(y) {
+    // 闰字编码 \u95f0
+    return this.lunarInfo[y - 1900] & 0xf;
+  },
+  /**
+      * 返回农历y年闰月的天数 若该年没有闰月则返回0
+      * @param lunar Year
+      * @return Number (0、29、30)
+      * @eg:var leapMonthDay = calendar.leapDays(1987) ;//leapMonthDay=29
+      */
+  leapDays: function leapDays(y) {
+    if (this.leapMonth(y)) {
+      return this.lunarInfo[y - 1900] & 0x10000 ? 30 : 29;
+    }
+    return 0;
+  },
+  /**
+      * 返回农历y年m月（非闰月）的总天数，计算m为闰月时的天数请使用leapDays方法
+      * @param lunar Year
+      * @return Number (-1、29、30)
+      * @eg:var MonthDay = calendar.monthDays(1987,9) ;//MonthDay=29
+      */
+  monthDays: function monthDays(y, m) {
+    if (m > 12 || m < 1) {
+      return -1;
+    } // 月份参数从1至12，参数错误返回-1
+    return this.lunarInfo[y - 1900] & 0x10000 >> m ? 30 : 29;
+  },
+  /**
+      * 返回公历(!)y年m月的天数
+      * @param solar Year
+      * @return Number (-1、28、29、30、31)
+      * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
+      */
+  solarDays: function solarDays(y, m) {
+    if (m > 12 || m < 1) {
+      return -1;
+    } // 若参数错误 返回-1
+    var ms = m - 1;
+    if (ms == 1) {
+      // 2月份的闰平规律测算后确认返回28或29
+      return y % 4 == 0 && y % 100 != 0 || y % 400 == 0 ? 29 : 28;
+    } else {
+      return this.solarMonth[ms];
+    }
+  },
+  /**
+     * 农历年份转换为干支纪年
+     * @param  lYear 农历年的年份数
+     * @return Cn string
+     */
+  toGanZhiYear: function toGanZhiYear(lYear) {
+    var ganKey = (lYear - 3) % 10;
+    var zhiKey = (lYear - 3) % 12;
+    if (ganKey == 0) ganKey = 10; // 如果余数为0则为最后一个天干
+    if (zhiKey == 0) zhiKey = 12; // 如果余数为0则为最后一个地支
+    return this.Gan[ganKey - 1] + this.Zhi[zhiKey - 1];
+  },
+  /**
+     * 公历月、日判断所属星座
+     * @param  cMonth [description]
+     * @param  cDay [description]
+     * @return Cn string
+     */
+  toAstro: function toAstro(cMonth, cDay) {
+    var s = "\u9B54\u7FAF\u6C34\u74F6\u53CC\u9C7C\u767D\u7F8A\u91D1\u725B\u53CC\u5B50\u5DE8\u87F9\u72EE\u5B50\u5904\u5973\u5929\u79E4\u5929\u874E\u5C04\u624B\u9B54\u7FAF";
+    var arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
+    return s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2) + "\u5EA7"; // 座
+  },
+
+  /**
+      * 传入offset偏移量返回干支
+      * @param offset 相对甲子的偏移量
+      * @return Cn string
+      */
+  toGanZhi: function toGanZhi(offset) {
+    return this.Gan[offset % 10] + this.Zhi[offset % 12];
+  },
+  /**
+      * 传入公历(!)y年获得该年第n个节气的公历日期
+      * @param y公历年(1900-2100)；n二十四节气中的第几个节气(1~24)；从n=1(小寒)算起
+      * @return day Number
+      * @eg:var _24 = calendar.getTerm(1987,3) ;//_24=4;意即1987年2月4日立春
+      */
+  getTerm: function getTerm(y, n) {
+    if (y < 1900 || y > 2100) {
+      return -1;
+    }
+    if (n < 1 || n > 24) {
+      return -1;
+    }
+    var _table = this.sTermInfo[y - 1900];
+    var _info = [parseInt('0x' + _table.substr(0, 5)).toString(), parseInt('0x' + _table.substr(5, 5)).toString(), parseInt('0x' + _table.substr(10, 5)).toString(), parseInt('0x' + _table.substr(15, 5)).toString(), parseInt('0x' + _table.substr(20, 5)).toString(), parseInt('0x' + _table.substr(25, 5)).toString()];
+    var _calday = [_info[0].substr(0, 1), _info[0].substr(1, 2), _info[0].substr(3, 1), _info[0].substr(4, 2), _info[1].substr(0, 1), _info[1].substr(1, 2), _info[1].substr(3, 1), _info[1].substr(4, 2), _info[2].substr(0, 1), _info[2].substr(1, 2), _info[2].substr(3, 1), _info[2].substr(4, 2), _info[3].substr(0, 1), _info[3].substr(1, 2), _info[3].substr(3, 1), _info[3].substr(4, 2), _info[4].substr(0, 1), _info[4].substr(1, 2), _info[4].substr(3, 1), _info[4].substr(4, 2), _info[5].substr(0, 1), _info[5].substr(1, 2), _info[5].substr(3, 1), _info[5].substr(4, 2)];
+    return parseInt(_calday[n - 1]);
+  },
+  /**
+      * 传入农历数字月份返回汉语通俗表示法
+      * @param lunar month
+      * @return Cn string
+      * @eg:var cnMonth = calendar.toChinaMonth(12) ;//cnMonth='腊月'
+      */
+  toChinaMonth: function toChinaMonth(m) {
+    // 月 => \u6708
+    if (m > 12 || m < 1) {
+      return -1;
+    } // 若参数错误 返回-1
+    var s = this.nStr3[m - 1];
+    s += "\u6708"; // 加上月字
+    return s;
+  },
+  /**
+      * 传入农历日期数字返回汉字表示法
+      * @param lunar day
+      * @return Cn string
+      * @eg:var cnDay = calendar.toChinaDay(21) ;//cnMonth='廿一'
+      */
+  toChinaDay: function toChinaDay(d) {
+    // 日 => \u65e5
+    var s;
+    switch (d) {
+      case 10:
+        s = "\u521D\u5341";
+        break;
+      case 20:
+        s = "\u4E8C\u5341";
+        break;
+        break;
+      case 30:
+        s = "\u4E09\u5341";
+        break;
+        break;
+      default:
+        s = this.nStr2[Math.floor(d / 10)];
+        s += this.nStr1[d % 10];
+    }
+    return s;
+  },
+  /**
+      * 年份转生肖[!仅能大致转换] => 精确划分生肖分界线是“立春”
+      * @param y year
+      * @return Cn string
+      * @eg:var animal = calendar.getAnimal(1987) ;//animal='兔'
+      */
+  getAnimal: function getAnimal(y) {
+    return this.Animals[(y - 4) % 12];
+  },
+  /**
+      * 传入阳历年月日获得详细的公历、农历object信息 <=>JSON
+      * @param y  solar year
+      * @param m  solar month
+      * @param d  solar day
+      * @return JSON object
+      * @eg:console.log(calendar.solar2lunar(1987,11,01));
+      */
+  solar2lunar: function solar2lunar(y, m, d) {
+    // 参数区间1900.1.31~2100.12.31
+    // 年份限定、上限
+    if (y < 1900 || y > 2100) {
+      return -1; // undefined转换为数字变为NaN
+    }
+    // 公历传参最下限
+    if (y == 1900 && m == 1 && d < 31) {
+      return -1;
+    }
+    // 未传参  获得当天
+    if (!y) {
+      var objDate = new Date();
+    } else {
+      var objDate = new Date(y, parseInt(m) - 1, d);
+    }
+    var i;
+    var leap = 0;
+    var temp = 0;
+    // 修正ymd参数
+    var y = objDate.getFullYear();
+    var m = objDate.getMonth() + 1;
+    var d = objDate.getDate();
+    var offset = (Date.UTC(objDate.getFullYear(), objDate.getMonth(), objDate.getDate()) - Date.UTC(1900, 0, 31)) / 86400000;
+    for (i = 1900; i < 2101 && offset > 0; i++) {
+      temp = this.lYearDays(i);
+      offset -= temp;
+    }
+    if (offset < 0) {
+      offset += temp;
+      i--;
+    }
+
+    // 是否今天
+    var isTodayObj = new Date();
+    var isToday = false;
+    if (isTodayObj.getFullYear() == y && isTodayObj.getMonth() + 1 == m && isTodayObj.getDate() == d) {
+      isToday = true;
+    }
+    // 星期几
+    var nWeek = objDate.getDay();
+    var cWeek = this.nStr1[nWeek];
+    // 数字表示周几顺应天朝周一开始的惯例
+    if (nWeek == 0) {
+      nWeek = 7;
+    }
+    // 农历年
+    var year = i;
+    var leap = this.leapMonth(i); // 闰哪个月
+    var isLeap = false;
+
+    // 效验闰月
+    for (i = 1; i < 13 && offset > 0; i++) {
+      // 闰月
+      if (leap > 0 && i == leap + 1 && isLeap == false) {
+        --i;
+        isLeap = true;
+        temp = this.leapDays(year); // 计算农历闰月天数
+      } else {
+        temp = this.monthDays(year, i); // 计算农历普通月天数
+      }
+      // 解除闰月
+      if (isLeap == true && i == leap + 1) {
+        isLeap = false;
+      }
+      offset -= temp;
+    }
+    // 闰月导致数组下标重叠取反
+    if (offset == 0 && leap > 0 && i == leap + 1) {
+      if (isLeap) {
+        isLeap = false;
+      } else {
+        isLeap = true;
+        --i;
+      }
+    }
+    if (offset < 0) {
+      offset += temp;
+      --i;
+    }
+    // 农历月
+    var month = i;
+    // 农历日
+    var day = offset + 1;
+    // 天干地支处理
+    var sm = m - 1;
+    var gzY = this.toGanZhiYear(year);
+
+    // 当月的两个节气
+    // bugfix-2017-7-24 11:03:38 use lunar Year Param `y` Not `year`
+    var firstNode = this.getTerm(y, m * 2 - 1); // 返回当月「节」为几日开始
+    var secondNode = this.getTerm(y, m * 2); // 返回当月「节」为几日开始
+
+    // 依据12节气修正干支月
+    var gzM = this.toGanZhi((y - 1900) * 12 + m + 11);
+    if (d >= firstNode) {
+      gzM = this.toGanZhi((y - 1900) * 12 + m + 12);
+    }
+
+    // 传入的日期的节气与否
+    var isTerm = false;
+    var Term = null;
+    if (firstNode == d) {
+      isTerm = true;
+      Term = this.solarTerm[m * 2 - 2];
+    }
+    if (secondNode == d) {
+      isTerm = true;
+      Term = this.solarTerm[m * 2 - 1];
+    }
+    // 日柱 当月一日与 1900/1/1 相差天数
+    var dayCyclical = Date.UTC(y, sm, 1, 0, 0, 0, 0) / 86400000 + 25567 + 10;
+    var gzD = this.toGanZhi(dayCyclical + d - 1);
+    // 该日期所属的星座
+    var astro = this.toAstro(m, d);
+    return {
+      'lYear': year,
+      'lMonth': month,
+      'lDay': day,
+      'Animal': this.getAnimal(year),
+      'IMonthCn': (isLeap ? "\u95F0" : '') + this.toChinaMonth(month),
+      'IDayCn': this.toChinaDay(day),
+      'cYear': y,
+      'cMonth': m,
+      'cDay': d,
+      'gzYear': gzY,
+      'gzMonth': gzM,
+      'gzDay': gzD,
+      'isToday': isToday,
+      'isLeap': isLeap,
+      'nWeek': nWeek,
+      'ncWeek': "\u661F\u671F" + cWeek,
+      'isTerm': isTerm,
+      'Term': Term,
+      'astro': astro
+    };
+  },
+  /**
+      * 传入农历年月日以及传入的月份是否闰月获得详细的公历、农历object信息 <=>JSON
+      * @param y  lunar year
+      * @param m  lunar month
+      * @param d  lunar day
+      * @param isLeapMonth  lunar month is leap or not.[如果是农历闰月第四个参数赋值true即可]
+      * @return JSON object
+      * @eg:console.log(calendar.lunar2solar(1987,9,10));
+      */
+  lunar2solar: function lunar2solar(y, m, d, isLeapMonth) {
+    // 参数区间1900.1.31~2100.12.1
+    var isLeapMonth = !!isLeapMonth;
+    var leapOffset = 0;
+    var leapMonth = this.leapMonth(y);
+    var leapDay = this.leapDays(y);
+    if (isLeapMonth && leapMonth != m) {
+      return -1;
+    } // 传参要求计算该闰月公历 但该年得出的闰月与传参的月份并不同
+    if (y == 2100 && m == 12 && d > 1 || y == 1900 && m == 1 && d < 31) {
+      return -1;
+    } // 超出了最大极限值
+    var day = this.monthDays(y, m);
+    var _day = day;
+    // bugFix 2016-9-25
+    // if month is leap, _day use leapDays method
+    if (isLeapMonth) {
+      _day = this.leapDays(y, m);
+    }
+    if (y < 1900 || y > 2100 || d > _day) {
+      return -1;
+    } // 参数合法性效验
+
+    // 计算农历的时间差
+    var offset = 0;
+    for (var i = 1900; i < y; i++) {
+      offset += this.lYearDays(i);
+    }
+    var leap = 0;
+    var isAdd = false;
+    for (var i = 1; i < m; i++) {
+      leap = this.leapMonth(y);
+      if (!isAdd) {
+        // 处理闰月
+        if (leap <= i && leap > 0) {
+          offset += this.leapDays(y);
+          isAdd = true;
+        }
+      }
+      offset += this.monthDays(y, i);
+    }
+    // 转换闰月农历 需补充该年闰月的前一个月的时差
+    if (isLeapMonth) {
+      offset += day;
+    }
+    // 1900年农历正月一日的公历时间为1900年1月30日0时0分0秒(该时间也是本农历的最开始起始点)
+    var stmap = Date.UTC(1900, 1, 30, 0, 0, 0);
+    var calObj = new Date((offset + d - 31) * 86400000 + stmap);
+    var cY = calObj.getUTCFullYear();
+    var cM = calObj.getUTCMonth() + 1;
+    var cD = calObj.getUTCDate();
+    return this.solar2lunar(cY, cM, cD);
+  }
+};
+var _default = calendar;
+exports.default = _default;
+
+/***/ }),
+/* 479 */,
+/* 480 */,
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */
 /*!*************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-upload/utils.js ***!
   \*************************************************************************************************/
@@ -27337,7 +26294,7 @@ function chooseFile(_ref) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ }),
-/* 548 */
+/* 487 */
 /*!*************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-upload/mixin.js ***!
   \*************************************************************************************************/
@@ -27364,7 +26321,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 549 */
+/* 488 */
 /*!*************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-upload/props.js ***!
   \*************************************************************************************************/
@@ -27506,123 +26463,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 550 */,
-/* 551 */,
-/* 552 */,
-/* 553 */,
-/* 554 */,
-/* 555 */,
-/* 556 */,
-/* 557 */
-/*!************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-modal/props.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否展示modal
-    show: {
-      type: Boolean,
-      default: uni.$u.props.modal.show
-    },
-    // 标题
-    title: {
-      type: [String],
-      default: uni.$u.props.modal.title
-    },
-    // 弹窗内容
-    content: {
-      type: String,
-      default: uni.$u.props.modal.content
-    },
-    // 确认文案
-    confirmText: {
-      type: String,
-      default: uni.$u.props.modal.confirmText
-    },
-    // 取消文案
-    cancelText: {
-      type: String,
-      default: uni.$u.props.modal.cancelText
-    },
-    // 是否显示确认按钮
-    showConfirmButton: {
-      type: Boolean,
-      default: uni.$u.props.modal.showConfirmButton
-    },
-    // 是否显示取消按钮
-    showCancelButton: {
-      type: Boolean,
-      default: uni.$u.props.modal.showCancelButton
-    },
-    // 确认按钮颜色
-    confirmColor: {
-      type: String,
-      default: uni.$u.props.modal.confirmColor
-    },
-    // 取消文字颜色
-    cancelColor: {
-      type: String,
-      default: uni.$u.props.modal.cancelColor
-    },
-    // 对调确认和取消的位置
-    buttonReverse: {
-      type: Boolean,
-      default: uni.$u.props.modal.buttonReverse
-    },
-    // 是否开启缩放效果
-    zoom: {
-      type: Boolean,
-      default: uni.$u.props.modal.zoom
-    },
-    // 是否异步关闭，只对确定按钮有效
-    asyncClose: {
-      type: Boolean,
-      default: uni.$u.props.modal.asyncClose
-    },
-    // 是否允许点击遮罩关闭modal
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.modal.closeOnClickOverlay
-    },
-    // 给一个负的margin-top，往上偏移，避免和键盘重合的情况
-    negativeTop: {
-      type: [String, Number],
-      default: uni.$u.props.modal.negativeTop
-    },
-    // modal宽度，不支持百分比，可以数值，px，rpx单位
-    width: {
-      type: [String, Number],
-      default: uni.$u.props.modal.width
-    },
-    // 确认按钮的样式，circle-圆形，square-方形，如设置，将不会显示取消按钮
-    confirmButtonShape: {
-      type: String,
-      default: uni.$u.props.modal.confirmButtonShape
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 558 */,
-/* 559 */,
-/* 560 */,
-/* 561 */,
-/* 562 */,
-/* 563 */,
-/* 564 */,
-/* 565 */
+/* 489 */,
+/* 490 */,
+/* 491 */,
+/* 492 */,
+/* 493 */,
+/* 494 */,
+/* 495 */,
+/* 496 */
 /*!**************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-overlay/props.js ***!
   \**************************************************************************************************/
@@ -27664,14 +26512,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 566 */,
-/* 567 */,
-/* 568 */,
-/* 569 */,
-/* 570 */,
-/* 571 */,
-/* 572 */,
-/* 573 */
+/* 497 */,
+/* 498 */,
+/* 499 */,
+/* 500 */,
+/* 501 */,
+/* 502 */,
+/* 503 */,
+/* 504 */
 /*!*****************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-transition/props.js ***!
   \*****************************************************************************************************/
@@ -27713,7 +26561,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 574 */
+/* 505 */
 /*!**********************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-transition/transition.js ***!
   \**********************************************************************************************************/
@@ -27730,7 +26578,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 57));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 59));
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 575));
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 506));
 // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {
   return new Promise(function (resolve) {
@@ -27820,7 +26668,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 575 */
+/* 506 */
 /*!************************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \************************************************************************************************************/
@@ -28013,14 +26861,14 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 576 */,
-/* 577 */,
-/* 578 */,
-/* 579 */,
-/* 580 */,
-/* 581 */,
-/* 582 */,
-/* 583 */
+/* 507 */,
+/* 508 */,
+/* 509 */,
+/* 510 */,
+/* 511 */,
+/* 512 */,
+/* 513 */,
+/* 514 */
 /*!*****************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-status-bar/props.js ***!
   \*****************************************************************************************************/
@@ -28046,14 +26894,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 584 */,
-/* 585 */,
-/* 586 */,
-/* 587 */,
-/* 588 */,
-/* 589 */,
-/* 590 */,
-/* 591 */
+/* 515 */,
+/* 516 */,
+/* 517 */,
+/* 518 */,
+/* 519 */,
+/* 520 */,
+/* 521 */,
+/* 522 */
 /*!******************************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \******************************************************************************************************/
@@ -28073,14 +26921,225 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 592 */,
-/* 593 */,
-/* 594 */,
-/* 595 */,
-/* 596 */,
-/* 597 */,
-/* 598 */,
-/* 599 */
+/* 523 */,
+/* 524 */,
+/* 525 */,
+/* 526 */,
+/* 527 */,
+/* 528 */,
+/* 529 */,
+/* 530 */
+/*!***********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-line/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    color: {
+      type: String,
+      default: uni.$u.props.line.color
+    },
+    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
+    length: {
+      type: [String, Number],
+      default: uni.$u.props.line.length
+    },
+    // 线条方向，col-竖向，row-横向
+    direction: {
+      type: String,
+      default: uni.$u.props.line.direction
+    },
+    // 是否显示细边框
+    hairline: {
+      type: Boolean,
+      default: uni.$u.props.line.hairline
+    },
+    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
+    margin: {
+      type: [String, Number],
+      default: uni.$u.props.line.margin
+    },
+    // 是否虚线，true-实线，false-虚线
+    dashed: {
+      type: Boolean,
+      default: uni.$u.props.line.dashed
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 531 */,
+/* 532 */,
+/* 533 */,
+/* 534 */,
+/* 535 */,
+/* 536 */,
+/* 537 */,
+/* 538 */,
+/* 539 */,
+/* 540 */,
+/* 541 */,
+/* 542 */,
+/* 543 */,
+/* 544 */,
+/* 545 */
+/*!**********************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-gap/props.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 背景颜色（默认transparent）
+    bgColor: {
+      type: String,
+      default: uni.$u.props.gap.bgColor
+    },
+    // 分割槽高度，单位px（默认30）
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.gap.height
+    },
+    // 与上一个组件的距离
+    marginTop: {
+      type: [String, Number],
+      default: uni.$u.props.gap.marginTop
+    },
+    // 与下一个组件的距离
+    marginBottom: {
+      type: [String, Number],
+      default: uni.$u.props.gap.marginBottom
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 546 */,
+/* 547 */,
+/* 548 */,
+/* 549 */,
+/* 550 */,
+/* 551 */,
+/* 552 */,
+/* 553 */
+/*!************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-badge/props.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否显示圆点
+    isDot: {
+      type: Boolean,
+      default: uni.$u.props.badge.isDot
+    },
+    // 显示的内容
+    value: {
+      type: [Number, String],
+      default: uni.$u.props.badge.value
+    },
+    // 是否显示
+    show: {
+      type: Boolean,
+      default: uni.$u.props.badge.show
+    },
+    // 最大值，超过最大值会显示 '{max}+'
+    max: {
+      type: [Number, String],
+      default: uni.$u.props.badge.max
+    },
+    // 主题类型，error|warning|success|primary
+    type: {
+      type: String,
+      default: uni.$u.props.badge.type
+    },
+    // 当数值为 0 时，是否展示 Badge
+    showZero: {
+      type: Boolean,
+      default: uni.$u.props.badge.showZero
+    },
+    // 背景颜色，优先级比type高，如设置，type参数会失效
+    bgColor: {
+      type: [String, null],
+      default: uni.$u.props.badge.bgColor
+    },
+    // 字体颜色
+    color: {
+      type: [String, null],
+      default: uni.$u.props.badge.color
+    },
+    // 徽标形状，circle-四角均为圆角，horn-左下角为直角
+    shape: {
+      type: String,
+      default: uni.$u.props.badge.shape
+    },
+    // 设置数字的显示方式，overflow|ellipsis|limit
+    // overflow会根据max字段判断，超出显示`${max}+`
+    // ellipsis会根据max判断，超出显示`${max}...`
+    // limit会依据1000作为判断条件，超出1000，显示`${value/1000}K`，比如2.2k、3.34w，最多保留2位小数
+    numberType: {
+      type: String,
+      default: uni.$u.props.badge.numberType
+    },
+    // 设置badge的位置偏移，格式为 [x, y]，也即设置的为top和right的值，absolute为true时有效
+    offset: {
+      type: Array,
+      default: uni.$u.props.badge.offset
+    },
+    // 是否反转背景和字体颜色
+    inverted: {
+      type: Boolean,
+      default: uni.$u.props.badge.inverted
+    },
+    // 是否绝对定位
+    absolute: {
+      type: Boolean,
+      default: uni.$u.props.badge.absolute
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 554 */,
+/* 555 */,
+/* 556 */,
+/* 557 */,
+/* 558 */,
+/* 559 */,
+/* 560 */,
+/* 561 */
 /*!***********************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-text/value.js ***!
   \***********************************************************************************************/
@@ -28188,248 +27247,28 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 600 */,
-/* 601 */,
-/* 602 */,
-/* 603 */,
-/* 604 */,
-/* 605 */,
-/* 606 */,
-/* 607 */
-/*!***********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-line/props.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    color: {
-      type: String,
-      default: uni.$u.props.line.color
-    },
-    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
-    length: {
-      type: [String, Number],
-      default: uni.$u.props.line.length
-    },
-    // 线条方向，col-竖向，row-横向
-    direction: {
-      type: String,
-      default: uni.$u.props.line.direction
-    },
-    // 是否显示细边框
-    hairline: {
-      type: Boolean,
-      default: uni.$u.props.line.hairline
-    },
-    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
-    margin: {
-      type: [String, Number],
-      default: uni.$u.props.line.margin
-    },
-    // 是否虚线，true-实线，false-虚线
-    dashed: {
-      type: Boolean,
-      default: uni.$u.props.line.dashed
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 608 */,
-/* 609 */,
-/* 610 */,
-/* 611 */,
-/* 612 */,
-/* 613 */,
-/* 614 */,
-/* 615 */
-/*!**********************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-gap/props.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 背景颜色（默认transparent）
-    bgColor: {
-      type: String,
-      default: uni.$u.props.gap.bgColor
-    },
-    // 分割槽高度，单位px（默认30）
-    height: {
-      type: [String, Number],
-      default: uni.$u.props.gap.height
-    },
-    // 与上一个组件的距离
-    marginTop: {
-      type: [String, Number],
-      default: uni.$u.props.gap.marginTop
-    },
-    // 与下一个组件的距离
-    marginBottom: {
-      type: [String, Number],
-      default: uni.$u.props.gap.marginBottom
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 616 */,
-/* 617 */,
-/* 618 */,
-/* 619 */,
-/* 620 */,
-/* 621 */,
-/* 622 */,
-/* 623 */
-/*!************************************************************************************************!*\
-  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-badge/props.js ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否显示圆点
-    isDot: {
-      type: Boolean,
-      default: uni.$u.props.badge.isDot
-    },
-    // 显示的内容
-    value: {
-      type: [Number, String],
-      default: uni.$u.props.badge.value
-    },
-    // 是否显示
-    show: {
-      type: Boolean,
-      default: uni.$u.props.badge.show
-    },
-    // 最大值，超过最大值会显示 '{max}+'
-    max: {
-      type: [Number, String],
-      default: uni.$u.props.badge.max
-    },
-    // 主题类型，error|warning|success|primary
-    type: {
-      type: String,
-      default: uni.$u.props.badge.type
-    },
-    // 当数值为 0 时，是否展示 Badge
-    showZero: {
-      type: Boolean,
-      default: uni.$u.props.badge.showZero
-    },
-    // 背景颜色，优先级比type高，如设置，type参数会失效
-    bgColor: {
-      type: [String, null],
-      default: uni.$u.props.badge.bgColor
-    },
-    // 字体颜色
-    color: {
-      type: [String, null],
-      default: uni.$u.props.badge.color
-    },
-    // 徽标形状，circle-四角均为圆角，horn-左下角为直角
-    shape: {
-      type: String,
-      default: uni.$u.props.badge.shape
-    },
-    // 设置数字的显示方式，overflow|ellipsis|limit
-    // overflow会根据max字段判断，超出显示`${max}+`
-    // ellipsis会根据max判断，超出显示`${max}...`
-    // limit会依据1000作为判断条件，超出1000，显示`${value/1000}K`，比如2.2k、3.34w，最多保留2位小数
-    numberType: {
-      type: String,
-      default: uni.$u.props.badge.numberType
-    },
-    // 设置badge的位置偏移，格式为 [x, y]，也即设置的为top和right的值，absolute为true时有效
-    offset: {
-      type: Array,
-      default: uni.$u.props.badge.offset
-    },
-    // 是否反转背景和字体颜色
-    inverted: {
-      type: Boolean,
-      default: uni.$u.props.badge.inverted
-    },
-    // 是否绝对定位
-    absolute: {
-      type: Boolean,
-      default: uni.$u.props.badge.absolute
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 624 */,
-/* 625 */,
-/* 626 */,
-/* 627 */,
-/* 628 */,
-/* 629 */,
-/* 630 */,
-/* 631 */,
-/* 632 */,
-/* 633 */,
-/* 634 */,
-/* 635 */,
-/* 636 */,
-/* 637 */,
-/* 638 */,
-/* 639 */,
-/* 640 */,
-/* 641 */,
-/* 642 */,
-/* 643 */,
-/* 644 */,
-/* 645 */,
-/* 646 */,
-/* 647 */,
-/* 648 */,
-/* 649 */,
-/* 650 */,
-/* 651 */,
-/* 652 */,
-/* 653 */,
-/* 654 */,
-/* 655 */,
-/* 656 */,
-/* 657 */,
-/* 658 */,
-/* 659 */,
-/* 660 */,
-/* 661 */
+/* 562 */,
+/* 563 */,
+/* 564 */,
+/* 565 */,
+/* 566 */,
+/* 567 */,
+/* 568 */,
+/* 569 */,
+/* 570 */,
+/* 571 */,
+/* 572 */,
+/* 573 */,
+/* 574 */,
+/* 575 */,
+/* 576 */,
+/* 577 */,
+/* 578 */,
+/* 579 */,
+/* 580 */,
+/* 581 */,
+/* 582 */,
+/* 583 */
 /*!***********************************************************************************************!*\
   !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-link/props.js ***!
   \***********************************************************************************************/
@@ -28479,6 +27318,105 @@ var _default = {
     text: {
       type: String,
       default: uni.$u.props.link.text
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 584 */,
+/* 585 */,
+/* 586 */,
+/* 587 */,
+/* 588 */,
+/* 589 */,
+/* 590 */,
+/* 591 */,
+/* 592 */,
+/* 593 */,
+/* 594 */,
+/* 595 */,
+/* 596 */,
+/* 597 */,
+/* 598 */,
+/* 599 */,
+/* 600 */,
+/* 601 */,
+/* 602 */,
+/* 603 */,
+/* 604 */,
+/* 605 */,
+/* 606 */,
+/* 607 */,
+/* 608 */,
+/* 609 */,
+/* 610 */,
+/* 611 */,
+/* 612 */,
+/* 613 */,
+/* 614 */,
+/* 615 */,
+/* 616 */,
+/* 617 */,
+/* 618 */,
+/* 619 */,
+/* 620 */,
+/* 621 */,
+/* 622 */,
+/* 623 */,
+/* 624 */,
+/* 625 */,
+/* 626 */,
+/* 627 */,
+/* 628 */,
+/* 629 */,
+/* 630 */,
+/* 631 */,
+/* 632 */,
+/* 633 */,
+/* 634 */,
+/* 635 */,
+/* 636 */,
+/* 637 */
+/*!********************************************************************************************************!*\
+  !*** D:/课程/先进软件/food_expiration/reminder_app/uni_modules/uview-ui/components/u-line-progress/props.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 激活部分的颜色
+    activeColor: {
+      type: String,
+      default: uni.$u.props.lineProgress.activeColor
+    },
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.lineProgress.color
+    },
+    // 进度百分比，数值
+    percentage: {
+      type: [String, Number],
+      default: uni.$u.props.lineProgress.inactiveColor
+    },
+    // 是否在进度条内部显示百分比的值
+    showText: {
+      type: Boolean,
+      default: uni.$u.props.lineProgress.showText
+    },
+    // 进度条的高度，单位px
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.lineProgress.height
     }
   }
 };

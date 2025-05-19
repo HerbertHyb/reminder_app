@@ -22,10 +22,14 @@
         <u-cell icon="order" title="Food Management" :isLink="true" @click="gotofood()"></u-cell>
       </u-cell-group>
     </scroll-view>
-    <view style=" position: fixed;bottom: 50rpx;justify-content:center;display: flex;width: 100%;align-items:
-          center;height: 80rpx;">
+    <!-- #ifndef H5 -->
+    <view
+      style="position: fixed;bottom: 10rpx;justify-content:center;display: flex;width: 100%;align-items: center;height: 80rpx;">
+    <!-- #endif -->
+      <!-- #ifdef H5 -->
       <view
-        style="position: fixed;bottom: 150rpx;justify-content:center;display: flex;width: 100%;align-items: center;height: 80rpx;">
+        style="position: fixed;bottom: 110rpx;justify-content:center;display: flex;width: 100%;align-items: center;height: 80rpx;">
+      <!-- #endif -->
         <view style="margin: 0px auto;width: 90%;">
           <u-button @click="logout()" type="error" text="Log Out">
           </u-button>
@@ -51,6 +55,7 @@
     },
     methods: {
       logout() {
+        this.$u.vuex('vuex_token', '')
         uni.redirectTo({ url: '/pages/login/login' })
       },
       gotofood() {

@@ -4,10 +4,11 @@ export const userAvatar = 'http://fridge.binw.top:9000/user/uploadAvatar'
 export const loginByPassword = (data, config = {}) => http.post('/auth/loginByPassword', data, config)
 export const AllfoodInfo = (config = {}) => http.get('/food/info', config)
 export const Addfood = (food, config = {}) => http.post('/food/add', food, config)
-export const handleDelete = (foodId, config = {}) => http.post('/food/delete', foodId, config)
+export const handleDelete = (id, config = {}) => http.post('/food/delete', id, config)
 export const handleUpdate = (data, config = {}) => http.post('/food/update', data, config)
-export const registerByEmail = (data, config = {}) => http.post('/user/register', data, config)
+export const registerByEmail = (data, config = {}) => http.post('/auth/register', data, config)
 export const getInfo = (data = {}, config = {}) => http.get('/auth/info', data, config)
+export const addReminder = (data = {}, config = {}) => http.get('/food/remainingDays', data, config)
 //分界线
 export const logout = (data = {}, config = {}) => http.get('/auth/logout', data, config)
 export const userModifyPass = (password, config = {}) => http.post('/auth/modifyPass', password, config)
@@ -25,7 +26,9 @@ export const dishSearch = (index, size, filter = {}, config = {}) => http.post('
   index: index,
   size: size
 }, config)
-export const remindList = (fridgeId, config = {}) => http.post('/remind/list', { filter: fridgeId }, config)
+export const remindList = (fridgeId, config = {}) => http.post('/remind/list', {
+  filter: fridgeId
+}, config)
 export const remindAdd = (remind, config = {}) => http.post('/remind/add', remind, config)
 export const remindDelete = (remind, config = {}) => http.post('/remind/delete', remind, config)
 export const remindUpdate = (remind, config = {}) => http.post('/remind/update', remind, config)

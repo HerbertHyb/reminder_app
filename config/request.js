@@ -21,9 +21,10 @@ module.exports = vm => {
   uni.$u.http.interceptors.response.use(response => {
     /* 对响应成功做点什么 可使用async await 做异步操作*/
     const res = response.data
+    // console.log(res)
     //状态码为200表示一切正常
     if (res.code !== 200) {
-      uni.$u.toast(res.message)
+      uni.$u.toast(res.Message)
       if (res.code === 23000) {
         uni.redirectTo({ url: '/pages/login/login' })
       }

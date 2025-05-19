@@ -117,11 +117,11 @@ var _default = {
   onLaunch: function onLaunch() {
     var _this = this;
     this.$u.http.get('/auth/info', {}, {}).then(function (res) {
-      // console.log(res)
       _this.$u.vuex('vuex_username', res.data.user.username);
       _this.$u.vuex('vuex_phone', res.data.user.phone);
       uni.redirectTo({
         url: '/pages/fridge/fridge'
+        // url: '/pages/login/login'
       });
     }).catch(function (error) {
       uni.redirectTo({

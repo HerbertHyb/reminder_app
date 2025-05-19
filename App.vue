@@ -6,12 +6,16 @@
   export default {
     onLaunch: function() {
       this.$u.http.get('/auth/info', {}, {}).then(res => {
-        // console.log(res)
         this.$u.vuex('vuex_username', res.data.user.username)
         this.$u.vuex('vuex_phone', res.data.user.phone)
-        uni.redirectTo({ url: '/pages/fridge/fridge' })
+        uni.redirectTo({
+          url: '/pages/fridge/fridge',
+          // url: '/pages/login/login'
+        })
       }).catch(error => {
-        uni.redirectTo({ url: '/pages/login/login' })
+        uni.redirectTo({
+          url: '/pages/login/login'
+        })
       })
       // uni.redirectTo({ url: '/pages/login/login' })
       // uni.redirectTo({ url: '/pages/fridge/fridge' })

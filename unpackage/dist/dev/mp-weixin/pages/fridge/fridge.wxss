@@ -25,7 +25,21 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.u-content.data-v-4d092b34 {
-  padding: 24rpx;
+.picker-field {
+  padding: 30rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.add-btn {
+  position: fixed;
+  bottom: 10rpx;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  display: flex;
+  justify-content: center;
 }
 
