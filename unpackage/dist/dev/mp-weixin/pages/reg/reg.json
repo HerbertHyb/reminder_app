@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "Register",
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "u-toast": "/uni_modules/uview-ui/components/u-toast/u-toast",
     "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup",

@@ -4,7 +4,7 @@ module.exports = vm => {
   uni.$u.http.setConfig(config => {
     /* config 为默认全局配置*/
     // config.baseURL = 'http://fridge.binw.top:8082/user'; /* 根域名 */
-    config.baseURL = 'http://localhost:8009'
+    config.baseURL = 'http://1.94.28.170:8009'
     return config
   })
   // 请求拦截

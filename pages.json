@@ -27,19 +27,19 @@
       "style": {
         "navigationBarBackgroundColor": "#1296db",
         "navigationBarTitleText": "Personal Center",
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": false
       }
     }, {
       "path": "pages/food/food",
       "style": {
         "navigationBarTitleText": "food",
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": false
       }
     }, {
       "path": "pages/reg/reg",
       "style": {
         "navigationBarTitleText": "Register",
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": false
       }
     }, {
       "path": "pages/addRemind/addRemind",
@@ -51,7 +51,7 @@
       "path": "pages/remind/remind",
       "style": {
         "navigationBarTitleText": "Reminder management",
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": false
       }
     }, {
       "path": "pages/ModifyPass/ModifyPass",
@@ -69,9 +69,11 @@
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "智慧冰箱",
+    "navigationBarTitleText": "food expircy",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    // 关闭全局页面下拉刷新
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "color": "#bfbfbf",

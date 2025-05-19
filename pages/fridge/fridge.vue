@@ -271,6 +271,10 @@
     },
     onShow() {
       this.getfood()
+    },
+    async onPullDownRefresh() {
+      this.getfood()
+      uni.stopPullDownRefresh()
     }
   }
 </script>

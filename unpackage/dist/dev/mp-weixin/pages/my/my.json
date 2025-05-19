@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#1296db",
   "navigationBarTitleText": "Personal Center",
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "u-avatar": "/uni_modules/uview-ui/components/u-avatar/u-avatar",
     "u-cell-group": "/uni_modules/uview-ui/components/u-cell-group/u-cell-group",

@@ -14,9 +14,10 @@
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "智慧冰箱",
+    "navigationBarTitleText": "food expircy",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "color": "#bfbfbf",

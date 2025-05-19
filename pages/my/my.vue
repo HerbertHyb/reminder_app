@@ -49,7 +49,7 @@
         user: {
           username: 'Xiaoming',
           phone: '15683141454',
-          avatar: '/static/herbert.jpg'
+          avatar: '/static/herbert.png'
         }
       }
     },

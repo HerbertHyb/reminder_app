@@ -98,44 +98,11 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    uCalendar: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-calendar/u-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-calendar/u-calendar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-calendar/u-calendar.vue */ 470))
-    },
-    uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 235))
-    },
-    uAvatar: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-avatar/u-avatar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-avatar/u-avatar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-avatar/u-avatar.vue */ 305))
-    },
-    "u-Text": function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u--text/u--text */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u--text/u--text")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u--text/u--text.vue */ 406))
-    },
-    "u-Form": function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u--form/u--form */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u--form/u--form")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u--form/u--form.vue */ 460))
-    },
-    uFormItem: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-form-item/u-form-item.vue */ 252))
-    },
-    uInput: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-input/u-input.vue */ 260))
-    },
-    "u-Input": function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u--input/u--input.vue */ 465))
-    },
-    uIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 268))
+    uEmpty: function () {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 321))
     },
     uButton: function () {
       return Promise.all(/*! import() | uni_modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-button/u-button.vue */ 277))
-    },
-    uSticky: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-sticky/u-sticky */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-sticky/u-sticky")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-sticky/u-sticky.vue */ 350))
-    },
-    uTabs: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-tabs/u-tabs.vue */ 358))
-    },
-    uEmpty: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 313))
     },
   }
 } catch (e) {
@@ -159,39 +126,6 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = _vm.img()
-  var g0 = _vm.foods !== undefined && _vm.foods !== null && _vm.foods.length > 0
-  var l0 = g0
-    ? _vm.__map(_vm.foods, function (item, __i0__) {
-        var $orig = _vm.__get_orig(item)
-        var m1 = _vm.img()
-        var g1 =
-          item.date != undefined && item.date != null
-            ? item.date.split("T")
-            : null
-        return {
-          $orig: $orig,
-          m1: m1,
-          g1: g1,
-        }
-      })
-    : null
-  if (!_vm._isMounted) {
-    _vm.e0 = function ($event) {
-      _vm.showCalendar = true
-      _vm.hideKeyboard()
-    }
-  }
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        m0: m0,
-        g0: g0,
-        l0: l0,
-      },
-    }
-  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -225,117 +159,13 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 57));
-var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 59));
 var _api = __webpack_require__(/*! ../../config/api.js */ 160);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -359,143 +189,9 @@ var _api = __webpack_require__(/*! ../../config/api.js */ 160);
 //
 var _default = {
   data: function data() {
-    return {
-      show: false,
-      form: {},
-      fridges: [{
-        id: 1,
-        // name: '请购买智慧冰箱后绑定使用'
-        name: ''
-      }],
-      foods: [],
-      current: 0,
-      showCalendar: false,
-      currentFridge: 0
-    };
+    return {};
   },
   methods: {
-    img: function img() {
-      return _api.imgServer;
-    },
-    open: function open(item) {
-      // console.log('open');
-      this.show = true;
-      this.form.foodId = item.foodId;
-      this.form.userId = item.userId;
-      this.form.name = item.name;
-      this.form.type = item.type;
-      this.form.unit = item.unit;
-      this.form.info = item.info;
-      this.form.alias = item.alias;
-      this.form.pic = item.pic;
-      this.form.fridgeId = item.fridgeId;
-      this.form.amount = item.amount;
-      this.form.id = item.id;
-      if (item.date !== undefined && item.date !== null) {
-        this.form.date = item.date.split('T')[0];
-      }
-    },
-    close: function close() {
-      this.show = false;
-      // console.log('close');
-    },
-    handleUpdate: function handleUpdate() {
-      var _this = this;
-      (0, _api.remindUpdate)(this.form).then(function (res) {
-        console.log(res);
-        _this.show = false;
-        (0, _api.remindList)(_this.currentFridge).then(function (res) {
-          _this.foods = res.data;
-        });
-      });
-    },
-    handleDelete: function handleDelete() {
-      var _this2 = this;
-      (0, _api.remindDelete)(this.form).then(function (res) {
-        console.log(res);
-        _this2.show = false;
-        (0, _api.remindList)(_this2.currentFridge).then(function (res) {
-          _this2.foods = res.data;
-        });
-      });
-    },
-    change: function change(val) {
-      var _this3 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        var remindRes;
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                console.log(val.id);
-                _context.next = 3;
-                return (0, _api.remindList)(val.id);
-              case 3:
-                remindRes = _context.sent;
-                console.log(remindRes);
-                _this3.currentFridge = val.id;
-                _this3.foods = remindRes.data;
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
-    },
-    getListInfo: function getListInfo() {
-      var _this4 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-        var storageRes;
-        return _regenerator.default.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _context2.next = 2;
-                return (0, _api.remindList)(_this4.currentFridge);
-              case 2:
-                storageRes = _context2.sent;
-                _this4.foods = storageRes.data;
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    init: function init() {
-      var _this5 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
-        var fridgeRes, remindRes;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return (0, _api.fridgeList)();
-              case 2:
-                fridgeRes = _context3.sent;
-                _this5.fridges = fridgeRes.data;
-                if (!(_this5.fridges.length !== 0)) {
-                  _context3.next = 11;
-                  break;
-                }
-                _this5.currentFridge = _this5.fridges[0].id;
-                _context3.next = 8;
-                return (0, _api.remindList)(_this5.fridges[0].id);
-              case 8:
-                remindRes = _context3.sent;
-                console.log(remindRes);
-                _this5.foods = remindRes.data;
-              case 11:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
     add: function add() {
       console.log('add reminder');
       (0, _api.addReminder)().then(function (res) {
@@ -503,43 +199,12 @@ var _default = {
       }).catch(function (err) {
         console.log('add fail', err);
       });
-    },
-    hideKeyboard: function hideKeyboard() {
-      uni.hideKeyboard();
-    },
-    calendarConfirm: function calendarConfirm(e) {
-      this.showCalendar = false;
-      console.log(e);
-      this.form.date = e[0];
-    },
-    calendarClose: function calendarClose() {
-      this.showCalendar = false;
     }
   },
   computed: {},
-  onLoad: function onLoad() {
-    this.init();
-  },
-  onPullDownRefresh: function onPullDownRefresh() {
-    var _this6 = this;
-    return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
-      return _regenerator.default.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _this6.getListInfo();
-              uni.stopPullDownRefresh();
-            case 2:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }))();
-  }
+  onLoad: function onLoad() {}
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ })
 

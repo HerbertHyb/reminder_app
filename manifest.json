@@ -1,6 +1,6 @@
 {
-    "name" : "Fridge-app",
-    "appid" : "__UNI__1B79561",
+    "name" : "Food expircy",
+    "appid" : "__UNI__F5E8CEB",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -41,7 +41,9 @@
                 ]
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* SDK配置 */
             "sdkConfigs" : {
                 "ad" : {}

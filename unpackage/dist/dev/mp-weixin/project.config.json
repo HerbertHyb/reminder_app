@@ -20,7 +20,7 @@
   "compileType": "miniprogram",
   "libVersion": "3.8.4",
   "appid": "wx89da64e4673f2272",
-  "projectname": "Fridge-app",
+  "projectname": "Food expircy",
   "condition": {
     "search": {
       "current": -1,
