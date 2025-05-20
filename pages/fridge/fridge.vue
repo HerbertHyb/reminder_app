@@ -130,7 +130,7 @@
   import {
     AllfoodInfo,
     handleDelete,
-    handleUpdate
+    handleUpdate,
   } from '../../config/api.js'
   export default {
     data() {
