@@ -91,24 +91,40 @@
         <u-empty mode="list" text="No food yet~">
         </u-empty>
       </view>
-      <view class="add-btn">
-        <u-button @click="add()" type="primary" text="Add new food" />
-      </view>
-      <!-- #ifndef H5 -->
-      <view
-        style="position: fixed;bottom: 10rpx;justify-content:center;display: flex;width: 100%;align-items: center;height: 80rpx;">
-      <!-- #endif -->
-        <!-- #ifdef H5 -->
-        <view
-          style="position: fixed;bottom: 110rpx;justify-content:center;display: flex;width: 100%;align-items: center;height: 80rpx;">
-        <!-- #endif -->
-          <!--          <view style="margin: 0px auto;width: 90%;">
-            <u-button @click="add()" type="primary" text="Add food to fridge">
-            </u-button>
-          </view> -->
+      <!-- 原生端：APP-PLUS -->
+      <!-- #ifdef APP-PLUS -->
+      <view style="position: fixed;
+               bottom: 10rpx;
+               left: 0;
+               width: 100%;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               height: 80rpx;
+               z-index: 100;">
+        <view style="width: 90%; margin: 0 auto;">
+          <u-button @click="add()" type="primary" text="Add new food" />
         </view>
       </view>
+      <!-- #endif -->
+      <!-- H5端 -->
+      <!-- #ifdef H5 -->
+      <view style="position: fixed;
+               bottom: 110rpx;
+               left: 0;
+               width: 100%;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               height: 80rpx;
+               z-index: 100;">
+        <view style="width: 90%; margin: 0 auto;">
+          <u-button @click="add()" type="primary" text="Add new food" />
+        </view>
+      </view>
+      <!-- #endif -->
     </view>
+  </view>
 </template>
 <script>
   import {
@@ -289,5 +305,10 @@
     width: 90%;
     display: flex;
     justify-content: center;
+  }
+
+  .food-item {
+    /* 如果还冲突严重，可改为 none 完全禁止本区域浏览器默认手势 */
+    touch-action: pan-y;
   }
 </style>

@@ -14,10 +14,10 @@
     <view style="margin: 20rpx 20rpx 20rpx 20rpx;">
       <view style="margin-bottom: 20rpx;">
         <u-row>
-          <u-col span="2.5">
+          <u-col span="3">
             <text class="label">Phone</text>
           </u-col>
-          <u-col span="9.5">
+          <u-col span="9">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter phone number" placeholder-style="color:rgb(200,200,200)"
@@ -28,10 +28,10 @@
       </view>
       <view style="margin-bottom: 100rpx;" v-if="loginMethod===1">
         <u-row>
-          <u-col span="2.5">
+          <u-col span="3">
             <text class="label">Code</text>
           </u-col>
-          <u-col span="9.5">
+          <u-col span="9">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter verification code" placeholder-style="color:rgb(200,200,200)"
@@ -42,11 +42,10 @@
       </view>
       <view style="margin-bottom: 100rpx;" v-else>
         <u-row>
-          <u-col span="2.5">
-            <!-- <text class="label_text">Password</text> -->
+          <u-col span="3">
             <text class="label">Password</text>
           </u-col>
-          <u-col span="9.5">
+          <u-col span="9">
             <view class="input">
               <input style=" border:1px solid #dadbde;border-radius:8rpx;padding: 14rpx 14rpx 14rpx 14rpx"
                 placeholder="Please enter password" placeholder-style="color:rgb(200,200,200)"

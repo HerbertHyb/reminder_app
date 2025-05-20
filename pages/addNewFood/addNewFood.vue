@@ -3,23 +3,23 @@
     <view style="width: 90%; margin-top: 20rpx;">
       <u-form labelPosition="left" :model="food" :rules="rules" labelWidth="150rpx">
         <!-- Food Name -->
-        <u-form-item label="Food Name" prop="food.name" borderBottom>
+        <u-form-item label="Food Name" prop="name" borderBottom>
           <u-input v-model="food.name" border="none" placeholder="Please enter the name of the food" />
         </u-form-item>
         <!-- Unit -->
-        <u-form-item label="Unit" prop="food.unit" borderBottom @click="showUnit = true; hideKeyboard()">
+        <u-form-item label="Unit" prop="unit" borderBottom @click="showUnit = true; hideKeyboard()">
           <u-input v-model="food.unit" disabled disabledColor="#ffffff" placeholder="Please select unit"
             border="none" />
           <u-icon slot="right" name="arrow-right" />
         </u-form-item>
         <!-- Category -->
-        <u-form-item label="Category" prop="food.category" borderBottom @click="showCategory = true; hideKeyboard()">
+        <u-form-item label="Category" prop="category" borderBottom @click="showCategory = true; hideKeyboard()">
           <u-input v-model="food.category" disabled disabledColor="#ffffff" placeholder="Please select category"
             border="none" />
           <u-icon slot="right" name="arrow-right" />
         </u-form-item>
         <!-- Shelf Life -->
-        <u-form-item label="Shelf Life (days)" prop="food.shelf_life_days" borderBottom>
+        <u-form-item label="Shelf Life (days)" prop="shelf_life_days" borderBottom>
           <u-input v-model="food.shelf_life_days" placeholder="Please enter shelf life" border="none">
             <template slot="suffix">
               <view style="margin-right: 10rpx;">Days</view>
@@ -27,7 +27,7 @@
           </u-input>
         </u-form-item>
         <!-- Production Date -->
-        <u-form-item label="Prod Date" prop="food.production_date" borderBottom>
+        <u-form-item label="Prod Date" prop="production_date" borderBottom>
           <picker mode="date" :value="food.production_date" start="2000-01-01" end="2099-12-31" @change="onDateChange">
             <view class="picker-field"
               style="padding: 30rpx 0; display:flex; justify-content: space-between; align-items: center;">
@@ -37,11 +37,11 @@
           </picker>
         </u-form-item>
         <!-- Quantity -->
-        <u-form-item label="Quantity" prop="food.quantity" borderBottom>
+        <u-form-item label="Quantity" prop="quantity" borderBottom>
           <u-input v-model="food.quantity" placeholder="Please enter quantity" border="none" type="number" />
         </u-form-item>
         <!-- Abstract -->
-        <u-form-item label="Abstract" prop="food.info">
+        <u-form-item label="Abstract" prop="info">
           <u--textarea v-model="food.info" placeholder="Please enter content" count />
         </u-form-item>
       </u-form>
@@ -109,19 +109,19 @@
           '/static/pizza.png', '/static/tomato.png'
         ],
         rules: {
-          'food.name': {
+          'name': {
             type: 'string',
             required: false,
             message: 'Please enter name',
             trigger: ['blur', 'change']
           },
-          'food.unit': {
+          'unit': {
             type: 'string',
             required: true,
             message: 'Please select unit',
             trigger: ['blur', 'change']
           },
-          'food.category': {
+          'category': {
             type: 'string',
             required: true,
             message: 'Please select category',
