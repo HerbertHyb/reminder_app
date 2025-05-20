@@ -268,6 +268,9 @@
               comp.reset()
             }
           })
+        }).catch(err => {
+          console.log('fail', err)
+          // this.getfood()
         })
       },
       add() {
@@ -276,6 +279,15 @@
       getfood() {
         AllfoodInfo().then(res => {
           this.foods = res.data.food
+          console.log('获取食物')
+          console.log(this.foods)
+        }).catch(err => {
+          console.log('fail to get food,', err)
+          const raw = err.toString() // "Msg(code=400, Message=No food found, data={})"
+          const m = raw.match(/code=(\d+)/)
+          const code = m ? parseInt(m[1], 10) : null
+          console.log(code)
+          if (code == 400) this.foods = []
         })
       }
     },
