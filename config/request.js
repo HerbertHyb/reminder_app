@@ -26,7 +26,14 @@ module.exports = vm => {
     if (res.code !== 200) {
       uni.$u.toast(res.Message)
       if (res.code === 23000) {
-        uni.redirectTo({ url: '/pages/login/login' })
+        uni.redirectTo({
+          url: '/pages/login/login'
+        })
+      }
+      if (res.code === 401) {
+        uni.redirectTo({
+          url: '/pages/login/login'
+        })
       }
       return Promise.reject(res)
     }
